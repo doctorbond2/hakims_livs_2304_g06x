@@ -13,5 +13,10 @@ app.use(cors());
     })
 );
  */
+app.get("/", (req, res) => {
+  res.json({
+    connection: `PORT: ${process.env.PORT} \nMONGODB_URI: ${process.env.MONGODB_URI}`,
+  });
+});
 
 export default app;
