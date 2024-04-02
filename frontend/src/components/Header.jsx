@@ -1,5 +1,6 @@
 import * as shad from "@/components/ui/shadBarrel";
 import ShoppingCartSheet from "./shoppingCart/ShoppingCartSheet";
+import LoginDialog from "./LoginDialog";
 import { Link } from "react-router-dom";
 const Header = () => {
   return (
@@ -8,11 +9,11 @@ const Header = () => {
         <div className="grid grid-cols-6 items-center">
           <div className="col-start-2 col-end-3">
             <Link to="/" className="text-white text-lg font-bold flex justify-end pr-5">
-              <img style={{width:"150px"}} src="../../public/HakimOnlineLogo.png" alt="HakimLogo" />
+              <img style={{ width: "150px" }} src="../../public/HakimOnlineLogo.png" alt="HakimLogo" />
             </Link>
           </div>{" "}
           <div className="col-start-3 col-end-5">
-            <shad.Input type="text" placeholder="Sök" />
+            <shad.Input type="text" placeholder="Sök..." />
           </div>
           <nav className="col-start-5 col-end-7 flex justify-end items-center space-x-4">
             <ul className="flex space-x-4 items-center pr-5">
@@ -27,7 +28,7 @@ const Header = () => {
                 </Link>
               </li>
               <li>
-                <shad.Button>Log in/Register</shad.Button>
+                <LoginDialog />
               </li>
               <li>
                 <ShoppingCartSheet />
