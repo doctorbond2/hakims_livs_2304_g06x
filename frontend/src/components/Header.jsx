@@ -1,3 +1,5 @@
+import * as shad from "@/components/ui";
+
 const Header = () => {
   return (
     <header class="w-full bg-blue-500 p-4">
@@ -6,6 +8,9 @@ const Header = () => {
           <a href="/" class="text-white text-lg font-bold">
             Brand Logo
           </a>
+        </div>{" "}
+        <div>
+          <Input type="text" placeholder="Sök" />
         </div>
         <nav>
           <ul class="flex space-x-4">
