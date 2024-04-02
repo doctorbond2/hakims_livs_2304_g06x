@@ -2,13 +2,10 @@ import axios from "axios";
 const BaseUrl = import.meta.env.VITE_BaseUrl;
 
 export async function GET_REQUEST(URL) {
-    console.log(BaseUrl)
-  try {
-    const response = await axios.get(BaseUrl + URL);
-    if (response) {
-      return response.data;
-    }
-  } catch (err) {
-    console.log(err.message);
-  }
+  return axios.get(BaseUrl + URL);
+}
+export async function POST_REQUEST(URL, DATA) {
+  return axios.put(BaseUrl + URL, DATA, {
+    headers: { "Content-Type": "application/json" },
+  });
 }
