@@ -1,6 +1,7 @@
 import * as shad from "@/components/ui/shadBarrel";
 import { useEffect, useState } from "react";
 import { GET_REQUEST } from "@/utils/helpers/request.helper";
+import ItemList from "@/components/ItemList";
 
 const Home = () => {
   const [productList, setProductList] = useState(null);
