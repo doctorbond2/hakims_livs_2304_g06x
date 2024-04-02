@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Input } from "@/components/ui/input";
+import * as shad from "@/components/ui/shadBarrel";
 
 export default function Admin() {
   const [productName, setProductName] = useState("");
