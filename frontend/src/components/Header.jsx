@@ -18,14 +18,14 @@ const Header = () => {
           <nav>
             <ul className="flex space-x-4">
               <li>
-                <a href="#" className="text-white">
+                <Link to="/products" className="text-white">
                   Product List
-                </a>
+                </Link>
               </li>
               <li>
-                <a href="#" className="text-white">
+                <Link to="/admin" className="text-white">
                   Admin Panel
-                </a>
+                </Link>
               </li>
               <li>
                 <shad.Button>Log in</shad.Button>
