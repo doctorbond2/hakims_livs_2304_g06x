@@ -1,4 +1,4 @@
-import ItemList from "../components/ItemList";
+import * as shad from "@/components/ui/shadBarrel";
 import { useEffect, useState } from "react";
 import { GET_REQUEST } from "@/utils/helpers/request.helper";
 
