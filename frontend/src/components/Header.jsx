@@ -1,3 +1,6 @@
+import * as shad from "@/components/ui/shadBarrel";
+import ShoppingCartSheet from "./shoppingCart/ShoppingCartSheet";
+
 const Header = () => {
   return (
     <>
@@ -7,28 +10,27 @@ const Header = () => {
             <a href="/" className="text-white text-lg font-bold">
               Brand Logo
             </a>
+          </div>{" "}
+          <div>
+            <shad.Input type="text" placeholder="Sök" />
           </div>
           <nav>
             <ul className="flex space-x-4">
               <li>
                 <a href="#" className="text-white">
-                  Home
+                  Product List
                 </a>
               </li>
               <li>
                 <a href="#" className="text-white">
-                  About
+                  Admin Panel
                 </a>
               </li>
               <li>
-                <a href="#" className="text-white">
-                  Services
-                </a>
+                <shad.Button>Log in</shad.Button>
               </li>
               <li>
-                <a href="#" className="text-white">
-                  Contact
-                </a>
+                <ShoppingCartSheet />
               </li>
             </ul>
           </nav>

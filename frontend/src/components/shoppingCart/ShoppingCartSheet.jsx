@@ -17,8 +17,8 @@ export default function ShoppingCartSheet() {
   return (
     <Sheet>
       <SheetTrigger asChild>
-        <Button style={{ height: "100vh" }} variant="outline">
-          Open
+        <Button variant="outline">
+          Cart
         </Button>
       </SheetTrigger>
       <SheetContent>
