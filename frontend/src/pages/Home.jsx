@@ -6,15 +6,23 @@ const Home = () => {
   const [productList, setProductList] = useState(null);
   const aNumber = 12;
   useEffect(() => {
-    const data = GET_REQUEST("/");
-    if (data) {
-      setProductList(data);
-    }
+    const fetchData = async () => {
+      try {
+        const response = await GET_REQUEST("/api/products/");
+        if (response.data) {
+          console.log(response.data);
+          setProductList(response.data);
+        }
+      } catch (err) {
+        console.log(err.message);
+      }
+    };
+    fetchData();
   }, []);
 
   return (
     <>
-      <>Here will be Itemlist</>
+      <>{productList && <ItemList {...{ productList }} />}</>
     </>
   );
 };
