@@ -14,7 +14,7 @@ const Home = () => {
 
   return (
     <>
-      <ItemList {...{ productList, aNumber }} />
+      <>Here will be Itemlist</>
     </>
   );
 };
