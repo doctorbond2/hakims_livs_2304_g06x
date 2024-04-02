@@ -1,4 +1,4 @@
-import * as shad from "@/components/ui";
+import * as shad from "@/components/ui/shadBarrel";
 
 const Header = () => {
   return (
@@ -10,7 +10,7 @@ const Header = () => {
           </a>
         </div>{" "}
         <div>
-          <Input type="text" placeholder="Sök" />
+          <shad.Input type="text" placeholder="Sök" />
         </div>
         <nav>
           <ul class="flex space-x-4">
