@@ -1,5 +1,6 @@
 import * as shad from "@/components/ui/shadBarrel";
 import ShoppingCartSheet from "./shoppingCart/ShoppingCartSheet";
+import { Link } from "react-router-dom";
 
 const Header = () => {
   return (
