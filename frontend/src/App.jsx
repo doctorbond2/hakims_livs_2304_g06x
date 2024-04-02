@@ -1,10 +1,15 @@
 import "./App.css";
-import ShoppingCartSheet from "./components/ui/ShoppingCartSheet";
+import { Routes, Route } from "react-router-dom";
+import Header from "./components/Header";
+import Footer from "./components/Footer";
 function App() {
   return (
     <>
-      {" "}
-      <ShoppingCartSheet />
+      <Header />
+      <Routes>
+        <Route path="/" element={"hej"}></Route>
+      </Routes>
+      <Footer />
     </>
   );
 }

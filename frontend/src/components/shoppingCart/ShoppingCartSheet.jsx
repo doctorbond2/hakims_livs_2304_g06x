@@ -11,13 +11,15 @@ import {
   SheetTitle,
   SheetTrigger,
 } from "@/components/ui/sheet";
-import DemoPage from "./shoppingCart/page";
+import DemoPage from "@/components/shoppingCart/page";
 
 export default function ShoppingCartSheet() {
   return (
     <Sheet>
       <SheetTrigger asChild>
-        <Button variant="outline">Open</Button>
+        <Button style={{ height: "100vh" }} variant="outline">
+          Open
+        </Button>
       </SheetTrigger>
       <SheetContent>
         <SheetHeader>
@@ -29,8 +31,7 @@ export default function ShoppingCartSheet() {
         <div>
           <DemoPage />
         </div>
-        <SheetFooter>
-        </SheetFooter>
+        <SheetFooter></SheetFooter>
       </SheetContent>
     </Sheet>
   );
