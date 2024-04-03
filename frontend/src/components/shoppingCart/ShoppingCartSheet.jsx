@@ -18,7 +18,7 @@ export default function ShoppingCartSheet() {
     <Sheet>
       <SheetTrigger asChild>
         <Button variant="outline">
-          Cart
+        Kundvagn
         </Button>
       </SheetTrigger>
       <SheetContent>

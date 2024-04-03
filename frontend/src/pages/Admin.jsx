@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { POST_REQUEST } from "@/utils/helpers/request.helper";
 import * as shad from "@/components/ui/shadBarrel";
 
 export default function Admin() {
@@ -22,14 +23,38 @@ export default function Admin() {
     setProductStock(e.target.value);
   }
 
-  function handleSubmit(e) {
+  async function handleSubmit(e) {
     e.preventDefault();
+    console.log("test");
+    const updateObject = {
+      name: productName,
+      price: productPrice,
+      stock: productStock,
+    };
+    console.log(updateObject);
+    try {
+      const response = await POST_REQUEST(
+        "/api/products/create/",
+        updateObject
+      );
+      if (response.status === 201) {
+        console.log("Good job dude");
+      } else {
+        console.log("auhuaehuaheuaheuhauhueuahuhae");
+      }
+    } catch (err) {
+      console.error(err.message);
+    }
   }
 
   return (
     <>
-      <form>
-        <label HTMLfor="productName"> Input product Name</label>
+      <form
+        onSubmit={async (e) => {
+          await handleSubmit(e);
+        }}
+      >
+        <label htmlFor="productName"> Input product Name</label>
         <input
           id="productName"
           type="text"
@@ -37,7 +62,7 @@ export default function Admin() {
           onChange={handleProductNameChange}
         />
         <br />
-        <label HTMLfor="productPrice">Product price</label>
+        <label htmlFor="productPrice">Product price</label>
         <input
           id="productPrice"
           type="text"
@@ -45,7 +70,7 @@ export default function Admin() {
           onChange={handleProductPriceChange}
         />{" "}
         <br />
-        <label HTMLfor="productStock">Product stock: </label>
+        <label htmlFor="productStock">Product stock: </label>
         <input
           id="productStock"
           type="text"
@@ -53,6 +78,7 @@ export default function Admin() {
           onChange={handleProductStockChange}
         />{" "}
         <br />
+        <shad.Button type={"submit"}>Post user</shad.Button>
       </form>
     </>
   );
