@@ -6,10 +6,13 @@ const categorySchema = new Schema({
     required: true,
     unique: true,
     trim: true,
-    minlength: 3,
+    minlength: 1,
     maxlength: 15,
   },
   description: { type: String, trim: true, maxlength: 200 },
+},
+{
+  index: true
 });
 
 const Category = model("Category", categorySchema);
