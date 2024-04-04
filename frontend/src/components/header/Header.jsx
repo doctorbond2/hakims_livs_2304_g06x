@@ -1,6 +1,6 @@
 import * as shad from "@/components/ui/shadBarrel";
 import ShoppingCartSheet from "./shoppingCart/ShoppingCartSheet";
-import LoginDialog from "./LoginDialog";
+import LoginDialog from "./nav/login/LoginDialog";
 import { Link } from "react-router-dom";
 const Header = () => {
   return (

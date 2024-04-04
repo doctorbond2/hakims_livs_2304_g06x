@@ -1,7 +1,7 @@
 export { Button } from "@/components/ui/button";
 export { Input } from "@/components/ui/input";
 export { Label } from "@/components/ui/label";
-export { Select } from "@/components/ui/select";
+export { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 export { Sheet } from "@/components/ui/sheet";
 export { Table } from "@/components/ui/table";
 export { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";

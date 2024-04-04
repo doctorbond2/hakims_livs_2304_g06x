@@ -11,7 +11,7 @@ import {
   SheetTitle,
   SheetTrigger,
 } from "@/components/ui/sheet";
-import DemoPage from "@/components/shoppingCart/page";
+import DemoPage from "@/components/header/shoppingCart/page";
 
 export default function ShoppingCartSheet() {
   return (

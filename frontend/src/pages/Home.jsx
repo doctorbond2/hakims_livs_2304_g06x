@@ -2,6 +2,7 @@ import * as shad from "@/components/ui/shadBarrel";
 import ItemList from "@/components/ItemList";
 import { useEffect, useState } from "react";
 import { GET_REQUEST } from "@/utils/helpers/request.helper";
+import CardTest from "@/components/productList/productCards/ProductCard";
 
 
 const Home = () => {
@@ -24,6 +25,7 @@ const Home = () => {
 
   return (
     <>
+      <CardTest />
       <>{productList && <ItemList {...{ productList }} />}</>
     </>
   );
