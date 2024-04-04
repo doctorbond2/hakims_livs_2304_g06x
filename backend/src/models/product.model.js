@@ -13,6 +13,14 @@ const productSchema = new Schema({
   stock: { type: Number, required: true, default: 0 },
 });
 
+productSchema.pre("save", (next) => {
+  const product_doc = this;
+  if (!product_doc.image) {
+    console.log("Fetch an image!");
+  }
+  next();
+});
+
 const Product = model("Product", productSchema);
 
 export default Product;
