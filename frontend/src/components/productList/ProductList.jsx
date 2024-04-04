@@ -1,7 +1,6 @@
 import ProductCard from "@/components/productList/productCards/ProductCard";
-
+import ProductModal from "@/components/productList/productCards/ProductModal";
 const ProductList = ({ productList }) => {
-  console.log("hej", productList);
   return (
     <>
       <div className="flex justify-center">
