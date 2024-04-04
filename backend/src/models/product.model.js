@@ -19,7 +19,6 @@ const productSchema = new Schema(
           return this.title + "-image-element";
         },
       },
-      required: true,
     },
     brand: {
       type: String,
