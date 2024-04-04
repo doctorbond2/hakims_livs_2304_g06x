@@ -2,7 +2,7 @@ import { Schema, model } from "mongoose";
 
 const productSchema = new Schema(
   {
-    name: {
+    title: {
       type: String,
       required: true,
       unique: true,
@@ -11,9 +11,15 @@ const productSchema = new Schema(
       maxlength: 100,
       index: true,
     },
-    productImage: {
-      url: { type: String, required: true, default: "No product image" },
-      alt: { type: String, default: "Product Image" },
+    image: {
+      url: { type: String, default: "/powerking.jpg" },
+      alt: {
+        type: String,
+        default: function () {
+          return this.title + "-image-element";
+        },
+      },
+      required: true,
     },
     brand: {
       type: String,
@@ -45,8 +51,6 @@ const productSchema = new Schema(
     timestamps: true,
   }
 );
-
-
 
 productSchema.pre("save", (next) => {
   const product_doc = this;
