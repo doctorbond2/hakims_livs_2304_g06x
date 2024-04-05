@@ -1,6 +1,4 @@
 import ProductCard from "@/components/productList/productCards/ProductCard";
-import ProductModal from "@/components/productList/productCards/ProductModal";
-import * as shad from "@/components/ui/shadBarrel";
 const ProductList = ({ productList }) => {
   return (
     <>
