@@ -1,28 +1,25 @@
 import * as shad from "@/components/ui/shadBarrel";
+import ProductCardBody from "./ProductCardBody";
 
 const ProductCard = ({ product }) => {
   return (
     <>
-      {" "}
-      <shad.Dialog>
-        <shad.DialogTrigger>
-          <shad.Card className="w-[250px] h-[380px] grid grid-rows-3">
-            <shad.CardContent className="flex row-span-2 items-center justify-center p-5">
-              <img style={{ height: "150px" }} src="/powerking.jpg" alt="HakimLogo" />
-            </shad.CardContent>
-            <div>
-              <shad.CardTitle className="flex justify-center content-end pb-2 text-red-500">{product.price}:-</shad.CardTitle>
-              <p className="flex justify-center content-end">{product.name}</p>
-              <shad.CardDescription className="flex justify-center content-end">{product.name}</shad.CardDescription>
-              <shad.CardFooter className="p-0 content-end flex justify-center">
-                <shad.Button className="w-[225px] p-0">Köp</shad.Button>
-              </shad.CardFooter>
-            </div>
-          </shad.Card>
-        </shad.DialogTrigger>
-      </shad.Dialog>
+      <shad.Card className="w-[250px] h-[380px] grid grid-rows-1 border-slate-300">
+        <shad.Dialog>
+          <shad.DialogContent className="sm:max-w-[425px]">
+            <h1>ghejj</h1>
+          </shad.DialogContent>
+          <shad.DialogTrigger asChild>
+            <a>
+              <ProductCardBody product={product} />
+            </a>
+          </shad.DialogTrigger>
+        </shad.Dialog>
+        <div className="pb-2 content-end flex justify-center">
+          <shad.Button className="w-[230px]">Köp</shad.Button>
+        </div>
+      </shad.Card>
     </>
   );
 };
-
 export default ProductCard;
