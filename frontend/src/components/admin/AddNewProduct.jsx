@@ -22,9 +22,6 @@ export default function AddNewProduct({ onSubmit }) {
     await onSubmit(newProduct);
   }
 
-  //Lägg in en knapp för att hämta alla produkter
-  // klicka på produkt och få upp en modal med info om produkten
-
   return (
     <>
       <form onSubmit={handleSubmit}>
