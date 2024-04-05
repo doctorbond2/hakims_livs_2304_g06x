@@ -55,21 +55,6 @@ select {
   font: inherit;
 }
 
-/* Remove all animations, transitions for people that prefer not to see them */
-@media (prefers-reduced-motion: reduce) {
-  html:focus-within {
-    scroll-behavior: auto;
-  }
-  *,
-  *::before,
-  *::after {
-    animation-duration: 0.01ms !important;
-    animation-iteration-count: 1 !important;
-    transition-duration: 0.01ms !important;
-    scroll-behavior: auto !important;
-  }
-} /*# sourceMappingURL=App.css.map */
-
 input {
   width: 50%;
   padding: 0.5rem;
@@ -77,4 +62,3 @@ input {
   border: 1px solid #ccc;
   border-radius: 4px;
 }
-
