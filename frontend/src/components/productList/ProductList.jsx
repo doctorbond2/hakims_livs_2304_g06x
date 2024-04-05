@@ -1,5 +1,6 @@
 import ProductCard from "@/components/productList/productCards/ProductCard";
 import ProductModal from "@/components/productList/productCards/ProductModal";
+import * as shad from "@/components/ui/shadBarrel";
 const ProductList = ({ productList }) => {
   return (
     <>
@@ -8,7 +9,9 @@ const ProductList = ({ productList }) => {
           {productList &&
             productList.map((product) => (
               <>
-                <ProductCard product={product} />
+                <div>
+                  <ProductCard product={product} />
+                </div>
               </>
             ))}
         </div>
