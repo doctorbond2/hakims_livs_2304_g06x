@@ -1,24 +1,25 @@
 import * as shad from "@/components/ui/shadBarrel";
+import ProductCardBody from "./ProductCardBody";
 
-const CardTest = ({ product }) => {
+const ProductCard = ({ product }) => {
   return (
     <>
-      {" "}
-      <shad.Card className="w-[250px] h-[350px] grid grid-rows-3">
-        <shad.CardContent className="flex row-span-2 items-center">
-          <img style={{ height: "150px" }} src="/HakimOnlineLogo.png" alt="HakimLogo" />
-        </shad.CardContent>
-        <div>
-          <shad.CardTitle className="flex justify-center content-end">5000kr</shad.CardTitle>
-          <shad.CardTitle className="flex justify-center content-end">Create project</shad.CardTitle>
-          <shad.CardDescription className="flex justify-center content-end">Deploy your new project in one-click.</shad.CardDescription>
-          <shad.CardFooter className="p-0 content-end">
-            <shad.Button className="w-[250px] p-0">Köp</shad.Button>
-          </shad.CardFooter>
+      <shad.Card className="w-[250px] h-[380px] grid grid-rows-1 border-slate-300">
+        <shad.Dialog>
+          <shad.DialogContent className="sm:max-w-[425px]">
+            <h1>ghejj</h1>
+          </shad.DialogContent>
+          <shad.DialogTrigger asChild>
+            <a>
+              <ProductCardBody product={product} />
+            </a>
+          </shad.DialogTrigger>
+        </shad.Dialog>
+        <div className="pb-2 content-end flex justify-center">
+          <shad.Button className="w-[230px]">Köp</shad.Button>
         </div>
       </shad.Card>
     </>
   );
 };
-
-export default CardTest;
+export default ProductCard;
