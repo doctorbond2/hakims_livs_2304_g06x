@@ -7,6 +7,7 @@ const Footer = () => {
         <p>123 Stockholm Suburb St., Stockholm, Sweden</p>
         <a href="tel:+46701234567"></a>
         <a href={`mailto:hakimlivs@gmail.com`}>hakimlivs@gmail.com</a>
+        <h3>Test</h3>
       </div>
     </footer>
   );
