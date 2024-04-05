@@ -3,34 +3,26 @@ import { POST_REQUEST } from "@/utils/helpers/request.helper";
 import * as shad from "@/components/ui/shadBarrel";
 
 export default function Admin() {
-  const [productName, setProductName] = useState("");
-  const [productPrice, setProductPrice] = useState("");
-  const [productStock, setProductStock] = useState("");
-
-  function addProductToMongoDB() {
-    console.log("Adding product to MongoDB");
-  }
+  const [newProduct, setNewProduct] = useState({});
 
   function handleProductNameChange(e) {
-    setProductName(e.target.value);
+    setNewProduct({ ...newProduct, name: e.target.value });
   }
 
   function handleProductPriceChange(e) {
-    setProductPrice(e.target.value);
+    setNewProduct({ ...newProduct, price: e.target.value });
   }
 
   function handleProductStockChange(e) {
-    setProductStock(e.target.value);
+    setNewProduct({ ...newProduct, stock: e.target.value });
   }
 
   async function handleSubmit(e) {
     e.preventDefault();
     console.log("test");
-    const updateObject = {
-      name: productName,
-      price: productPrice,
-      stock: productStock,
-    };
+
+    const updateObject = newProduct;
+
     console.log(updateObject);
     try {
       const response = await POST_REQUEST(
@@ -58,7 +50,7 @@ export default function Admin() {
         <input
           id="productName"
           type="text"
-          value={productName}
+          value={newProduct.name}
           onChange={handleProductNameChange}
         />
         <br />
@@ -66,7 +58,7 @@ export default function Admin() {
         <input
           id="productPrice"
           type="text"
-          value={productPrice}
+          value={newProduct.price}
           onChange={handleProductPriceChange}
         />{" "}
         <br />
@@ -74,7 +66,7 @@ export default function Admin() {
         <input
           id="productStock"
           type="text"
-          value={productStock}
+          value={newProduct.stock}
           onChange={handleProductStockChange}
         />{" "}
         <br />

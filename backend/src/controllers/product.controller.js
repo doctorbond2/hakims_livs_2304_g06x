@@ -7,6 +7,7 @@ export const createProduct = async (req, res) => {
       error: "No body submitted",
     });
   }
+  console.log("REQBODY: ", req.body);
   try {
     const product = new Product(req.body);
     await product.save();
@@ -117,11 +118,34 @@ export const deleteProductById = async (req, res) => {
         message: "Product deleted successfully",
         deleted_product: product,
       });
-    } 
+    }
   } catch (err) {
     console.log(err.message);
     res.status(500).json({
       error: err.message,
     });
   }
-}
+};
+export const TEST_deleteAllProducts = async () => {
+  if (!req.body && !req.body.key) {
+    return res.status(400).json({ error: "No api key??" });
+  }
+  const { key } = req.body;
+  const deleteKey = process.env.DELETE_PRODUCTS_KEY;
+  if (toString(key) !== toString(deleteKey)) {
+    return res
+      .status(401)
+      .json({ error: "Unauthorized access. Get lost noob." });
+  }
+  try {
+    const result = await Product.find().deleteMany();
+    if (result) {
+      res.status(200).json({
+        message:
+          "All products have been removed from the database. My god, what have you done?",
+      });
+    }
+  } catch (err) {
+    return res.status(500).json({ error: err.message });
+  }
+};
