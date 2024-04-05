@@ -1,7 +1,9 @@
 import * as shad from "@/components/ui/shadBarrel";
-import ItemList from "@/components/ItemList";
+import ProductList from "@/components/productList/ProductList";
 import { useEffect, useState } from "react";
 import { GET_REQUEST } from "@/utils/helpers/request.helper";
+import ProductCard from "@/components/productList/productCards/ProductCard";
+
 
 const Home = () => {
   const [productList, setProductList] = useState(null);
@@ -23,7 +25,7 @@ const Home = () => {
 
   return (
     <>
-      <>{productList && <ItemList {...{ productList }} />}</>
+      <>{productList && <ProductList {...{ productList }} />}</>
     </>
   );
 };
