@@ -50,7 +50,7 @@ export default function Admin() {
         <input
           id="productName"
           type="text"
-          value={productName}
+          value={newProduct.name}
           onChange={handleProductNameChange}
         />
         <br />
@@ -58,7 +58,7 @@ export default function Admin() {
         <input
           id="productPrice"
           type="text"
-          value={productPrice}
+          value={newProduct.price}
           onChange={handleProductPriceChange}
         />{" "}
         <br />
@@ -66,7 +66,7 @@ export default function Admin() {
         <input
           id="productStock"
           type="text"
-          value={productStock}
+          value={newProduct.stock}
           onChange={handleProductStockChange}
         />{" "}
         <br />
