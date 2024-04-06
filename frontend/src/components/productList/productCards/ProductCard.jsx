@@ -16,7 +16,7 @@ const ProductCard = ({ product }) => {
           </shad.DialogTrigger>
         </shad.Dialog>
         <div className="pb-2 content-end flex justify-center">
-          <shad.Button className="w-[230px]">Köp</shad.Button>
+          <shad.Button className="w-[230px]">{buyOrEdit}</shad.Button>
         </div>
       </shad.Card>
     </>
