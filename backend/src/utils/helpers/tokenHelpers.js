@@ -1,6 +1,13 @@
 import jwt from "jsonwebtoken";
 
-export const generate_A_and_R_token = async (user) => {};
+export const generateAccessToken = async (userId) => {
+  return jwt.sign({ userId }, process.env.JWT_ACCESS_KEY, { expiresIn: "10h" });
+};
+export const generateRefreshToken = async (userId) => {
+  return jwt.sign({ userId }, process.env.JWT_REFRESH_KEY, {
+    expiresIn: "10d",
+  });
+};
 export const generateAccessAndRefreshToken = async (user) => {
   const accesstoken = jwt.sign(
     {
