@@ -1,15 +1,13 @@
 import * as shad from "@/components/ui/shadBarrel";
 import ProductCardBody from "./ProductCardBody";
-
+import ProductModal from "./ProductModal";
 const ProductCard = ({ product }) => {
   return (
     <>
       <shad.Card className="w-[250px] h-[380px] grid grid-rows-1 border-slate-300">
         <shad.Dialog>
           <shad.DialogContent className="sm:max-w-[600px]">
-            <shad.Card className="w-[250px] h-[380px] border-slate-300">
-              <ProductCardBody product={product} />
-            </shad.Card>
+              <ProductModal product={product} />
           </shad.DialogContent>
           <shad.DialogTrigger asChild>
             <a>
