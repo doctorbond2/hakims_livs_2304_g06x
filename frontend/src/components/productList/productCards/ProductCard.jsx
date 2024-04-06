@@ -1,7 +1,7 @@
 import * as shad from "@/components/ui/shadBarrel";
 import ProductCardBody from "./ProductCardBody";
 import ProductModal from "./ProductModal";
-const ProductCard = ({ product }) => {
+const ProductCard = ({ product, buyOrEdit }) => {
   return (
     <>
       <shad.Card className="w-[250px] h-[380px] grid grid-rows-1 border-slate-300">
