@@ -1,7 +1,7 @@
 import * as shad from "@/components/ui/shadBarrel";
 import ProductCardBody from "./ProductCardBody";
 
-const ProductCard = ({ product }) => {
+const ProductCard = ({ product, buyOrEdit }) => {
   return (
     <>
       <shad.Card className="w-[250px] h-[380px] grid grid-rows-1 border-slate-300">
@@ -18,7 +18,7 @@ const ProductCard = ({ product }) => {
           </shad.DialogTrigger>
         </shad.Dialog>
         <div className="pb-2 content-end flex justify-center">
-          <shad.Button className="w-[230px]">Köp</shad.Button>
+          <shad.Button className="w-[230px]">{buyOrEdit}</shad.Button>
         </div>
       </shad.Card>
     </>
