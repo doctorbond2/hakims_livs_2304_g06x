@@ -3,6 +3,7 @@ import ProductCardBody from "./ProductCardBody";
 
 const ProductCard = ({ product, buyOrEdit }) => {
   const isBuy = buyOrEdit.toLowerCase() === "köp";
+
   return (
     <>
       <shad.Card className="w-[250px] h-[380px] grid grid-rows-1 border-slate-300">
