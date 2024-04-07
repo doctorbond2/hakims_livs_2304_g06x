@@ -1,7 +1,7 @@
 import * as shad from "@/components/ui/shadBarrel";
 import ProductCardBody from "./ProductCardBody";
 
-const ProductCard = ({ product }) => {
+const ProductCard = ({ product, buyOrEdit }) => {
   const isBuy = buyOrEdit.toLowerCase() === "köp";
 
   return (
