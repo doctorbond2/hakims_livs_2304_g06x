@@ -27,11 +27,11 @@ export async function getCategories(req, res) {
 }
 
 export async function getCategoryByName(req, res) {
-  console.log("Category by name test")
+  console.log("Category by name test");
 
   if (!req.params.name) {
-    return res.status(400).json({ 
-      message: "Category name not found"
+    return res.status(400).json({
+      message: "Category name not found",
     });
   }
 
@@ -45,8 +45,8 @@ export async function getCategoryByName(req, res) {
 
 export async function getCategoryById(req, res) {
   console.log("Category by ID test");
-  
-  if(!req.params.id) {
+
+  if (!req.params.id) {
     return res.status(400).json({ message: "Category ID not found" });
   }
 
@@ -62,10 +62,8 @@ export async function getCategoryById(req, res) {
   } catch (err) {
     res.status(500).json({ error: err.message });
     console.log(err.message);
-    
   }
 }
-
 
 export const updateCategoryById = async (req, res) => {
   console.log("test update category by id");
@@ -111,8 +109,7 @@ export const deleteCategoryById = async (req, res) => {
   const { id } = req.params;
 
   try {
-
-    const category = await Category.findByIdAndDelete({_id: id}, req.body);
+    const category = await Category.findByIdAndDelete({ _id: id }, req.body);
 
     if (category) {
       res.status(200).json({
@@ -120,11 +117,46 @@ export const deleteCategoryById = async (req, res) => {
         deleted_category: category,
       });
     }
-
   } catch (err) {
     console.log(err.message);
     res.status(500).json({
       error: err.message,
     });
   }
-}
+};
+
+import express from "express";
+import Category from "../models/category.model.js"; // Adjust the path according to your structure
+
+const router = express.Router();
+
+router.get("/categories-with-count", async (req, res) => {
+  try {
+    const categoriesWithCount = await Category.aggregate([
+      {
+        $lookup: {
+          from: "products", // the collection to join
+          localField: "_id", // field from the categories collection
+          foreignField: "category", // field from the products collection matching localField
+          as: "products", // the array field name where matched documents will be placed
+        },
+      },
+      {
+        $addFields: {
+          productCount: { $size: "$products" },
+        },
+      },
+      {
+        $project: {
+          products: 0, // Exclude the products array from the final output if you just want the count
+        },
+      },
+    ]);
+
+    res.json(categoriesWithCount);
+  } catch (error) {
+    res.status(500).send(error);
+  }
+});
+
+export default router;
