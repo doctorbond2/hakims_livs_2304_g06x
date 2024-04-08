@@ -3,8 +3,16 @@ import React, { useState } from "react";
 import "@/App.css";
 import * as shad from "@/components/ui/shadBarrel";
 
-export default function AddNewProduct({ onSubmit }) {
+// Gör så att om man MangeProduct är inställd på Edit så ska den har input-fält som är förifylda med den produkten som ska editeras
+// Gör så att
+export default function ManageProduct({
+  onSubmit,
+  addOrEdit = "add",
+  product,
+}) {
   const [newProduct, setNewProduct] = useState({});
+
+  addOrEdit = addOrEdit.toLocaleLowerCase();
 
   function handleProductNameChange(e) {
     setNewProduct({ ...newProduct, name: e.target.value });
@@ -28,13 +36,15 @@ export default function AddNewProduct({ onSubmit }) {
       <form onSubmit={handleSubmit} className={shad.form}>
         <label htmlFor="productName" className={shad.label}>
           {" "}
-          Input product Name
+          Product Name
         </label>
         <br />
         <input
           id="productName"
           type="text"
-          placeholder="Ex. Milk, Bread, etc."
+          placeholder={
+            addOrEdit === "add" ? "Ex. Milk, Bread, etc." : product.name
+          }
           value={newProduct.name}
           onChange={handleProductNameChange}
           className={shad.input}
@@ -47,7 +57,9 @@ export default function AddNewProduct({ onSubmit }) {
         <input
           id="productPrice"
           type="number"
-          placeholder="Ex. 9, 299, etc."
+          placeholder={
+            addOrEdit === "add" ? "Ex. 10, 20, 30, etc." : product.price
+          }
           value={newProduct.price}
           onChange={handleProductPriceChange}
           className={shad.input}
@@ -60,14 +72,16 @@ export default function AddNewProduct({ onSubmit }) {
         <input
           id="productStock"
           type="number"
-          placeholder="Ex. 10, 20, 30, etc."
+          placeholder={
+            addOrEdit === "add" ? "Ex. 10, 20, 30, etc." : product.stock
+          }
           value={newProduct.stock}
           onChange={handleProductStockChange}
           className={shad.input}
         />{" "}
         <br />
         <shad.Button type={"submit"} className={shad.button}>
-          Post user
+          {addOrEdit === "add" ? "Post user" : "Update user"}
         </shad.Button>
       </form>
     </shad.Card>

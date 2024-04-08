@@ -1,16 +1,35 @@
 import * as shad from "@/components/ui/shadBarrel";
+import { useState, useEffect } from "react";
 import ProductCardBody from "./ProductCardBody";
+import ManageProduct from "@/components/admin/ManageProduct";
 
-const ProductCard = ({ product, buyOrEdit }) => {
-  const isBuy = buyOrEdit.toLowerCase() === "köp";
+const ProductCard = ({ product, buyOrEdit, onSubmit }) => {
+  const [isBuy, setIsBuy] = useState(true);
+  buyOrEdit = buyOrEdit.toLocaleLowerCase();
+
+  useEffect(() => {
+    buyOrEdit === "köp" ? setIsBuy(true) : setIsBuy(false);
+  }, [buyOrEdit]);
 
   return (
     <>
       <shad.Card className="w-[250px] h-[380px] grid grid-rows-1 border-slate-300">
         <shad.Dialog>
-          <shad.DialogContent className="sm:max-w-[600px]">
-            <shad.Card className="w-[250px] h-[380px] border-slate-300">
-              <ProductCardBody product={product} />
+          <shad.DialogContent className="sm:max-w-[600px] justify-center">
+            <shad.Card
+              className={
+                isBuy ? "w-[250px] h-[380px] border-slate-300" : "w-[300px]"
+              }
+            >
+              {isBuy ? (
+                <ProductCardBody product={product} />
+              ) : (
+                <ManageProduct
+                  onSubmit={onSubmit}
+                  addOrEdit="edit"
+                  product={product}
+                />
+              )}
             </shad.Card>
           </shad.DialogContent>
           {isBuy ? (
