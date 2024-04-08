@@ -73,7 +73,7 @@ export default function Admin() {
                     <ProductCard
                       product={product}
                       buyOrEdit={"Edit"}
-                      onSubmit={handleSubmit()}
+                      onSubmit={handleSubmit}
                     />
                     {console.log(shad.Button)}
                   </div>

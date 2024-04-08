@@ -29,6 +29,7 @@ export default function ManageProduct({
   async function handleSubmit(e) {
     e.preventDefault();
     await onSubmit(newProduct);
+    console.log(newProduct);
   }
 
   return (
