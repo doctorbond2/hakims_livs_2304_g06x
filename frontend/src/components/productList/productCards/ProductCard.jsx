@@ -6,8 +6,8 @@ const ProductCard = ({ product, buyOrEdit }) => {
     <>
       <shad.Card className="w-[250px] h-[380px] grid grid-rows-1 border-slate-300">
         <shad.Dialog>
-          <shad.DialogContent className="sm:max-w-[600px]">
-              <ProductModal product={product} />
+          <shad.DialogContent className="sm:max-w-[800px] grid grid-cols-2 grid-rows-2">
+            <ProductModal product={product} />
           </shad.DialogContent>
           <shad.DialogTrigger asChild>
             <a>

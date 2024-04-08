@@ -48,19 +48,13 @@ export default function Admin() {
 
   return (
     <>
-      <shad.Button
-        onClick={() => setShowAddProduct(!showAddProduct)}
-        variant="outline"
-      >
+      <shad.Button onClick={() => setShowAddProduct(!showAddProduct)} variant="outline">
         Add new product
       </shad.Button>
 
       {showAddProduct && <AddNewProduct onSubmit={handleSubmit} />}
 
-      <shad.Button
-        onClick={() => setShowProducts(!showProducts)}
-        variant="outline"
-      >
+      <shad.Button onClick={() => setShowProducts(!showProducts)} variant="outline">
         Edit product (show products)
       </shad.Button>
       {/* {showProducts && products.map((product) => <p>{product.name}</p>)}
@@ -72,7 +66,8 @@ export default function Admin() {
               products.map((product) => (
                 <>
                   <div>
-                    <ProductCard product={product} buyOrEdit={"Edit"} />
+                    <ProductCard product={product} />
+                    <shad.Button className="w-[230px]">edit</shad.Button>
                   </div>
                 </>
               ))}
