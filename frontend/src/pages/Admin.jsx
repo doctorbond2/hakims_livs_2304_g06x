@@ -1,42 +1,23 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
+import { GET_REQUEST } from "@/utils/helpers/request.helper";
 import { POST_REQUEST } from "@/utils/helpers/request.helper";
 import * as shad from "@/components/ui/shadBarrel";
+import AddNewProduct from "@/components/admin/AddNewProduct";
+import ProductList from "@/components/productList/ProductList";
+import ProductCard from "@/components/productList/productCards/ProductCard";
+// import { ProductCardBody } from "@/components/productList/productCards/ProductCardBody";
 
 export default function Admin() {
-  const [productName, setProductName] = useState("");
-  const [productPrice, setProductPrice] = useState("");
-  const [productStock, setProductStock] = useState("");
+  const [showAddProduct, setShowAddProduct] = useState(false);
+  const [products, setProducts] = useState([{}]);
+  const [showProducts, setShowProducts] = useState(false);
 
-  function addProductToMongoDB() {
-    console.log("Adding product to MongoDB");
-  }
-
-  function handleProductNameChange(e) {
-    setProductName(e.target.value);
-  }
-
-  function handleProductPriceChange(e) {
-    setProductPrice(e.target.value);
-  }
-
-  function handleProductStockChange(e) {
-    setProductStock(e.target.value);
-  }
-
-  async function handleSubmit(e) {
-    e.preventDefault();
+  async function handleSubmit(newProduct) {
     console.log("test");
-    const updateObject = {
-      name: productName,
-      price: productPrice,
-      stock: productStock,
-    };
-    console.log(updateObject);
+
+    console.log(newProduct);
     try {
-      const response = await POST_REQUEST(
-        "/api/products/create/",
-        updateObject
-      );
+      const response = await POST_REQUEST("/api/products/create/", newProduct);
       if (response.status === 201) {
         console.log("Good job dude");
       } else {
@@ -47,39 +28,57 @@ export default function Admin() {
     }
   }
 
+  //Lägg in en knapp för att hämta alla produkter
+  // klicka på produkt och få upp en modal med info om produkten
+  useEffect(() => {
+    async function fetchProducts() {
+      try {
+        const response = await GET_REQUEST("/api/products/");
+        if (response.data) {
+          console.log(response.data);
+          setProducts(response.data);
+        }
+      } catch (err) {
+        console.log(err.message);
+      }
+    }
+    fetchProducts();
+  }, []);
+
   return (
     <>
-      <form
-        onSubmit={async (e) => {
-          await handleSubmit(e);
-        }}
+      <shad.Button
+        onClick={() => setShowAddProduct(!showAddProduct)}
+        variant="outline"
       >
-        <label htmlFor="productName"> Input product Name</label>
-        <input
-          id="productName"
-          type="text"
-          value={productName}
-          onChange={handleProductNameChange}
-        />
-        <br />
-        <label htmlFor="productPrice">Product price</label>
-        <input
-          id="productPrice"
-          type="text"
-          value={productPrice}
-          onChange={handleProductPriceChange}
-        />{" "}
-        <br />
-        <label htmlFor="productStock">Product stock: </label>
-        <input
-          id="productStock"
-          type="text"
-          value={productStock}
-          onChange={handleProductStockChange}
-        />{" "}
-        <br />
-        <shad.Button type={"submit"}>Post user</shad.Button>
-      </form>
+        Add new product
+      </shad.Button>
+
+      {showAddProduct && <AddNewProduct onSubmit={handleSubmit} />}
+
+      <shad.Button
+        onClick={() => setShowProducts(!showProducts)}
+        variant="outline"
+      >
+        Edit product (show products)
+      </shad.Button>
+      {/* {showProducts && products.map((product) => <p>{product.name}</p>)}
+       */}
+      {showProducts && (
+        <div className="flex justify-center">
+          <div className="grid grid-cols-2 sm:grid-cols-4">
+            {products &&
+              products.map((product) => (
+                <>
+                  <div>
+                    <ProductCard product={product} buyOrEdit={"Edit"} />
+                    {console.log(shad.Button)}
+                  </div>
+                </>
+              ))}
+          </div>
+        </div>
+      )}
     </>
   );
 }

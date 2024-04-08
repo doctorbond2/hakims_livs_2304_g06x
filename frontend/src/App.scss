@@ -22,8 +22,8 @@ dd {
 }
 
 /* Remove list styles on ul, ol elements with a list role, which suggests default styling will be removed */
-ul[role=list],
-ol[role=list] {
+ul[role="list"],
+ol[role="list"] {
   list-style: none;
 }
 
@@ -69,6 +69,7 @@ select {
     scroll-behavior: auto !important;
   }
 }
+
 input {
   width: 50%;
   padding: 0.5rem;
@@ -81,9 +82,9 @@ input {
   padding: 1rem;
   box-shadow: 0 4px 6px 0 hsla(0, 0%, 0%, 0.1);
   border-radius: 4px;
+  input {
+    margin-bottom: 5px;
+    padding: 5px;
+    width: 100%;
+  }
 }
-.shadCardPadding input {
-  margin-bottom: 5px;
-  padding: 5px;
-  width: 100%;
-}/*# sourceMappingURL=App.css.map */
