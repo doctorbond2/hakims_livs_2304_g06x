@@ -14,6 +14,10 @@ export default function ManageProduct({
 
   addOrEdit = addOrEdit.toLocaleLowerCase();
 
+  function handleImageURLChange(e) {
+    setNewProduct({ ...newProduct, image: e.target.value });
+  }
+
   function handleProductNameChange(e) {
     setNewProduct({ ...newProduct, name: e.target.value });
   }
@@ -35,6 +39,28 @@ export default function ManageProduct({
   return (
     <shad.Card className="w-80 shadCardPadding">
       <form onSubmit={handleSubmit} className={shad.form}>
+        {/* add img */}
+        {product.image && (
+          <img
+            src={product.image.url}
+            alt={product.image.alt}
+            style={{ maxWidth: "50%", height: "auto" }}
+          />
+        )}
+        <label htmlFor="imageURL">Image URL</label>
+        <br />
+        <input
+          id="imageURL"
+          type="text"
+          placeholder={
+            addOrEdit === "add"
+              ? "Ex. www.example.com/image.jpg"
+              : product.image.url
+          }
+          value={newProduct.image}
+          onChange={handleImageURLChange}
+          className={shad.input}
+        />
         <label htmlFor="productName" className={shad.label}>
           {" "}
           Product Name
