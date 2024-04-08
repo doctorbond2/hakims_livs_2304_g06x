@@ -2,9 +2,10 @@ import React, { useEffect, useState } from "react";
 import { GET_REQUEST } from "@/utils/helpers/request.helper";
 import { POST_REQUEST } from "@/utils/helpers/request.helper";
 import * as shad from "@/components/ui/shadBarrel";
-import AddNewProduct from "@/components/admin/AddNewProduct";
+// import AddNewProduct from "@/components/admin/AddNewProduct";
 import ProductList from "@/components/productList/ProductList";
 import ProductCard from "@/components/productList/productCards/ProductCard";
+import ManageProduct from "@/components/admin/ManageProduct";
 // import { ProductCardBody } from "@/components/productList/productCards/ProductCardBody";
 
 export default function Admin() {
@@ -51,7 +52,7 @@ export default function Admin() {
         Add new product
       </shad.Button>
 
-      {showAddProduct && <AddNewProduct onSubmit={handleSubmit} />}
+      {showAddProduct && <ManageProduct onSubmit={handleSubmit} />}
 
       <shad.Button onClick={() => setShowProducts(!showProducts)} variant="outline">
         Edit product (show products)
@@ -65,8 +66,8 @@ export default function Admin() {
               products.map((product) => (
                 <>
                   <div>
-                    <ProductCard product={product} />
-                    <shad.Button className="w-[230px]">edit</shad.Button>
+                    <ProductCard product={product} buyOrEdit={"Edit"} onSubmit={handleSubmit} />
+                    {console.log(shad.Button)}
                   </div>
                 </>
               ))}
