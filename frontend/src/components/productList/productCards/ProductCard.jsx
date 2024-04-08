@@ -43,7 +43,6 @@ const ProductCard = ({ product, buyOrEdit, onSubmit }) => {
           )}
 
           <div className="pb-2 content-end flex justify-center">
-            '
             {!isBuy ? (
               <shad.DialogTrigger asChild>
                 <shad.Button className="w-[230px]">{buyOrEdit}</shad.Button>
