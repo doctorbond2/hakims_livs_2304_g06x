@@ -125,38 +125,38 @@ export const deleteCategoryById = async (req, res) => {
   }
 };
 
-import express from "express";
-import Category from "../models/category.model.js"; // Adjust the path according to your structure
+// import express from "express";
+// import Category from "../models/category.model.js"; // Adjust the path according to your structure
 
-const router = express.Router();
+// const router = express.Router();
 
-router.get("/categories-with-count", async (req, res) => {
-  try {
-    const categoriesWithCount = await Category.aggregate([
-      {
-        $lookup: {
-          from: "products", // the collection to join
-          localField: "_id", // field from the categories collection
-          foreignField: "category", // field from the products collection matching localField
-          as: "products", // the array field name where matched documents will be placed
-        },
-      },
-      {
-        $addFields: {
-          productCount: { $size: "$products" },
-        },
-      },
-      {
-        $project: {
-          products: 0, // Exclude the products array from the final output if you just want the count
-        },
-      },
-    ]);
+// router.get("/categories-with-count", async (req, res) => {
+//   try {
+//     const categoriesWithCount = await Category.aggregate([
+//       {
+//         $lookup: {
+//           from: "products", // the collection to join
+//           localField: "_id", // field from the categories collection
+//           foreignField: "category", // field from the products collection matching localField
+//           as: "products", // the array field name where matched documents will be placed
+//         },
+//       },
+//       {
+//         $addFields: {
+//           productCount: { $size: "$products" },
+//         },
+//       },
+//       {
+//         $project: {
+//           products: 0, // Exclude the products array from the final output if you just want the count
+//         },
+//       },
+//     ]);
 
-    res.json(categoriesWithCount);
-  } catch (error) {
-    res.status(500).send(error);
-  }
-});
+//     res.json(categoriesWithCount);
+//   } catch (error) {
+//     res.status(500).send(error);
+//   }
+// });
 
-export default router;
+// export default router;
