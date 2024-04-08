@@ -3,9 +3,8 @@ import { GET_REQUEST } from "@/utils/helpers/request.helper";
 import { POST_REQUEST } from "@/utils/helpers/request.helper";
 import * as shad from "@/components/ui/shadBarrel";
 import AddNewProduct from "@/components/admin/AddNewProduct";
-4;
 import ProductList from "@/components/productList/ProductList";
-import ProductCard from "@/components/productList/productCards/ProductCardBody";
+import ProductCard from "@/components/productList/productCards/ProductCard";
 // import { ProductCardBody } from "@/components/productList/productCards/ProductCardBody";
 
 export default function Admin() {
@@ -74,7 +73,6 @@ export default function Admin() {
           </div>
         </div>
       )}
-      {/* <ProductList productList={products} /> */}
     </>
   );
 }
