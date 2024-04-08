@@ -34,7 +34,7 @@ const productSchema = new Schema(
       type: Schema.Types.ObjectId,
       ref: "Category",
       required: true,
-      default: "N/A",
+      default: null,
     },
     price: { type: Number, required: true, default: 0, min: 0, max: 10000 },
     unitPrice: { type: Number, required: true, default: 0, min: 0, max: 10000 }, //jämförspris
