@@ -88,7 +88,7 @@ export const updateCategoryById = async (req, res) => {
     if (category) {
       res.status(200).json({
         message: `Category ${category.name} updated successfully`,
-        updated_category: product,
+        updated_category: category,
       });
     }
   } catch (err) {
