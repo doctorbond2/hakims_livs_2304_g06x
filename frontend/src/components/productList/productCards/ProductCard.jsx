@@ -1,6 +1,6 @@
 import * as shad from "@/components/ui/shadBarrel";
 import ProductCardBody from "./ProductCardBody";
-
+import ProductModal from "./ProductModal";
 const ProductCard = ({ product, buyOrEdit }) => {
   const isBuy = buyOrEdit.toLowerCase() === "köp";
 
@@ -8,10 +8,8 @@ const ProductCard = ({ product, buyOrEdit }) => {
     <>
       <shad.Card className="w-[250px] h-[380px] grid grid-rows-1 border-slate-300">
         <shad.Dialog>
-          <shad.DialogContent className="sm:max-w-[600px]">
-            <shad.Card className="w-[250px] h-[380px] border-slate-300">
-              <ProductCardBody product={product} />
-            </shad.Card>
+          <shad.DialogContent className="sm:max-w-[800px] grid grid-cols-2 grid-rows-2">
+            <ProductModal product={product} />
           </shad.DialogContent>
           {isBuy ? (
             <shad.DialogTrigger asChild>
