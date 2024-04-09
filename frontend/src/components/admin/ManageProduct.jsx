@@ -38,7 +38,7 @@ export default function ManageProduct({
 
   return (
     <shad.Card className="w-80 shadCardPadding">
-      <form onSubmit={handleSubmit} className={shad.form}>
+      <form onSubmit={handleSubmit}>
         {/* add img */}
         {product.image && (
           <img
