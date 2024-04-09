@@ -1,4 +1,5 @@
 import Product from "../models/product.model.js";
+import Category from "../models/category.model.js";
 
 export const createProduct = async (req, res) => {
   console.log("product test");
@@ -125,8 +126,8 @@ export const deleteProductById = async (req, res) => {
   }
 };
 
-export const getProductByCategory = async (req, res) => {
-  console.log("test get product by category");
+export const getProductByCategoryId = async (req, res) => {
+  console.log("test get product by category")
   const categoryId = req.params.categoryId;
 
   if (!categoryId) {
@@ -134,10 +135,9 @@ export const getProductByCategory = async (req, res) => {
       error: "No category id submitted",
     });
   }
+
   try {
-    const products = await Product.find({ category: categoryId }).populate(
-      "category"
-    );
+    const products = await Product.find({category: categoryId}).populate("category");
     res.json(products);
   } catch (err) {
     console.log(err.message);
@@ -145,7 +145,9 @@ export const getProductByCategory = async (req, res) => {
       error: err.message,
     });
   }
+
 };
+
 
 export const TEST_deleteAllProducts = async () => {
   if (!req.body && !req.body.key) {
