@@ -29,6 +29,19 @@ export default function Admin() {
     }
   }
 
+  async function handleDelete(productId) {
+    try {
+      const response = await DELETE_REQUEST(
+        `/api/products/delete/${productId}`
+      );
+      if (response.status === 200) {
+        fetchProducts(); // Uppdatera produktlistan
+      }
+    } catch (err) {
+      console.error(err.message);
+    }
+  }
+
   //Lägg in en knapp för att hämta alla produkter
   // klicka på produkt och få upp en modal med info om produkten
   useEffect(() => {
@@ -76,6 +89,7 @@ export default function Admin() {
                       product={product}
                       buyOrEdit={"Edit"}
                       onSubmit={handleSubmit}
+                      onDelete={handleDelete}
                     />
                     {console.log(shad.Button)}
                   </div>
