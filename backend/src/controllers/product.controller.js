@@ -127,25 +127,25 @@ export const deleteProductById = async (req, res) => {
 };
 
 export const getProductByCategoryId = async (req, res) => {
+  console.log("test get product by category")
   const categoryId = req.params.categoryId;
 
   if (!categoryId) {
     return res.status(400).json({
-      error: "No category ID provided",
+      error: "No category id submitted",
     });
   }
 
   try {
-    const products = await Product.find({
-      category: mongoose.Types.ObjectId(categoryId),
-    }).populate("category");
+    const products = await Product.find({category: categoryId}).populate("category");
     res.json(products);
   } catch (err) {
-    console.error(err.message);
+    console.log(err.message);
     res.status(500).json({
-      error: "Internal server error",
+      error: err.message,
     });
   }
+
 };
 
 

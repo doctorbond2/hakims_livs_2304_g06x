@@ -32,3 +32,6 @@ export const generateAccessAndRefreshToken = async (user) => {
     refresh: refreshToken,
   };
 };
+const verifyToken = (token, secret_key) => {
+  jwt.verify(token, secret_key);
+};
