@@ -17,7 +17,8 @@ const Home = () => {
           setProductList(response.data);
         }
       } catch (err) {
-        console.log(err.message);}
+        console.log(err.message);
+      }
     };
     fetchData();
   }, []);
