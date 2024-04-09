@@ -20,11 +20,7 @@ const CategoryManager = () => {
     fetchData();
   }, []);
 
-  return (
-    <>
-      <>{categoryList && <CategoryList {...{ categoryList }} />}</>
-    </>
-  );
+  return <div className="flex w-full justify-center">{categoryList && <CategoryList {...{ categoryList }} />}</div>;
 };
 
 export default CategoryManager;
