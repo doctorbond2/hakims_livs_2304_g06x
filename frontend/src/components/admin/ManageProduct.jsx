@@ -59,7 +59,7 @@ export default function ManageProduct({
           }
           value={newProduct.image}
           onChange={handleImageURLChange}
-          className={shad.input}
+          // className={shad.input}
         />
         <label htmlFor="productName" className={shad.label}>
           {" "}
