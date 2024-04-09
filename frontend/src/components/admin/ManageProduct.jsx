@@ -1,109 +1,174 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 
 import "@/App.css";
 import * as shad from "@/components/ui/shadBarrel";
 
-// Gör så att om man MangeProduct är inställd på Edit så ska den har input-fält som är förifylda med den produkten som ska editeras
-// Gör så att
 export default function ManageProduct({
   onSubmit,
+  onDelete,
   addOrEdit = "add",
   product = {
-    image: { url: "", alt: "Product Image" }, // Assuming 'alt' text is required; adjust as necessary
-    name: "",
+    image: { url: "", alt: "Product Image" },
     price: "",
     stock: "",
-    descriotion: "",
+    description: "",
     brand: "",
     title: "",
     category: "",
-    unit: "1", // Assuming a default unit value; adjust based on your backend requirements
+    unit: "",
   },
 }) {
-  const [newProduct, setNewProduct] = useState({});
+  const [newProduct, setNewProduct] = useState(product);
 
-  addOrEdit = addOrEdit.toLocaleLowerCase();
+  useEffect(() => {
+    setNewProduct(product); // Uppdatera tillståndet när `product` props uppdateras
+  }, [product]);
 
-  function handleImageURLChange(e) {
-    setNewProduct({ ...newProduct, image: e.target.value });
-  }
-
-  function handleProductNameChange(e) {
-    setNewProduct({ ...newProduct, name: e.target.value });
-  }
-
-  function handleProductPriceChange(e) {
-    setNewProduct({ ...newProduct, price: e.target.value });
-  }
-
-  function handleProductStockChange(e) {
-    setNewProduct({ ...newProduct, stock: e.target.value });
+  function handleChange(e) {
+    const { name, value } = e.target;
+    if (name === "image.url") {
+      setNewProduct({
+        ...newProduct,
+        image: { ...newProduct.image, url: value },
+      });
+    } else if (name === "image.alt") {
+      setNewProduct({
+        ...newProduct,
+        image: { ...newProduct.image, alt: value },
+      });
+    } else {
+      setNewProduct({ ...newProduct, [name]: value });
+    }
   }
 
   async function handleSubmit(e) {
     e.preventDefault();
     await onSubmit(newProduct);
-    console.log(newProduct);
+  }
+
+  async function handleDelete(e) {
+    e.preventDefault();
+    const areYouSure = confirm("Are you sure you want to delete this product?");
+
+    if (onDelete && product.id && areYouSure) {
+      const deleted = await onDelete(product.id);
+      if (deleted) {
+        setNewProduct({
+          image: { url: "", alt: "Product Image" },
+          price: "",
+          stock: "",
+          description: "",
+          brand: "",
+          title: "",
+          category: "",
+          unit: "",
+        });
+        alert("Product deleted successfully!");
+      }
+    }
   }
 
   return (
     <shad.Card className="w-80 shadCardPadding">
-      <form onSubmit={handleSubmit} className={shad.form}>
-        {/* add img */}
-        {product.image && <img src={product.image.url} alt={product.image.alt} style={{ maxWidth: "50%", height: "auto" }} />}
-        <label htmlFor="imageURL">Image URL</label>
-        <br />
-        <input
-          id="imageURL"
+      <form onSubmit={handleSubmit}>
+        {product.image && addOrEdit != "add" && (
+          <img
+            src={product.image.url}
+            alt={product.image.alt}
+            style={{ maxWidth: "50%", height: "auto" }}
+          />
+        )}
+        <shad.Label htmlFor="image.url">Image URL</shad.Label>
+        <shad.Input
+          id="image.url"
+          name="image.url"
           type="text"
-          placeholder={addOrEdit === "add" ? "Ex. www.example.com/image.jpg" : product.image.url}
-          value={newProduct.image}
-          onChange={handleImageURLChange}
-          className={shad.input}
+          value={newProduct.image.url}
+          onChange={handleChange}
         />
-        <label htmlFor="productName" className={shad.label}>
-          {" "}
-          Product Name
-        </label>
-        <br />
-        <input
-          id="productName"
+
+        <shad.Label htmlFor="image.alt">Image Alt</shad.Label>
+        <shad.Input
+          id="image.alt"
+          name="image.alt"
           type="text"
-          placeholder={addOrEdit === "add" ? "Ex. Milk, Bread, etc." : product.name}
-          value={newProduct.name}
-          onChange={handleProductNameChange}
-          className={shad.input}
+          value={newProduct.image.alt}
+          onChange={handleChange}
         />
-        <br />
-        <label htmlFor="productPrice" className={shad.label}>
-          Product price
-        </label>
-        <br />
-        <input
-          id="productPrice"
+
+        {/* Upprepa för de andra attributen, nu med shad-komponenter */}
+        <shad.Label htmlFor="description">Description</shad.Label>
+        <shad.Input
+          id="description"
+          name="description"
+          type="text"
+          value={newProduct.description}
+          onChange={handleChange}
+        />
+
+        <shad.Label htmlFor="brand">Brand</shad.Label>
+        <shad.Input
+          id="brand"
+          name="brand"
+          type="text"
+          value={newProduct.brand}
+          onChange={handleChange}
+        />
+
+        <shad.Label htmlFor="title">Title</shad.Label>
+        <shad.Input
+          id="title"
+          name="title"
+          type="text"
+          value={newProduct.title}
+          onChange={handleChange}
+        />
+
+        <shad.Label htmlFor="category">Category</shad.Label>
+        <shad.Input
+          id="category"
+          name="category"
+          type="text"
+          value={newProduct.category}
+          onChange={handleChange}
+        />
+
+        <shad.Label htmlFor="unit">Unit</shad.Label>
+        <shad.Input
+          id="unit"
+          name="unit"
+          type="text"
+          value={newProduct.unit}
+          onChange={handleChange}
+        />
+
+        <shad.Label htmlFor="price">Price</shad.Label>
+        <shad.Input
+          id="price"
+          name="price"
           type="number"
-          placeholder={addOrEdit === "add" ? "Ex. 10, 20, 30, etc." : product.price}
           value={newProduct.price}
-          onChange={handleProductPriceChange}
-          className={shad.input}
-        />{" "}
-        <br />
-        <label htmlFor="productStock" className={shad.label}>
-          Product stock:{" "}
-        </label>
-        <br />
-        <input
-          id="productStock"
+          onChange={handleChange}
+        />
+
+        <shad.Label htmlFor="stock">Stock</shad.Label>
+        <shad.Input
+          id="stock"
+          name="stock"
           type="number"
-          placeholder={addOrEdit === "add" ? "Ex. 10, 20, 30, etc." : product.stock}
           value={newProduct.stock}
-          onChange={handleProductStockChange}
-          className={shad.input}
-        />{" "}
-        <br />
-        <shad.Button type={"submit"} className={shad.button}>
-          {addOrEdit === "add" ? "Post user" : "Update user"}
+          onChange={handleChange}
+        />
+
+        <shad.Button type="submit">
+          {addOrEdit === "add" ? "Add Product" : "Update Product"}
         </shad.Button>
+
+        {addOrEdit !== "add" && (
+          <shad.Button type="button" onClick={handleDelete}>
+            Delete Product
+          </shad.Button>
+        )}
       </form>
     </shad.Card>
   );
