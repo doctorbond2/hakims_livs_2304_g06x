@@ -156,41 +156,8 @@ export const getCategoriesWithProducts = async (req, res) => {
       res.status(200).json(productsPerCategory);
     }
   } catch (err) {
-    return res.status(500).json({ message: "#WHOPPS" });
+    return res
+      .status(500)
+      .json({ message: "Something went wrong", error: err.message });
   }
 };
-// import express from "express";
-// import Category from "../models/category.model.js"; // Adjust the path according to your structure
-
-// const router = express.Router();
-
-// router.get("/categories-with-count", async (req, res) => {
-//   try {
-//     const categoriesWithCount = await Category.aggregate([
-//       {
-//         $lookup: {
-//           from: "products", // the collection to join
-//           localField: "_id", // field from the categories collection
-//           foreignField: "category", // field from the products collection matching localField
-//           as: "products", // the array field name where matched documents will be placed
-//         },
-//       },
-//       {
-//         $addFields: {
-//           productCount: { $size: "$products" },
-//         },
-//       },
-//       {
-//         $project: {
-//           products: 0, // Exclude the products array from the final output if you just want the count
-//         },
-//       },
-//     ]);
-
-//     res.json(categoriesWithCount);
-//   } catch (error) {
-//     res.status(500).send(error);
-//   }
-// });
-
-// export default router;
