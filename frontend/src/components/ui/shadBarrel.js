@@ -3,7 +3,7 @@ export { Input } from "@/components/ui/input";
 export { Label } from "@/components/ui/label";
 export { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 export { Sheet } from "@/components/ui/sheet";
-export { Table } from "@/components/ui/table";
+export { Table, TableBody, TableCaption, TableCell, TableFooter, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 export { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 export { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 export { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";

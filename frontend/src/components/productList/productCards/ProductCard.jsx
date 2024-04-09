@@ -1,6 +1,7 @@
 import * as shad from "@/components/ui/shadBarrel";
 import { useState, useEffect } from "react";
 import ProductCardBody from "./ProductCardBody";
+<<<<<<< HEAD
 import ManageProduct from "@/components/admin/ManageProduct";
 
 const ProductCard = ({ product, buyOrEdit, onSubmit }) => {
@@ -9,12 +10,23 @@ const ProductCard = ({ product, buyOrEdit, onSubmit }) => {
 
   useEffect(() => {
     buyOrEdit === "köp" ? setIsBuy(true) : setIsBuy(false);
+=======
+import ProductModal from "./ProductModal"; // Re-added for the "buy" scenario
+import ManageProduct from "@/components/admin/ManageProduct";
+
+const ProductCard = ({ product, buyOrEdit, onSubmit }) => {
+  const [isBuy, setIsBuy] = useState(buyOrEdit.toLowerCase() === "köp");
+
+  useEffect(() => {
+    setIsBuy(buyOrEdit.toLowerCase() === "köp");
+>>>>>>> e1cb776c33076c1f29861eaf2e0c21ef959144c3
   }, [buyOrEdit]);
 
   return (
     <>
       <shad.Card className="w-[250px] h-[380px] grid grid-rows-1 border-slate-300">
         <shad.Dialog>
+<<<<<<< HEAD
           <shad.DialogContent className="sm:max-w-[600px] justify-center">
             <shad.Card
               className={
@@ -32,17 +44,37 @@ const ProductCard = ({ product, buyOrEdit, onSubmit }) => {
               )}
             </shad.Card>
           </shad.DialogContent>
+=======
+>>>>>>> e1cb776c33076c1f29861eaf2e0c21ef959144c3
           {isBuy ? (
-            <shad.DialogTrigger asChild>
-              <a>
-                <ProductCardBody product={product} />
-              </a>
-            </shad.DialogTrigger>
+            // For the "buy" scenario
+            <>
+              <shad.DialogContent className="sm:max-w-[800px] grid grid-cols-2 grid-rows-2">
+                <ProductModal product={product} />
+              </shad.DialogContent>
+              <shad.DialogTrigger asChild>
+                <a>
+                  <ProductCardBody product={product} />
+                </a>
+              </shad.DialogTrigger>
+            </>
           ) : (
-            <ProductCardBody product={product} />
+            // For scenarios other than "buy"
+            <>
+              <shad.DialogContent className="sm:max-w-[600px] justify-center">
+                <shad.Card className="border-slate-300">
+                  <ManageProduct onSubmit={onSubmit} addOrEdit="edit" product={product} />
+                </shad.Card>
+              </shad.DialogContent>
+              <ProductCardBody product={product} />
+            </>
           )}
 
+<<<<<<< HEAD
           <div className="pb-2 content-end flex justify-center">
+=======
+<div className="pb-2 content-end flex justify-center">
+>>>>>>> e1cb776c33076c1f29861eaf2e0c21ef959144c3
             {!isBuy ? (
               <shad.DialogTrigger asChild>
                 <shad.Button className="w-[230px]">{buyOrEdit}</shad.Button>
@@ -56,4 +88,5 @@ const ProductCard = ({ product, buyOrEdit, onSubmit }) => {
     </>
   );
 };
+
 export default ProductCard;

@@ -8,7 +8,17 @@ import * as shad from "@/components/ui/shadBarrel";
 export default function ManageProduct({
   onSubmit,
   addOrEdit = "add",
-  product,
+  product = {
+    image: { url: "", alt: "Product Image" }, // Assuming 'alt' text is required; adjust as necessary
+    name: "",
+    price: "",
+    stock: "",
+    descriotion: "",
+    brand: "",
+    title: "",
+    category: "",
+    unit: "1", // Assuming a default unit value; adjust based on your backend requirements
+  },
 }) {
   const [newProduct, setNewProduct] = useState({});
 
@@ -38,7 +48,7 @@ export default function ManageProduct({
 
   return (
     <shad.Card className="w-80 shadCardPadding">
-      <form onSubmit={handleSubmit}>
+      <form onSubmit={handleSubmit} className={shad.form}>
         {/* add img */}
         {product.image && (
           <img
@@ -59,7 +69,7 @@ export default function ManageProduct({
           }
           value={newProduct.image}
           onChange={handleImageURLChange}
-          // className={shad.input}
+          className={shad.input}
         />
         <label htmlFor="productName" className={shad.label}>
           {" "}

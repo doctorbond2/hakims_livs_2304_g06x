@@ -1,19 +1,17 @@
 import * as shad from "@/components/ui/shadBarrel";
-import ProductList from "@/components/productList/ProductList";
 import { useEffect, useState } from "react";
 import { GET_REQUEST } from "@/utils/helpers/request.helper";
-import ProductCard from "@/components/productList/productCards/ProductCard";
+import CategoryList from "@/components/admin/categoryManager/CategoryList";
 
-const Home = () => {
-  const [productList, setProductList] = useState(null);
-  const aNumber = 12;
+const CategoryManager = () => {
+  const [categoryList, setCategoryList] = useState(null);
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await GET_REQUEST("/api/products/");
+        const response = await GET_REQUEST("/api/category/products/amount");
         if (response.data) {
           console.log(response.data);
-          setProductList(response.data);
+          setCategoryList(response.data);
         }
       } catch (err) {
         console.log(err.message);
@@ -24,9 +22,9 @@ const Home = () => {
 
   return (
     <>
-      <>{productList && <ProductList {...{ productList }} />}</>
+      <>{categoryList && <CategoryList {...{ categoryList }} />}</>
     </>
   );
 };
 
-export default Home;
+export default CategoryManager;

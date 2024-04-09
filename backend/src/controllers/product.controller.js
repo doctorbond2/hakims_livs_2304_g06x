@@ -1,4 +1,5 @@
 import Product from "../models/product.model.js";
+import Category from "../models/category.model.js";
 
 export const createProduct = async (req, res) => {
   console.log("product test");
@@ -124,6 +125,30 @@ export const deleteProductById = async (req, res) => {
     });
   }
 };
+
+export const getProductByCategoryId = async (req, res) => {
+  console.log("test get product by category")
+  const categoryId = req.params.categoryId;
+
+  if (!categoryId) {
+    return res.status(400).json({
+      error: "No category id submitted",
+    });
+  }
+
+  try {
+    const products = await Product.find({category: categoryId}).populate("category");
+    res.json(products);
+  } catch (err) {
+    console.log(err.message);
+    res.status(500).json({
+      error: err.message,
+    });
+  }
+
+};
+
+
 export const TEST_deleteAllProducts = async () => {
   if (!req.body && !req.body.key) {
     return res.status(400).json({ error: "No api key??" });
