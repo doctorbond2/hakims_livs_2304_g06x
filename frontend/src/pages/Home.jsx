@@ -4,7 +4,6 @@ import { useEffect, useState } from "react";
 import { GET_REQUEST } from "@/utils/helpers/request.helper";
 import ProductCard from "@/components/productList/productCards/ProductCard";
 
-
 const Home = () => {
   const [productList, setProductList] = useState(null);
   const aNumber = 12;

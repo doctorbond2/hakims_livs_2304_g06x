@@ -1,5 +1,5 @@
 import * as shad from "@/components/ui/shadBarrel";
-
+import CategoryListItem from "./CategoryListItem";
 const CategoryList = ({ categoryList }) => {
   console.log(categoryList);
   return (
@@ -13,23 +13,9 @@ const CategoryList = ({ categoryList }) => {
           </shad.TableRow>
         </shad.TableHeader>
         <shad.TableBody>
-          {categoryList &&
-            categoryList.map((category) => (
-              <shad.TableRow>
-                <shad.TableCell className="font-medium">{category.name}</shad.TableCell>
-                <shad.TableCell>100pcs</shad.TableCell>
-                <shad.TableCell>
-                  <shad.Button variant="secondary" className="">
-                    Edit
-                  </shad.Button>
-                </shad.TableCell>
-                <shad.TableCell className="text-right">
-                  <shad.Button variant="destructive" className="">
-                    Delete
-                  </shad.Button>
-                </shad.TableCell>
-              </shad.TableRow>
-            ))}
+          {categoryList.map((category, index) => {
+            return <CategoryListItem key={"c-" + index} {...{ category }} />;
+          })}
         </shad.TableBody>
       </shad.Table>
     </>
