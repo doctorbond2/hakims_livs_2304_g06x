@@ -22,14 +22,14 @@ const CategoryFilter = ({ onSelectCategory }) => {
 
   const handleCategoryChange = (categoryId) => {
     setSelectedCategory(categoryId);
-    onSelectCategory(categoryId); // Skicka categoryId till förälderkomponenten
+    onSelectCategory(categoryId);
   };
 
   return (
     <div>
-      <h3>Filter by Category</h3>
+      <h3>Filtrera efter kategori</h3>
       <select onChange={(e) => handleCategoryChange(e.target.value)}>
-        <option value="">All</option>
+        <option value="">Alla produkter</option>
         {categories.map((category) => (
           <option key={category._id} value={category._id}>
             {category.name}
