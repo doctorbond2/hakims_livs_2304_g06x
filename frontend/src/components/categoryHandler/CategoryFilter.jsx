@@ -3,12 +3,11 @@ import { GET_REQUEST } from '@/utils/helpers/request.helper';
 
 const CategoryFilter = ({ onSelectCategory }) => {
   const [categories, setCategories] = useState([]);
-  const [selectedCategory, setSelectedCategory] = useState('');
 
   useEffect(() => {
     const fetchCategories = async () => {
       try {
-        const response = await GET_REQUEST('/api/categories');
+        const response = await GET_REQUEST('/api/category');
         if (response.data) {
           setCategories(response.data);
         }
@@ -21,8 +20,7 @@ const CategoryFilter = ({ onSelectCategory }) => {
   }, []);
 
   const handleCategoryChange = (categoryId) => {
-    setSelectedCategory(categoryId);
-    onSelectCategory(categoryId);
+    onSelectCategory(categoryId); 
   };
 
   return (

@@ -7,13 +7,9 @@ import CategoryFilter from "@/components/categoryHandler/CategoryFilter";
 
 
 const Home = () => {
-
-  //PUSHA FÖR I HELVETE
   const [productList, setProductList] = useState(null);
-  const [filterProductList, setFilterProductList] = useState(null);
   const [selectedCategory, setSelectedCategory] = useState("");
 
-  const aNumber = 12;
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -32,14 +28,10 @@ const Home = () => {
     fetchData();
   }, [selectedCategory]);
 
-
   return (
     <>
-      <>
       <CategoryFilter onSelectCategory={setSelectedCategory} />
-      
-      {productList &&
-       <ProductList {...{ productList }} />}</>
+      {productList && <ProductList productList={productList} />}
     </>
   );
 };
