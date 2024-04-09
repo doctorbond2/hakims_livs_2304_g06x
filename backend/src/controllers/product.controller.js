@@ -1,4 +1,5 @@
 import Product from "../models/product.model.js";
+import Category from "../models/category.model.js";
 
 export const createProduct = async (req, res) => {
   console.log("product test");
@@ -125,26 +126,26 @@ export const deleteProductById = async (req, res) => {
   }
 };
 
-export const getProductByCategory = async (req, res) => {
-  console.log("test get product by category")
+export const getProductByCategoryId = async (req, res) => {
   const categoryId = req.params.categoryId;
 
   if (!categoryId) {
     return res.status(400).json({
-      error: "No category id submitted",
+      error: "No category ID provided",
     });
   }
 
   try {
-    const products = await Product.find({category: categoryId}).populate("category");
+    const products = await Product.find({
+      category: mongoose.Types.ObjectId(categoryId),
+    }).populate("category");
     res.json(products);
   } catch (err) {
-    console.log(err.message);
+    console.error(err.message);
     res.status(500).json({
-      error: err.message,
+      error: "Internal server error",
     });
   }
-
 };
 
 
