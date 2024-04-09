@@ -7,6 +7,8 @@ import CategoryFilter from "@/components/categoryHandler/CategoryFilter";
 
 
 const Home = () => {
+
+  //PUSHA FÖR I HELVETE
   const [productList, setProductList] = useState(null);
   const [filterProductList, setFilterProductList] = useState(null);
   const [selectedCategory, setSelectedCategory] = useState("");
@@ -29,6 +31,7 @@ const Home = () => {
     };
     fetchData();
   }, [selectedCategory]);
+
 
   return (
     <>
