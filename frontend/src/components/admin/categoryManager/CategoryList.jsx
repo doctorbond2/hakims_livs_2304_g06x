@@ -5,11 +5,11 @@ const CategoryList = ({ categoryList, handleDeleteCategory }) => {
   return (
     <>
       <shad.Table className="w-[500px] shadow">
-        <shad.TableCaption>All available categories</shad.TableCaption>
+        <shad.TableCaption>Alla kategorier</shad.TableCaption>
         <shad.TableHeader>
           <shad.TableRow>
-            <shad.TableHead className="w-[100px]">Category</shad.TableHead>
-            <shad.TableHead>Product amount</shad.TableHead>
+            <shad.TableHead className="w-[100px]">Kategori</shad.TableHead>
+            <shad.TableHead>Antal unika prod.</shad.TableHead>
           </shad.TableRow>
         </shad.TableHeader>
         <shad.TableBody>
