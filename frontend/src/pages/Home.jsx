@@ -8,13 +8,19 @@ import CategoryFilter from "@/components/categoryHandler/CategoryFilter";
 
 const Home = () => {
   const [productList, setProductList] = useState(null);
+  const [filterProductList, setFilterProductList] = useState(null);
+  const [selectedCategory, setSelectedCategory] = useState("");
+
   const aNumber = 12;
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await GET_REQUEST("/api/products/");
+        let endpoint = "/api/products";
+        if (selectedCategory) {
+          endpoint = `/api/products?category=${selectedCategory}`;
+        }
+        const response = await GET_REQUEST(endpoint);
         if (response.data) {
-          console.log(response.data);
           setProductList(response.data);
         }
       } catch (err) {
@@ -22,11 +28,14 @@ const Home = () => {
       }
     };
     fetchData();
-  }, []);
+  }, [selectedCategory]);
 
   return (
     <>
-      <>{productList &&
+      <>
+      <CategoryFilter onSelectCategory={setSelectedCategory} />
+      
+      {productList &&
        <ProductList {...{ productList }} />}</>
     </>
   );
