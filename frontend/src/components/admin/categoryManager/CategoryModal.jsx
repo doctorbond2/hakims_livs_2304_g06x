@@ -1,10 +1,16 @@
 import React, { useEffect } from "react";
-import { GET_REQUEST } from "@/utils/helpers/request.helper";
 import { useFetch } from "@/utils/hooks/requestHooks";
-const CategoryModal = (category) => {
-  const { data, loading, error } = useFetch();
 
-  return <>Kommer snart!</>;
+const CategoryModal = (category) => {
+  console.log(category.id);
+  // const { data, loading, error } = useFetch(
+  //   "/api/products/category/" + category.id
+  // );
+
+  useEffect(() => {
+    console.log(category.id);
+  }, []);
+  return <>Kommer snvart!</>;
 };
 
 export default CategoryModal;

@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-
+import { GET_REQUEST } from "../helpers/request.helper";
 export const useFetch = (url) => {
   const [data, setData] = useState(null);
   const [loading, setLoading] = useState(true);
@@ -8,7 +8,7 @@ export const useFetch = (url) => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await GET_request(url);
+        const response = await GET_REQUEST(url);
         if (response) {
           setData(response.data);
         }
