@@ -1,6 +1,7 @@
 import * as shad from "@/components/ui/shadBarrel";
 import { useEffect, useState } from "react";
 import { GET_REQUEST } from "@/utils/helpers/request.helper";
+import { DELETE_REQUEST } from "@/utils/helpers/request.helper";
 import CategoryList from "@/components/admin/categoryManager/CategoryList";
 
 const CategoryManager = () => {
@@ -19,10 +20,17 @@ const CategoryManager = () => {
     };
     fetchData();
   }, []);
+  const handleDeleteCategory = async (e, id) => {
+    console.log("test");
+  };
 
   return (
     <>
-      <>{categoryList && <CategoryList {...{ categoryList }} />}</>
+      <>
+        {categoryList && (
+          <CategoryList {...{ categoryList, handleDeleteCategory }} />
+        )}
+      </>
     </>
   );
 };

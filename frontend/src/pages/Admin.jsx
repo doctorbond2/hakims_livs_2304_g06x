@@ -4,6 +4,7 @@ import { POST_REQUEST } from "@/utils/helpers/request.helper";
 import * as shad from "@/components/ui/shadBarrel";
 // import AddNewProduct from "@/components/admin/AddNewProduct";
 import ProductList from "@/components/productList/ProductList";
+import CategoryManager from "@/components/admin/categoryManager/CategoryManager";
 import ProductCard from "@/components/productList/productCards/ProductCard";
 import ManageProduct from "@/components/admin/ManageProduct";
 // import { ProductCardBody } from "@/components/productList/productCards/ProductCardBody";
@@ -76,8 +77,7 @@ export default function Admin() {
       >
         Edit product (show products)
       </shad.Button>
-      {/* {showProducts && products.map((product) => <p>{product.name}</p>)}
-       */}
+
       {showProducts && (
         <div className="flex justify-center">
           <div className="grid grid-cols-2 sm:grid-cols-4">

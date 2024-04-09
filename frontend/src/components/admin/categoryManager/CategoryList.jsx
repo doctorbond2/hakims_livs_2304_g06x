@@ -1,6 +1,6 @@
 import * as shad from "@/components/ui/shadBarrel";
 import CategoryListItem from "./CategoryListItem";
-const CategoryList = ({ categoryList }) => {
+const CategoryList = ({ categoryList, handleDeleteCategory }) => {
   console.log(categoryList);
   return (
     <>
@@ -14,7 +14,12 @@ const CategoryList = ({ categoryList }) => {
         </shad.TableHeader>
         <shad.TableBody>
           {categoryList.map((category, index) => {
-            return <CategoryListItem key={"c-" + index} {...{ category }} />;
+            return (
+              <CategoryListItem
+                key={"c-" + index}
+                {...{ category, handleDeleteCategory }}
+              />
+            );
           })}
         </shad.TableBody>
       </shad.Table>
