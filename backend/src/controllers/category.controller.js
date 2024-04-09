@@ -1,5 +1,5 @@
 import Category from "../models/category.model.js";
-
+import Product from "../models/product.model.js";
 export async function createCategory(req, res) {
   console.log("Category test");
 
@@ -124,7 +124,41 @@ export const deleteCategoryById = async (req, res) => {
     });
   }
 };
-
+export const getCategoriesWithProducts = async (req, res) => {
+  try {
+    const productsPerCategory = await Product.aggregate([
+      {
+        $group: {
+          _id: "$category",
+          count: { $sum: 1 },
+        },
+      },
+      {
+        $lookup: {
+          from: "categories",
+          localField: "_id",
+          foreignField: "_id",
+          as: "categoryData",
+        },
+      },
+      {
+        $unwind: "$categoryData",
+      },
+      {
+        $project: {
+          _id: "$categoryData._id",
+          name: "$categoryData.name",
+          count: 1,
+        },
+      },
+    ]);
+    if (productsPerCategory) {
+      res.status(200).json(productsPerCategory);
+    }
+  } catch (err) {
+    return res.status(500).json({ message: "#WHOPPS" });
+  }
+};
 // import express from "express";
 // import Category from "../models/category.model.js"; // Adjust the path according to your structure
 
