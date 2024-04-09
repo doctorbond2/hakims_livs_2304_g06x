@@ -16,8 +16,8 @@ export default function ProductModal({ product }) {
         <img className="size-auto" src="/powerking.jpg" alt="productImage" />
       </div>
       <div className="grid grid-rows-4">
-        <h2 className="text-3xl">{product.name}</h2>
-        <shad.CardDescription className="">{product.name}</shad.CardDescription>
+        <h2 className="text-3xl">{product.title}</h2>
+        <shad.CardDescription className="">{product.title}</shad.CardDescription>
         <shad.CardTitle className="text-red-500 text-4xl">{product.price}:-</shad.CardTitle>
         <shad.Button className="row-start-4 row-end-4">Köp</shad.Button>
       </div>
