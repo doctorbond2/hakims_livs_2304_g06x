@@ -25,7 +25,8 @@ const Home = () => {
 
   return (
     <>
-      <>{productList && <ProductList {...{ productList }} />}</>
+      <>{productList &&
+       <ProductList {...{ productList }} />}</>
     </>
   );
 };
