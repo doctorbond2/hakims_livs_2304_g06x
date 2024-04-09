@@ -10,10 +10,20 @@ export default function Admin() {
     <div className="flex">
       {/* Sidebar for selecting the tab */}
       <div className="w-48 bg-gray-100 h-screen p-5">
-        <button className={`block w-full text-left ${activeTab === "products" ? "text-blue-500" : "text-black"}`} onClick={() => setActiveTab("products")}>
+        <button
+          className={`block w-full text-left ${
+            activeTab === "products" ? "text-blue-500" : "text-black"
+          }`}
+          onClick={() => setActiveTab("products")}
+        >
           Manage Products
         </button>
-        <button className={`block w-full text-left ${activeTab === "categories" ? "text-blue-500" : "text-black"}`} onClick={() => setActiveTab("categories")}>
+        <button
+          className={`block w-full text-left ${
+            activeTab === "categories" ? "text-blue-500" : "text-black"
+          }`}
+          onClick={() => setActiveTab("categories")}
+        >
           Manage Categories
         </button>
       </div>
