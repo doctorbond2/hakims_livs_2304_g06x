@@ -1,103 +1,28 @@
-import React, { useEffect, useState } from "react";
-import { GET_REQUEST } from "@/utils/helpers/request.helper";
-import { POST_REQUEST } from "@/utils/helpers/request.helper";
-import * as shad from "@/components/ui/shadBarrel";
-// import AddNewProduct from "@/components/admin/AddNewProduct";
-import ProductList from "@/components/productList/ProductList";
-import ProductCard from "@/components/productList/productCards/ProductCard";
-import ManageProduct from "@/components/admin/ManageProduct";
-// import { ProductCardBody } from "@/components/productList/productCards/ProductCardBody";
+import React, { useState } from "react";
+import ManageProductTab from "@/components/admin/ManageProductTab";
+import CategoryManager from "@/components/admin/categoryManager/CategoryManager";
 
 export default function Admin() {
-  const [showAddProduct, setShowAddProduct] = useState(false);
-  const [products, setProducts] = useState([{}]);
-  const [showProducts, setShowProducts] = useState(false);
-
-  async function handleSubmit(newProduct) {
-    console.log("test");
-
-    console.log(newProduct);
-    try {
-      const response = await POST_REQUEST("/api/products/create/", newProduct);
-      if (response.status === 201) {
-        console.log("Good job dude");
-      } else {
-        console.log("auhuaehuaheuaheuhauhueuahuhae");
-      }
-    } catch (err) {
-      console.error(err.message);
-    }
-  }
-
-  async function handleDelete(productId) {
-    try {
-      const response = await DELETE_REQUEST(
-        `/api/products/delete/${productId}`
-      );
-      if (response.status === 200) {
-        fetchProducts(); // Uppdatera produktlistan
-      }
-    } catch (err) {
-      console.error(err.message);
-    }
-  }
-
-  //Lägg in en knapp för att hämta alla produkter
-  // klicka på produkt och få upp en modal med info om produkten
-  useEffect(() => {
-    async function fetchProducts() {
-      try {
-        const response = await GET_REQUEST("/api/products/");
-        if (response.data) {
-          console.log(response.data);
-          setProducts(response.data);
-        }
-      } catch (err) {
-        console.log(err.message);
-      }
-    }
-    fetchProducts();
-  }, []);
+  // State to track which tab is active
+  const [activeTab, setActiveTab] = useState("products");
 
   return (
-    <>
-      <shad.Button
-        onClick={() => setShowAddProduct(!showAddProduct)}
-        variant="outline"
-      >
-        Add new product
-      </shad.Button>
+    <div className="flex">
+      {/* Sidebar for selecting the tab */}
+      <div className="w-48 bg-gray-100 h-screen p-5">
+        <button className={`block w-full text-left ${activeTab === "products" ? "text-blue-500" : "text-black"}`} onClick={() => setActiveTab("products")}>
+          Manage Products
+        </button>
+        <button className={`block w-full text-left ${activeTab === "categories" ? "text-blue-500" : "text-black"}`} onClick={() => setActiveTab("categories")}>
+          Manage Categories
+        </button>
+      </div>
 
-      {showAddProduct && <ManageProduct onSubmit={handleSubmit} />}
-
-      <shad.Button
-        onClick={() => setShowProducts(!showProducts)}
-        variant="outline"
-      >
-        Edit product (show products)
-      </shad.Button>
-      {/* {showProducts && products.map((product) => <p>{product.name}</p>)}
-       */}
-      {showProducts && (
-        <div className="flex justify-center">
-          <div className="grid grid-cols-2 sm:grid-cols-4">
-            {products &&
-              products.map((product) => (
-                <>
-                  <div>
-                    <ProductCard
-                      product={product}
-                      buyOrEdit={"Edit"}
-                      onSubmit={handleSubmit}
-                      onDelete={handleDelete}
-                    />
-                    {console.log(shad.Button)}
-                  </div>
-                </>
-              ))}
-          </div>
-        </div>
-      )}
-    </>
+      {/* Main content area */}
+      <div className="flex-grow p-15 flex justify-center">
+        {activeTab === "products" && <ManageProductTab />}
+        {activeTab === "categories" && <CategoryManager />}
+      </div>
+    </div>
   );
 }
