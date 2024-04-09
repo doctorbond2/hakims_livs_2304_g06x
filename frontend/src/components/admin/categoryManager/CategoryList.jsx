@@ -17,7 +17,7 @@ const CategoryList = ({ categoryList, handleDeleteCategory }) => {
             return (
               <CategoryListItem
                 key={"c-" + index}
-                {...{ category, handleDeleteCategory }}
+                {...{ category, handleDeleteCategory, index }}
               />
             );
           })}

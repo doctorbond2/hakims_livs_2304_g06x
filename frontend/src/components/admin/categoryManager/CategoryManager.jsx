@@ -6,6 +6,21 @@ import CategoryList from "@/components/admin/categoryManager/CategoryList";
 
 const CategoryManager = () => {
   const [categoryList, setCategoryList] = useState(null);
+  const handleDeleteCategory = async (id, index) => {
+    console.log("test");
+    console.log(index);
+    try {
+      const response = await DELETE_REQUEST("/api/category/" + id);
+      if (response.status === 204) {
+        const newList = [...categoryList];
+        newList.splice(index, 1);
+        setCategoryList(newList);
+        console.log(response);
+      }
+    } catch (err) {
+      console.log(err.message);
+    }
+  };
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -20,9 +35,6 @@ const CategoryManager = () => {
     };
     fetchData();
   }, []);
-  const handleDeleteCategory = async (e, id) => {
-    console.log("test");
-  };
 
   return (
     <>
