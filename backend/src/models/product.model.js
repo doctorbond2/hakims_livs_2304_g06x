@@ -12,7 +12,7 @@ const productSchema = new Schema(
       index: true,
     },
     image: {
-      url: { type: String, default: "/powerking.jpg" },
+      url: { type: String, default: "" },
       alt: {
         type: String,
         default: function () {

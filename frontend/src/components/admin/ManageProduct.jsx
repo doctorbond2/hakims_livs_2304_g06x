@@ -20,9 +20,9 @@ export default function ManageProduct({
 }) {
   const [newProduct, setNewProduct] = useState(product);
 
-  useEffect(() => {
-    setNewProduct(product); // Uppdatera tillståndet när `product` props uppdateras
-  }, [product]);
+  // useEffect(() => {
+  //   setNewProduct(product); // Uppdatera tillståndet när `product` props uppdateras
+  // }, [product]);
 
   function handleChange(e) {
     const { name, value } = e.target;
