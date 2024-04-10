@@ -3,7 +3,7 @@ import { useFetch } from "@/utils/hooks/requestHooks";
 import * as shad from "@/components/ui/shadBarrel";
 import { SelectGroup, SelectLabel } from "@radix-ui/react-select";
 
-const CategoryModal = ({ category }) => {
+const EditCategoryModal = ({ category }) => {
   const {
     data: productData,
     loading,
@@ -81,4 +81,4 @@ const CategoryModal = ({ category }) => {
   );
 };
 
-export default CategoryModal;
+export default EditCategoryModal;
