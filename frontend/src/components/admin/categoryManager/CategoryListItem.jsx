@@ -8,34 +8,39 @@ const CategoryListItem = ({ category, handleDeleteCategory, index }) => {
       await handleDeleteCategory(category_id, index);
     }
   };
+  const number = 12;
   return (
     <>
       <shad.Dialog>
         <shad.TableRow>
-          <shad.TableCell className="font-medium">{category.name}</shad.TableCell>
           <shad.TableCell className="font-medium">
-            <span className="font-bold">{category.productCount}</span> {"produkter"}
+            {category.name}
           </shad.TableCell>
-          <shad.TableCell>
-            <shad.DialogTrigger asChild></shad.DialogTrigger>
+          <shad.TableCell className="font-medium">
+            <span className="font-bold">{category.productCount}</span>{" "}
+            {"produkter"}
           </shad.TableCell>
+          <shad.TableCell></shad.TableCell>
           <shad.TableCell className="text-right">
+            <shad.DialogTrigger asChild>
+              <shad.Button
+                variant="outline"
+                className="shadow-md shadow-gray-500/50 mr-2"
+              >
+                Redigera
+              </shad.Button>
+            </shad.DialogTrigger>
             <shad.Button
-              variant="outline"
-              className="shadow-md shadow-gray-500/50 mr-2"
-              onClick={() => {
-                console.log("asd");
-              }}
+              variant="destructive"
+              className="shadow-md shadow-gray-500/50"
+              onClick={handleDelete}
             >
-              Redigera
-            </shad.Button>
-            <shad.Button variant="destructive" className="shadow-md shadow-gray-500/50" onClick={handleDelete}>
               Radera
             </shad.Button>
           </shad.TableCell>
         </shad.TableRow>
         <shad.DialogContent>
-          <CategoryModal {...{ category }} />
+          {category && <CategoryModal {...{ category }} />}
         </shad.DialogContent>
       </shad.Dialog>
     </>
