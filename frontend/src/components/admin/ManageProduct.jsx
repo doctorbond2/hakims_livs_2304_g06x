@@ -6,6 +6,7 @@ import * as shad from "@/components/ui/shadBarrel";
 export default function ManageProduct({
   onSubmit,
   onDelete,
+  onEdit,
   addOrEdit = "add",
   product = {
     image: { url: "", alt: "Product Image" },
@@ -66,6 +67,10 @@ export default function ManageProduct({
         alert("Product deleted successfully!");
       }
     }
+  }
+  async function handleEdit(e) {
+    e.preventDefault();
+    await onEdit(newProduct);
   }
 
   return (
@@ -160,9 +165,13 @@ export default function ManageProduct({
           onChange={handleChange}
         />
 
-        <shad.Button type="submit">
-          {addOrEdit === "add" ? "Add Product" : "Update Product"}
-        </shad.Button>
+        {addOrEdit === "add" ? (
+          <shad.Button type="submit">"Add Product" </shad.Button>
+        ) : (
+          <shad.Button type="button" onClick={handleEdit}>
+            "Update Product"
+          </shad.Button>
+        )}
 
         {addOrEdit !== "add" && (
           <shad.Button type="button" onClick={handleDelete}>
