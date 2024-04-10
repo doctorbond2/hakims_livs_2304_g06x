@@ -38,7 +38,7 @@ const productSchema = new Schema(
     },
     price: { type: Number, required: true, default: 0, min: 0, max: 10000 },
     discountRate: { type: Number, default: 0, min: 0, max: 100 },
-    unitPrice: { type: Number, required: true, default: 0, min: 0, max: 10000 }, //jämförspris
+    quantity: { type: Number, required: true, default: 1, min: 0.01 },
     unit: {
       type: String,
       required: true,
@@ -81,6 +81,13 @@ productSchema.virtual("savings").get(function () {
     originalPrice - (originalPrice * this.discountRate) / 100;
   const savings = originalPrice - discountedPrice;
   return parseFloat(savings.toFixed(2));
+});
+
+productSchema.virtual("comparePrice").get(function() {
+  const discountedPrice = this.price - (this.price * this.discountRate / 100);
+  const quantity = this.quantity || 1;
+  const comparePrice = discountedPrice / quantity;
+  return parseFloat(comparePrice.toFixed(2));
 });
 
 // productSchema.pre("save", (next) => {

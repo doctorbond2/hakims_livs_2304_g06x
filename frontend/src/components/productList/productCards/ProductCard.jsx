@@ -25,7 +25,7 @@ const ProductCard = ({ product, buyOrEdit, onSubmit, onEdit, onDelete }) => {
                 <a className="relative">
                   {" "}
                   {product.discountRate > 0 && (
-                    <div className="absolute top-0 left-0 bg-red-500 text-white text-sm p-1">{product.discountRate}% Off</div>
+                    <div className="absolute  top-1 left-1 rounded p-1.5 bg-red-500 text-white text-sm italic font-bold">-{product.discountRate}%</div>
                   )}
                   <ProductCardBody product={product} />
                 </a>
