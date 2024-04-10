@@ -1,27 +1,26 @@
 import React from "react";
 import * as shad from "@/components/ui/shadBarrel";
+import CategoryAddForm from "./CategoryAddForm";
+import { POST_REQUEST } from "@/utils/helpers/request.helper";
 
-const CategoryAddModal = (handleAddCategory) => {
+const CategoryAddModal = ({}) => {
+  const handleAddCategory = async (data) => {
+    console.log("DATA:", data);
+    if (!data) {
+      return;
+    }
+    try {
+      const response = await POST_REQUEST("/api/category/create/", data);
+      if (response.status === 204) {
+        console.log("Category created!");
+      }
+    } catch (err) {
+      console.error(err.message);
+    }
+  };
   return (
     <>
-      <shad.Card className="w-80 shadCardPadding">
-        <form onSubmit={handleAddCategory}>
-          <shad.Label htmlFor="category-add-title">Kategori titel</shad.Label>
-          <shad.Input
-            id="category-add-title"
-            name="category-add-title"
-            type="text"
-            placeholder="Ex. Fruits"
-          />
-          <shad.Label htmlFor="image.url">Beskrivning</shad.Label>
-          <shad.Input
-            id="category-add-desc"
-            name="category-add-desc"
-            type="text"
-            placeholder="Fruitiest fruits ya know"
-          />
-        </form>
-      </shad.Card>
+      <CategoryAddForm {...{ handleAddCategory }} />
     </>
   );
 };
