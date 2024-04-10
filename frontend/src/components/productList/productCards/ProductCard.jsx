@@ -4,7 +4,7 @@ import ProductCardBody from "./ProductCardBody";
 import ProductModal from "./ProductModal"; // Re-added for the "buy" scenario
 import ManageProduct from "@/components/admin/ManageProduct";
 
-const ProductCard = ({ product, buyOrEdit, onSubmit, onDelete }) => {
+const ProductCard = ({ product, buyOrEdit, onSubmit, onEdit, onDelete }) => {
   const [isBuy, setIsBuy] = useState(buyOrEdit.toLowerCase() === "köp");
 
   useEffect(() => {
@@ -37,6 +37,7 @@ const ProductCard = ({ product, buyOrEdit, onSubmit, onDelete }) => {
                     addOrEdit="edit"
                     product={product}
                     onDelete={onDelete}
+                    onEdit={onEdit}
                   />
                 </shad.Card>
               </shad.DialogContent>

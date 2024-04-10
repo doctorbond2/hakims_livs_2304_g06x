@@ -107,7 +107,8 @@ export default function ManageProductTab() {
               <ProductCard
                 product={product}
                 buyOrEdit="Edit"
-                onSubmit={handleEdit}
+                onSubmit={handleSubmit}
+                onEdit={handleEdit}
                 onDelete={handleDelete}
               />
             </div>
