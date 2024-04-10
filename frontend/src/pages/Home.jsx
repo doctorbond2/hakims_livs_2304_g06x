@@ -15,7 +15,7 @@ const Home = () => {
       try {
         let endpoint = "/api/products";
         if (selectedCategory) {
-          endpoint = `/api/products?category=${selectedCategory}`;
+          endpoint = `/api/products/category/${selectedCategory}`;
         }
         const response = await GET_REQUEST(endpoint);
         if (response.data) {
