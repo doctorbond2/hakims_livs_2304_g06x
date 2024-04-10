@@ -51,7 +51,7 @@ export default function ManageProduct({
     e.preventDefault();
     const areYouSure = confirm("Are you sure you want to delete this product?");
 
-    if (onDelete && product.id && areYouSure) {
+    if (product.id && areYouSure) {
       const deleted = await onDelete(product.id);
       if (deleted) {
         setNewProduct({
