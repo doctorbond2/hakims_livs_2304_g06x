@@ -128,9 +128,8 @@ export const getDetailedCategories = async (req, res) => {
     for (const ctgry of allCategories) {
       const x = await Product.find({ category: ctgry });
       detailedCategories.push({
-        id: ctgry._id,
-        name: ctgry.name,
         productCount: x.length,
+        ...ctgry._doc,
       });
     }
     if (detailedCategories && detailedCategories.length > 0) {

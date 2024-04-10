@@ -1,11 +1,7 @@
 import * as shad from "@/components/ui/shadBarrel";
 import CategoryListItem from "./CategoryListItem";
 import CategoryAddModal from "./CategoryAddModal";
-const CategoryList = ({
-  categoryList,
-  handleDeleteCategory,
-  handleAddCategory,
-}) => {
+const CategoryList = ({ categoryList, handleDeleteCategory }) => {
   console.log(categoryList);
 
   return (
@@ -18,12 +14,7 @@ const CategoryList = ({
                 <shad.TableHead>KATEGORIER</shad.TableHead>
                 <shad.TableHead>
                   <shad.DialogTrigger>
-                    <shad.Button
-                      className={"bg-gray-400"}
-                      onClick={handleAddCategory}
-                    >
-                      +
-                    </shad.Button>
+                    <shad.Button className={"bg-gray-400"}>+</shad.Button>
                   </shad.DialogTrigger>
                 </shad.TableHead>
               </shad.TableRow>
@@ -33,7 +24,11 @@ const CategoryList = ({
                 return (
                   <CategoryListItem
                     key={"c-" + index}
-                    {...{ category, handleDeleteCategory, index }}
+                    {...{
+                      category,
+                      handleDeleteCategory,
+                      index,
+                    }}
                   />
                 );
               })}
@@ -41,7 +36,7 @@ const CategoryList = ({
           </shad.Table>
         </div>
         <shad.DialogContent>
-          <CategoryAddModal {...{ handleAddCategory }} />
+          <CategoryAddModal {...{}} />
         </shad.DialogContent>
       </shad.Dialog>
     </>
