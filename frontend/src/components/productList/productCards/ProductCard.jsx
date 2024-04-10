@@ -30,8 +30,8 @@ const ProductCard = ({ product, buyOrEdit, onSubmit }) => {
           ) : (
             // For scenarios other than "buy"
             <>
-              <shad.DialogContent className="sm:max-w-[600px] justify-center">
-                <shad.Card className="border-slate-300">
+              <shad.DialogContent className="sm:max-w-[600px] justify-center max-h-screen overflow-auto">
+                <shad.Card className="border-slate-300 max-h-screen overflow-auto">
                   <ManageProduct
                     onSubmit={onSubmit}
                     addOrEdit="edit"
