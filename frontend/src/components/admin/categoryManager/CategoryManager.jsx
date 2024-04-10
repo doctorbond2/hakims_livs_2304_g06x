@@ -24,6 +24,9 @@ const CategoryManager = () => {
       console.log(err.message);
     }
   };
+  const handleAddCategory = async () => {
+    console.log("asd");
+  };
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -43,7 +46,9 @@ const CategoryManager = () => {
     <>
       <div className="flex w-full justify-center">
         {categoryList && (
-          <CategoryList {...{ categoryList, handleDeleteCategory }} />
+          <CategoryList
+            {...{ categoryList, handleDeleteCategory, handleAddCategory }}
+          />
         )}
       </div>
     </>
