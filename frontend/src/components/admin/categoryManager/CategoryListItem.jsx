@@ -1,8 +1,9 @@
 import React from "react";
 import * as shad from "@/components/ui/shadBarrel";
-import CategoryModal from "./CategoryModal";
+import EditCategoryModal from "./EditCategoryModal";
 const CategoryListItem = ({ category, handleDeleteCategory, index }) => {
-  const category_id = category.id;
+  const category_id = category._id;
+  console.log("CATEGORY:", category);
   const handleDelete = async () => {
     if (category_id) {
       await handleDeleteCategory(category_id, index);
@@ -40,7 +41,7 @@ const CategoryListItem = ({ category, handleDeleteCategory, index }) => {
           </shad.TableCell>
         </shad.TableRow>
         <shad.DialogContent>
-          {category && <CategoryModal {...{ category }} />}
+          {category && <EditCategoryModal {...{ category }} />}
         </shad.DialogContent>
       </shad.Dialog>
     </>

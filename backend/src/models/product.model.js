@@ -12,7 +12,7 @@ const productSchema = new Schema(
       index: true,
     },
     image: {
-      url: { type: String, default: "/powerking.jpg" },
+      url: { type: String, default: "" },
       alt: {
         type: String,
         default: function () {
@@ -37,7 +37,8 @@ const productSchema = new Schema(
       default: null,
     },
     price: { type: Number, required: true, default: 0, min: 0, max: 10000 },
-    unitPrice: { type: Number, required: true, default: 0, min: 0, max: 10000 }, //jämförspris
+    discountRate: { type: Number, default: 0, min: 0, max: 100 },
+    quantity: { type: Number, required: true, default: 1, min: 0.01 },
     unit: {
       type: String,
       required: true,
@@ -64,8 +65,30 @@ const productSchema = new Schema(
   },
   {
     timestamps: true,
+    toJSON: { virtuals: true },
+    toObject: { virtuals: true },
   }
 );
+
+productSchema.virtual("discountedPrice").get(function () {
+  const discountedPrice = this.price - (this.price * this.discountRate) / 100;
+  return parseFloat(discountedPrice.toFixed(2));
+});
+
+productSchema.virtual("savings").get(function () {
+  const originalPrice = this.price;
+  const discountedPrice =
+    originalPrice - (originalPrice * this.discountRate) / 100;
+  const savings = originalPrice - discountedPrice;
+  return parseFloat(savings.toFixed(2));
+});
+
+productSchema.virtual("comparePrice").get(function() {
+  const discountedPrice = this.price - (this.price * this.discountRate / 100);
+  const quantity = this.quantity || 1;
+  const comparePrice = discountedPrice / quantity;
+  return parseFloat(comparePrice.toFixed(2));
+});
 
 // productSchema.pre("save", (next) => {
 //   const product_doc = this;

@@ -1,18 +1,20 @@
 import * as shad from "@/components/ui/shadBarrel";
 import { useEffect, useState } from "react";
 import { GET_REQUEST } from "@/utils/helpers/request.helper";
+import CategoryAddForm from "./CategoryAddForm";
 import { DELETE_REQUEST } from "@/utils/helpers/request.helper";
 import CategoryList from "@/components/admin/categoryManager/CategoryList";
 
 const CategoryManager = () => {
   const [categoryList, setCategoryList] = useState(null);
+
   const handleDeleteCategory = async (id, index) => {
     const yes = confirm("Are you sure you want to delete? JA, Knappen funkar!");
     if (!yes) {
       return;
     }
     try {
-      const response = await DELETE_REQUEST("/api/category/" + id);
+      const response = await DELETE_REQUEST("/api/category/delete/" + id);
       if (response.status === 204) {
         const newList = [...categoryList];
         newList.splice(index, 1);
@@ -23,6 +25,7 @@ const CategoryManager = () => {
       console.log(err.message);
     }
   };
+
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -39,11 +42,18 @@ const CategoryManager = () => {
   }, []);
 
   return (
-    <div className="flex w-full justify-center">
-      {categoryList && (
-        <CategoryList {...{ categoryList, handleDeleteCategory }} />
-      )}
-    </div>
+    <>
+      <div className="flex w-full justify-center">
+        {categoryList && (
+          <CategoryList
+            {...{
+              categoryList,
+              handleDeleteCategory,
+            }}
+          />
+        )}
+      </div>
+    </>
   );
 };
 

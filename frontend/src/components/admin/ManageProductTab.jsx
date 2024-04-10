@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from "react";
 import { GET_REQUEST } from "@/utils/helpers/request.helper";
 import { POST_REQUEST } from "@/utils/helpers/request.helper";
+import { DELETE_REQUEST } from "@/utils/helpers/request.helper";
+import { PUT_REQUEST } from "@/utils/helpers/request.helper";
 import * as shad from "@/components/ui/shadBarrel";
 // import AddNewProduct from "@/components/admin/AddNewProduct";
 import ProductList from "@/components/productList/ProductList";
@@ -14,8 +16,6 @@ export default function ManageProductTab() {
   const [showProducts, setShowProducts] = useState(false);
 
   async function handleSubmit(newProduct) {
-    console.log("test");
-
     console.log(newProduct);
     try {
       const response = await POST_REQUEST("/api/products/create/", newProduct);
@@ -29,27 +29,47 @@ export default function ManageProductTab() {
     }
   }
 
+  async function handleEdit(product) {
+    try {
+      const response = await PUT_REQUEST(
+        `/api/products/update/${product.id}`,
+        product
+      );
+      if (response.status === 200) {
+        const newResponse = await GET_REQUEST("/api/products/");
+        if (newResponse.status === 200) {
+          setProducts([...newResponse.data]);
+        }
+      }
+    } catch (err) {
+      console.error(err.message);
+      console.log("Product not updated");
+    }
+  }
+
   async function handleDelete(productId) {
     try {
       const response = await DELETE_REQUEST(
         `/api/products/delete/${productId}`
       );
-      if (response.status === 200) {
-        fetchProducts(); // Uppdatera produktlistan
+      if (response.status === 204) {
+        console.log("Product deleted");
+        const newResponse = await GET_REQUEST("/api/products/");
+        if (newResponse.status === 200) {
+          setProducts([...newResponse.data]);
+        }
       }
     } catch (err) {
       console.error(err.message);
+      console.log("Product not deleted");
     }
   }
 
-  //Lägg in en knapp för att hämta alla produkter
-  // klicka på produkt och få upp en modal med info om produkten
   useEffect(() => {
     async function fetchProducts() {
       try {
         const response = await GET_REQUEST("/api/products/");
         if (response.data) {
-          console.log(response.data);
           setProducts(response.data);
         }
       } catch (err) {
@@ -60,44 +80,43 @@ export default function ManageProductTab() {
   }, []);
 
   return (
-    <>
-      <shad.Button
-        onClick={() => setShowAddProduct(!showAddProduct)}
-        variant="outline"
-      >
-        Add new product
-      </shad.Button>
+    <div className="grid gap-4 p-4">
+      {/* Justera höjden på knapparna istället för hela raden */}
+      <div className="flex justify-around mb-4">
+        <shad.Button
+          onClick={() => setShowAddProduct(!showAddProduct)}
+          className="text-xs py-1 px-2"
+          variant="outline"
+        >
+          Add new product
+        </shad.Button>
+        <shad.Button
+          onClick={() => setShowProducts(!showProducts)}
+          className="text-xs py-1 px-2"
+          variant="outline"
+        >
+          Edit product (show products)
+        </shad.Button>
+      </div>
 
+      {/* Innehållet */}
       {showAddProduct && <ManageProduct onSubmit={handleSubmit} />}
 
-      <shad.Button
-        onClick={() => setShowProducts(!showProducts)}
-        variant="outline"
-      >
-        Edit product (show products)
-      </shad.Button>
-      {/* {showProducts && products.map((product) => <p>{product.name}</p>)}
-       */}
       {showProducts && (
-        <div className="flex justify-center">
-          <div className="grid grid-cols-2 sm:grid-cols-4">
-            {products &&
-              products.map((product) => (
-                <>
-                  <div>
-                    <ProductCard
-                      product={product}
-                      buyOrEdit={"Edit"}
-                      onSubmit={handleSubmit}
-                      onDelete={handleDelete}
-                    />
-                    {console.log(shad.Button)}
-                  </div>
-                </>
-              ))}
-          </div>
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 min-w-full ">
+          {products.map((product, index) => (
+            <div key={index} className="p-5 min-w-full ">
+              <ProductCard
+                product={product}
+                buyOrEdit="Edit"
+                onSubmit={handleSubmit}
+                onEdit={handleEdit}
+                onDelete={handleDelete}
+              />
+            </div>
+          ))}
         </div>
       )}
-    </>
+    </div>
   );
 }
