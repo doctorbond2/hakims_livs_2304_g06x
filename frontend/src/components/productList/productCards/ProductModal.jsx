@@ -22,11 +22,9 @@ export default function ProductModal({ product }) {
         <shad.Button className="row-start-4 row-end-4">Köp</shad.Button>
       </div>
       <div className="w-full">
+        <DetailSection title="Varumärke:" info={`${product.brand}`} />
         <DetailSection title="Normalpris:" info={`${product.price} kr/st`} />
-        <DetailSection title="Du sparar:" info={`${product.savings} kr`} />
-        <DetailSection title="Styckpris:" info={`${product.unitPrice} kr`} />
-        <DetailSection title="Jämförpris:" info={`${product.comparePrice} kr/l`} />
-        <DetailSection title="Pant:" info={`${product.deposit} kr`} />
+        <DetailSection title="Du sparar:" info={`0 kr`} />
         <DetailSection title="Antal kvar:" info={`${product.stock}+`} />
       </div>
     </>
