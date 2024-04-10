@@ -31,6 +31,22 @@ export default function ManageProductTab() {
     }
   }
 
+  async function handleEdit(product) {
+    try {
+      const response = await PUT_REQUEST(
+        `/api/products/update/${product.id}`,
+        product
+      );
+      if (response.status === 200) {
+        fetchProducts(); // Uppdatera produktlistan
+        console.log("Product updated");
+      }
+    } catch (err) {
+      console.error(err.message);
+      console.log("Product not updated");
+    }
+  }
+
   async function handleDelete(productId) {
     try {
       const response = await DELETE_REQUEST(
@@ -38,9 +54,11 @@ export default function ManageProductTab() {
       );
       if (response.status === 200) {
         fetchProducts(); // Uppdatera produktlistan
+        console.log("Product deleted");
       }
     } catch (err) {
       console.error(err.message);
+      console.log("Product not deleted");
     }
   }
 
@@ -89,7 +107,7 @@ export default function ManageProductTab() {
               <ProductCard
                 product={product}
                 buyOrEdit="Edit"
-                onSubmit={handleSubmit}
+                onSubmit={handleEdit}
                 onDelete={handleDelete}
               />
             </div>
