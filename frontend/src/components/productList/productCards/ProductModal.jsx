@@ -18,13 +18,13 @@ export default function ProductModal({ product }) {
       <div className="grid grid-rows-4">
         <h2 className="text-3xl">{product.title}</h2>
         <shad.CardDescription className="">{product.description}</shad.CardDescription>
-        <shad.CardTitle className="text-red-500 text-4xl">{product.price}:-</shad.CardTitle>
+        <shad.CardTitle className="text-red-500 text-4xl">{product.discountedPrice}:-</shad.CardTitle>
         <shad.Button className="row-start-4 row-end-4">Köp</shad.Button>
       </div>
       <div className="w-full">
         <DetailSection title="Varumärke:" info={`${product.brand}`} />
         <DetailSection title="Normalpris:" info={`${product.price} kr/st`} />
-        <DetailSection title="Du sparar:" info={`0 kr`} />
+        <DetailSection title="Du sparar:" info={`${product.savings} kr/st`} />
         <DetailSection title="Antal kvar:" info={`${product.stock}+`} />
       </div>
     </>

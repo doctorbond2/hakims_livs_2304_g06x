@@ -8,12 +8,10 @@ export default function ProductCardBody({ product, editMode }) {
       </shad.CardContent>
       <div className="p-10">
         <shad.CardTitle className="flex justify-center content-end pb-2 text-red-500">
-          {product.price}:-
+          {product.discountedPrice}:-
         </shad.CardTitle>
         <p className="flex justify-center content-end">{product.title}</p>
-        <shad.CardDescription className="flex justify-center content-end">
-          {product.title}
-        </shad.CardDescription>
+        <shad.CardDescription className="flex justify-center content-end">{product.brand}</shad.CardDescription>
       </div>
     </>
   );

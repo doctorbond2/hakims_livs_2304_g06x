@@ -22,7 +22,11 @@ const ProductCard = ({ product, buyOrEdit, onSubmit, onEdit, onDelete }) => {
                 <ProductModal product={product} />
               </shad.DialogContent>
               <shad.DialogTrigger asChild>
-                <a>
+                <a className="relative">
+                  {" "}
+                  {product.discountRate > 0 && (
+                    <div className="absolute top-0 left-0 bg-red-500 text-white text-sm p-1">{product.discountRate}% Off</div>
+                  )}
                   <ProductCardBody product={product} />
                 </a>
               </shad.DialogTrigger>
@@ -32,13 +36,7 @@ const ProductCard = ({ product, buyOrEdit, onSubmit, onEdit, onDelete }) => {
             <>
               <shad.DialogContent className="sm:max-w-[600px] justify-center max-h-screen overflow-auto">
                 <shad.Card className="border-slate-300 max-h-screen">
-                  <ManageProduct
-                    onSubmit={onSubmit}
-                    addOrEdit="edit"
-                    product={product}
-                    onDelete={onDelete}
-                    onEdit={onEdit}
-                  />
+                  <ManageProduct onSubmit={onSubmit} addOrEdit="edit" product={product} onDelete={onDelete} onEdit={onEdit} />
                 </shad.Card>
               </shad.DialogContent>
               <ProductCardBody product={product} />
