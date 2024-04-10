@@ -1,6 +1,6 @@
 import * as shad from "@/components/ui/shadBarrel";
 import CategoryListItem from "./CategoryListItem";
-import AddCategoryModal from "./AddCategoryModal";
+import CategoryAddModal from "./CategoryAddModal";
 const CategoryList = ({
   categoryList,
   handleDeleteCategory,
@@ -41,7 +41,7 @@ const CategoryList = ({
           </shad.Table>
         </div>
         <shad.DialogContent>
-          <AddCategoryModal {...{ handleAddCategory }} />
+          <CategoryAddModal {...{ handleAddCategory }} />
         </shad.DialogContent>
       </shad.Dialog>
     </>
