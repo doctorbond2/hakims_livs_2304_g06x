@@ -77,7 +77,8 @@ productSchema.virtual("discountedPrice").get(function () {
 
 productSchema.virtual("savings").get(function () {
   const originalPrice = this.price;
-  const discountedPrice = originalPrice - (originalPrice * this.discountRate) / 100;
+  const discountedPrice =
+    originalPrice - (originalPrice * this.discountRate) / 100;
   const savings = originalPrice - discountedPrice;
   return parseFloat(savings.toFixed(2));
 });

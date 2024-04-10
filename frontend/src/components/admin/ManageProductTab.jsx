@@ -16,8 +16,6 @@ export default function ManageProductTab() {
   const [showProducts, setShowProducts] = useState(false);
 
   async function handleSubmit(newProduct) {
-    console.log("test");
-
     console.log(newProduct);
     try {
       const response = await POST_REQUEST("/api/products/create/", newProduct);
@@ -40,7 +38,7 @@ export default function ManageProductTab() {
       if (response.status === 200) {
         const newResponse = await GET_REQUEST("/api/products/");
         if (newResponse.status === 200) {
-          setProducts([...newResponse]);
+          setProducts([...newResponse.data]);
         }
       }
     } catch (err) {
@@ -58,7 +56,7 @@ export default function ManageProductTab() {
         console.log("Product deleted");
         const newResponse = await GET_REQUEST("/api/products/");
         if (newResponse.status === 200) {
-          setProducts([...newResponse]);
+          setProducts([...newResponse.data]);
         }
       }
     } catch (err) {
@@ -72,7 +70,6 @@ export default function ManageProductTab() {
       try {
         const response = await GET_REQUEST("/api/products/");
         if (response.data) {
-          console.log(response.data);
           setProducts(response.data);
         }
       } catch (err) {
