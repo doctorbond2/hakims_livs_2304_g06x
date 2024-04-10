@@ -19,6 +19,7 @@ const Home = () => {
         }
         const response = await GET_REQUEST(endpoint);
         if (response.data) {
+          console.log(response.data);
           setProductList(response.data);
         }
       } catch (err) {

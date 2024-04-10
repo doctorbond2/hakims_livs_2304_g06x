@@ -126,7 +126,7 @@ export const deleteProductById = async (req, res) => {
   }
 };
 
-export const getProductByCategoryId = async (req, res) => {
+export const getProductsByCategoryId = async (req, res) => {
   console.log("test get product by category");
   const categoryId = req.params.categoryId;
 
@@ -140,7 +140,7 @@ export const getProductByCategoryId = async (req, res) => {
     const products = await Product.find({ category: categoryId }).populate(
       "category"
     );
-    res.json(products);
+    res.status(200).json(products);
   } catch (err) {
     console.log(err.message);
     res.status(500).json({

@@ -32,14 +32,18 @@ const ProductCard = ({ product, buyOrEdit, onSubmit }) => {
             <>
               <shad.DialogContent className="sm:max-w-[600px] justify-center">
                 <shad.Card className="border-slate-300">
-                  <ManageProduct onSubmit={onSubmit} addOrEdit="edit" product={product} />
+                  <ManageProduct
+                    onSubmit={onSubmit}
+                    addOrEdit="edit"
+                    product={product}
+                  />
                 </shad.Card>
               </shad.DialogContent>
               <ProductCardBody product={product} />
             </>
           )}
 
-<div className="pb-2 content-end flex justify-center">
+          <div className="pb-2 content-end flex justify-center">
             {!isBuy ? (
               <shad.DialogTrigger asChild>
                 <shad.Button className="w-[230px]">{buyOrEdit}</shad.Button>
