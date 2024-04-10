@@ -1,6 +1,7 @@
 import * as shad from "@/components/ui/shadBarrel";
 import { useEffect, useState } from "react";
 import { GET_REQUEST } from "@/utils/helpers/request.helper";
+import CategoryAddForm from "./CategoryAddForm";
 import { DELETE_REQUEST } from "@/utils/helpers/request.helper";
 import CategoryList from "@/components/admin/categoryManager/CategoryList";
 
@@ -39,11 +40,13 @@ const CategoryManager = () => {
   }, []);
 
   return (
-    <div className="flex w-full justify-center">
-      {categoryList && (
-        <CategoryList {...{ categoryList, handleDeleteCategory }} />
-      )}
-    </div>
+    <>
+      <div className="flex w-full justify-center">
+        {categoryList && (
+          <CategoryList {...{ categoryList, handleDeleteCategory }} />
+        )}
+      </div>
+    </>
   );
 };
 

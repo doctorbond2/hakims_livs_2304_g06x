@@ -9,11 +9,24 @@ const CategoryList = ({ categoryList, handleDeleteCategory }) => {
           <shad.TableHeader>
             <shad.TableRow>
               <shad.TableHead>KATEGORIER</shad.TableHead>
+              <shad.TableHead>
+                <shad.Button
+                  className={"bg-gray-400"}
+                  onClick={handleAddCategory}
+                >
+                  +
+                </shad.Button>
+              </shad.TableHead>
             </shad.TableRow>
           </shad.TableHeader>
           <shad.TableBody>
             {categoryList.map((category, index) => {
-              return <CategoryListItem key={"c-" + index} {...{ category, handleDeleteCategory, index }} />;
+              return (
+                <CategoryListItem
+                  key={"c-" + index}
+                  {...{ category, handleDeleteCategory, index }}
+                />
+              );
             })}
           </shad.TableBody>
         </shad.Table>
