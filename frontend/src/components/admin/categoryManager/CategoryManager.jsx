@@ -7,8 +7,10 @@ import CategoryList from "@/components/admin/categoryManager/CategoryList";
 const CategoryManager = () => {
   const [categoryList, setCategoryList] = useState(null);
   const handleDeleteCategory = async (id, index) => {
-    console.log("test");
-    console.log(index);
+    const yes = confirm("Are you sure you want to delete? JA, Knappen funkar!");
+    if (!yes) {
+      return;
+    }
     try {
       const response = await DELETE_REQUEST("/api/category/" + id);
       if (response.status === 204) {

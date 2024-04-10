@@ -8,6 +8,7 @@ const CategoryListItem = ({ category, handleDeleteCategory, index }) => {
       await handleDeleteCategory(category_id, index);
     }
   };
+  const number = 12;
   return (
     <>
       <shad.Dialog>
@@ -16,33 +17,30 @@ const CategoryListItem = ({ category, handleDeleteCategory, index }) => {
             {category.name}
           </shad.TableCell>
           <shad.TableCell className="font-medium">
-            {category.productCount} pcs
+            <span className="font-bold">{category.productCount}</span>{" "}
+            {"produkter"}
           </shad.TableCell>
-          <shad.TableCell>
+          <shad.TableCell></shad.TableCell>
+          <shad.TableCell className="text-right">
             <shad.DialogTrigger asChild>
               <shad.Button
-                variant="secondary"
-                className=""
-                onClick={() => {
-                  console.log("asd");
-                }}
+                variant="outline"
+                className="shadow-md shadow-gray-500/50 mr-2"
               >
-                Edit
+                Redigera
               </shad.Button>
             </shad.DialogTrigger>
-          </shad.TableCell>
-          <shad.TableCell className="text-right">
             <shad.Button
               variant="destructive"
-              className=""
+              className="shadow-md shadow-gray-500/50"
               onClick={handleDelete}
             >
-              Delete
+              Radera
             </shad.Button>
           </shad.TableCell>
         </shad.TableRow>
         <shad.DialogContent>
-          <CategoryModal {...{ category }} />
+          {category && <CategoryModal {...{ category }} />}
         </shad.DialogContent>
       </shad.Dialog>
     </>
