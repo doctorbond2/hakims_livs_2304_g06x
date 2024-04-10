@@ -18,6 +18,7 @@ export const useFetch = (url) => {
         setLoading(false);
       }
     };
+    fetchData();
   }, [url]);
   return { data, loading, error };
 };

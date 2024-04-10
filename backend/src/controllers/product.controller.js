@@ -126,8 +126,8 @@ export const deleteProductById = async (req, res) => {
   }
 };
 
-export const getProductByCategoryId = async (req, res) => {
-  console.log("test get product by category")
+export const getProductsByCategoryId = async (req, res) => {
+  console.log("test get product by category");
   const categoryId = req.params.categoryId;
 
   if (!categoryId) {
@@ -137,17 +137,17 @@ export const getProductByCategoryId = async (req, res) => {
   }
 
   try {
-    const products = await Product.find({category: categoryId}).populate("category");
-    res.json(products);
+    const products = await Product.find({ category: categoryId }).populate(
+      "category"
+    );
+    res.status(200).json(products);
   } catch (err) {
     console.log(err.message);
     res.status(500).json({
       error: err.message,
     });
   }
-
 };
-
 
 export const TEST_deleteAllProducts = async () => {
   if (!req.body && !req.body.key) {
