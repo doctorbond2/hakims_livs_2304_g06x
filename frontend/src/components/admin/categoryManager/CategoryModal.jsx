@@ -31,8 +31,8 @@ const CategoryModal = ({ category }) => {
               console.log(c_info);
             }}
           />
-          <shad.Label htmlFor="image.alt">Hittade produkter:</shad.Label>
-          <shad.Select>
+
+          {/* <shad.Select>
             <shad.SelectTrigger>
               <shad.SelectValue placeholder="Se alla" />
             </shad.SelectTrigger>
@@ -49,7 +49,32 @@ const CategoryModal = ({ category }) => {
                   })}
               </SelectGroup>
             </shad.SelectContent>
-          </shad.Select>
+          </shad.Select> */}
+          <shad.ScrollArea className="h-72 w-48 rounded-md border">
+            <div className="p-4">
+              <shad.Label>Alla Produkter</shad.Label>
+              <shad.Separator className="my-2"></shad.Separator>
+              {productData &&
+                productData.map((product, index) => {
+                  return (
+                    <>
+                      <div
+                        value={product.title}
+                        key={index}
+                        onClick={() => {
+                          console.log("asd");
+                        }}
+                        style={{ cursor: "pointer" }}
+                      >
+                        {" "}
+                        {product.title}
+                      </div>
+                      <shad.Separator className="my-2"></shad.Separator>
+                    </>
+                  );
+                })}
+            </div>
+          </shad.ScrollArea>
         </div>
       )}
     </>

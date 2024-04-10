@@ -38,8 +38,10 @@ export default function ManageProductTab() {
         product
       );
       if (response.status === 200) {
-        fetchProducts(); // Uppdatera produktlistan
-        console.log("Product updated");
+        const newResponse = await GET_REQUEST("/api/products/");
+        if (newResponse.status === 200) {
+          setProducts([...newResponse]);
+        }
       }
     } catch (err) {
       console.error(err.message);
@@ -52,9 +54,12 @@ export default function ManageProductTab() {
       const response = await DELETE_REQUEST(
         `/api/products/delete/${productId}`
       );
-      if (response.status === 200) {
-        fetchProducts(); // Uppdatera produktlistan
+      if (response.status === 204) {
         console.log("Product deleted");
+        const newResponse = await GET_REQUEST("/api/products/");
+        if (newResponse.status === 200) {
+          setProducts([...newResponse]);
+        }
       }
     } catch (err) {
       console.error(err.message);
