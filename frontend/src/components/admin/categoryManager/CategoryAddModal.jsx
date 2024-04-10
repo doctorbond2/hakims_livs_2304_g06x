@@ -1,6 +1,7 @@
 import React from "react";
 import * as shad from "@/components/ui/shadBarrel";
-const AddCategoryModal = (handleAddCategory) => {
+
+const CategoryAddModal = (handleAddCategory) => {
   return (
     <>
       <shad.Card className="w-80 shadCardPadding">
@@ -24,5 +25,4 @@ const AddCategoryModal = (handleAddCategory) => {
     </>
   );
 };
-
-export default AddCategoryModal;
+export default CategoryAddModal;
