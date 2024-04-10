@@ -12,6 +12,7 @@ function DetailSection({ title, info }) {
 export default function ProductModal({ product }) {
   return (
     <>
+      {product.discountRate > 0 && <div className="absolute top-1 left-1 rounded p-1.5 bg-red-500 text-white text-sm italic font-bold">-{product.discountRate}%</div>}
       <div className="flex items-center justify-center size-96 pr-10 row-span-2">
         <img className="max-w-full max-h-96 object-contain" src={product.image.url} alt="productImage" />
       </div>
@@ -25,6 +26,7 @@ export default function ProductModal({ product }) {
         <DetailSection title="Varumärke:" info={`${product.brand}`} />
         <DetailSection title="Normalpris:" info={`${product.price} kr/st`} />
         <DetailSection title="Du sparar:" info={`${product.savings} kr/st`} />
+        <DetailSection title="Jämförpris:" info={`${product.comparePrice}kr/${product.unit}`} />
         <DetailSection title="Antal kvar:" info={`${product.stock}+`} />
       </div>
     </>
