@@ -6,10 +6,7 @@ import * as shad from "@/components/ui/shadBarrel";
 export default function ManageProduct({
   onSubmit,
   onDelete,
-<<<<<<< HEAD
-=======
   onEdit,
->>>>>>> df50f18e97a43e12450919089af00e127f271f58
   addOrEdit = "add",
   product = {
     image: { url: "", alt: "Product Image" },
@@ -24,15 +21,9 @@ export default function ManageProduct({
 }) {
   const [newProduct, setNewProduct] = useState(product);
 
-<<<<<<< HEAD
-  useEffect(() => {
-    setNewProduct(product); // Uppdatera tillståndet när `product` props uppdateras
-  }, [product]);
-=======
   // useEffect(() => {
   //   setNewProduct(product); // Uppdatera tillståndet när `product` props uppdateras
   // }, [product]);
->>>>>>> df50f18e97a43e12450919089af00e127f271f58
 
   function handleChange(e) {
     const { name, value } = e.target;
@@ -60,11 +51,7 @@ export default function ManageProduct({
     e.preventDefault();
     const areYouSure = confirm("Are you sure you want to delete this product?");
 
-<<<<<<< HEAD
-    if (onDelete && product.id && areYouSure) {
-=======
     if (product.id && areYouSure) {
->>>>>>> df50f18e97a43e12450919089af00e127f271f58
       const deleted = await onDelete(product.id);
       if (deleted) {
         setNewProduct({
@@ -80,40 +67,23 @@ export default function ManageProduct({
         alert("Product deleted successfully!");
       }
     }
-<<<<<<< HEAD
-=======
   }
   async function handleEdit(e) {
     e.preventDefault();
     await onEdit(newProduct);
->>>>>>> df50f18e97a43e12450919089af00e127f271f58
   }
 
   return (
     <shad.Card className="w-80 shadCardPadding">
-<<<<<<< HEAD
-      <form onSubmit={handleSubmit}>
-        {product.image && addOrEdit != "add" && (
-=======
       <form onSubmit={handleSubmit} className={shad.form}>
         {/* add img */}
         {product.image && (
->>>>>>> c4189c6fc79939accb45952f88c60f4ae215cf0f
           <img
             src={product.image.url}
             alt={product.image.alt}
             style={{ maxWidth: "50%", height: "auto" }}
           />
         )}
-<<<<<<< HEAD
-        <shad.Label htmlFor="image.url">Image URL</shad.Label>
-        <shad.Input
-          id="image.url"
-          name="image.url"
-          type="text"
-          value={newProduct.image.url}
-          onChange={handleChange}
-=======
         <label htmlFor="imageURL">Image URL</label>
         <br />
         <input
@@ -127,7 +97,6 @@ export default function ManageProduct({
           value={newProduct.image}
           onChange={handleImageURLChange}
           className={shad.input}
->>>>>>> c4189c6fc79939accb45952f88c60f4ae215cf0f
         />
 
         <shad.Label htmlFor="image.alt">Image Alt</shad.Label>
@@ -135,17 +104,12 @@ export default function ManageProduct({
           id="image.alt"
           name="image.alt"
           type="text"
-<<<<<<< HEAD
-          value={newProduct.image.alt}
-          onChange={handleChange}
-=======
           placeholder={
             addOrEdit === "add" ? "Ex. Milk, Bread, etc." : product.name
           }
           value={newProduct.name}
           onChange={handleProductNameChange}
           className={shad.input}
->>>>>>> c4189c6fc79939accb45952f88c60f4ae215cf0f
         />
 
         {/* Upprepa för de andra attributen, nu med shad-komponenter */}
@@ -199,12 +163,9 @@ export default function ManageProduct({
           id="price"
           name="price"
           type="number"
-<<<<<<< HEAD
-=======
           placeholder={
             addOrEdit === "add" ? "Ex. 10, 20, 30, etc." : product.price
           }
->>>>>>> c4189c6fc79939accb45952f88c60f4ae215cf0f
           value={newProduct.price}
           onChange={handleChange}
         />
@@ -214,21 +175,13 @@ export default function ManageProduct({
           id="stock"
           name="stock"
           type="number"
-<<<<<<< HEAD
-=======
           placeholder={
             addOrEdit === "add" ? "Ex. 10, 20, 30, etc." : product.stock
           }
->>>>>>> c4189c6fc79939accb45952f88c60f4ae215cf0f
           value={newProduct.stock}
           onChange={handleChange}
         />
 
-<<<<<<< HEAD
-        <shad.Button type="submit">
-          {addOrEdit === "add" ? "Add Product" : "Update Product"}
-        </shad.Button>
-=======
         {addOrEdit === "add" ? (
           <shad.Button type="submit">Add Product </shad.Button>
         ) : (
@@ -236,7 +189,6 @@ export default function ManageProduct({
             Update Product
           </shad.Button>
         )}
->>>>>>> df50f18e97a43e12450919089af00e127f271f58
 
         {addOrEdit !== "add" && (
           <shad.Button type="button" onClick={handleDelete}>
