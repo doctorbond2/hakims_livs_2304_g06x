@@ -17,15 +17,11 @@ export default function ManageProductTab() {
 
   async function handleSubmit(newProduct) {
     console.log(newProduct);
-    try {
-      const response = await POST_REQUEST("/api/products/create/", newProduct);
-      if (response.status === 201) {
-        console.log("Good job dude");
-      } else {
-        console.log("auhuaehuaheuaheuhauhueuahuhae");
-      }
-    } catch (err) {
-      console.error(err.message);
+    const response = await POST_REQUEST("/api/products/create/", newProduct);
+    if (response.status === 201) {
+      console.log("Product added");
+    } else {
+      console.log(response);
     }
   }
 

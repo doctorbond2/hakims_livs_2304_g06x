@@ -5,7 +5,6 @@ import { GET_REQUEST } from "@/utils/helpers/request.helper";
 import ProductCard from "@/components/productList/productCards/ProductCard";
 import CategoryFilter from "@/components/categoryHandler/CategoryFilter";
 
-
 const Home = () => {
   const [productList, setProductList] = useState(null);
   const [selectedCategory, setSelectedCategory] = useState("");
