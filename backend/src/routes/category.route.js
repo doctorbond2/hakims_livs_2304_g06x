@@ -11,12 +11,12 @@ import {
 
 const router = express.Router();
 
-router.post("/create", createCategory);
-router.get("/:name", getCategoryByName);
+router.get("/get-by-name/:id", getCategoryByName);
 router.get("/:id", getCategoryById);
+router.get("/products/details", getDetailedCategories);
+router.post("/create", createCategory);
 router.put("/update/:id", updateCategoryById);
 router.delete("/delete/:id", deleteCategoryById);
-router.get("/products/amount", getDetailedCategories);
 
 router.get("/", getCategories);
 

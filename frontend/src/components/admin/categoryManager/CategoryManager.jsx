@@ -29,7 +29,7 @@ const CategoryManager = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await GET_REQUEST("/api/category/products/amount");
+        const response = await GET_REQUEST("/api/category/products/details");
         if (response.data) {
           console.log(response.data);
           setCategoryList(response.data);
