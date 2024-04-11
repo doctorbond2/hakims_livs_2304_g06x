@@ -11,7 +11,7 @@ const CategoryProductList = ({ productData, delProductFromCategory }) => {
   return (
     <>
       <shad.ScrollArea className="h-72 w-100 rounded-md border">
-        <div className="p-4">
+        <div className="p-4" key={"divin"}>
           {productData &&
             productData.map((product, index) => {
               return (

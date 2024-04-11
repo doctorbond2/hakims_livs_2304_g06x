@@ -11,18 +11,14 @@ const Home = () => {
 
   useEffect(() => {
     const fetchData = async () => {
-      try {
-        let endpoint = "/api/products";
-        if (selectedCategory) {
-          endpoint = `/api/products/category/${selectedCategory}`;
-        }
-        const response = await GET_REQUEST(endpoint);
-        if (response.data) {
-          console.log(response.data);
-          setProductList(response.data);
-        }
-      } catch (err) {
-        console.log(err.message);
+      let endpoint = "/api/products";
+      if (selectedCategory) {
+        endpoint = `/api/products/category/${selectedCategory}`;
+      }
+      const products = await GET_REQUEST(endpoint);
+      if (products) {
+        console.log(products);
+        setProductList(products);
       }
     };
     fetchData();
