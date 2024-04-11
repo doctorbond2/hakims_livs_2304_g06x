@@ -2,8 +2,6 @@ import * as shad from "@/components/ui/shadBarrel";
 import CategoryListItem from "./CategoryListItem";
 import CategoryAddModal from "./CategoryAddModal";
 const CategoryList = ({ categoryList, handleDeleteCategory }) => {
-  console.log(categoryList);
-
   return (
     <>
       <shad.Dialog>

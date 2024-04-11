@@ -7,16 +7,13 @@ export const useFetch = (url) => {
 
   useEffect(() => {
     const fetchData = async () => {
-      try {
-        const response = await GET_REQUEST(url);
-        if (response) {
-          setData(response.data);
-        }
-      } catch (err) {
-        setError(err.message);
-      } finally {
-        setLoading(false);
+      const response = await GET_REQUEST(url);
+      if (response) {
+        setData(response);
+      } else {
+        setError(response.error);
       }
+      setLoading(false);
     };
     fetchData();
   }, [url]);

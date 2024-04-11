@@ -1,26 +1,21 @@
-import React, { useEffect, useState } from 'react';
-import { GET_REQUEST } from '@/utils/helpers/request.helper';
+import React, { useEffect, useState } from "react";
+import { GET_REQUEST } from "@/utils/helpers/request.helper";
 
 const CategoryFilter = ({ onSelectCategory }) => {
   const [categories, setCategories] = useState([]);
 
   useEffect(() => {
     const fetchCategories = async () => {
-      try {
-        const response = await GET_REQUEST('/api/category');
-        if (response.data) {
-          setCategories(response.data);
-        }
-      } catch (err) {
-        console.log(err.message);
+      const data = await GET_REQUEST("/api/category");
+      if (data) {
+        setCategories(data);
       }
     };
-
     fetchCategories();
   }, []);
 
   const handleCategoryChange = (categoryId) => {
-    onSelectCategory(categoryId); 
+    onSelectCategory(categoryId);
   };
 
   return (

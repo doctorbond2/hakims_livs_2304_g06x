@@ -9,13 +9,11 @@ const CategoryAddModal = ({}) => {
     if (!data) {
       return;
     }
-    try {
-      const response = await POST_REQUEST("/api/category/create/", data);
-      if (response.status === 204) {
-        console.log("Category created!");
-      }
-    } catch (err) {
-      console.error(err.message);
+    const response = await POST_REQUEST("/api/category/create/", data);
+    if (response.status === 204) {
+      console.log("Category created!");
+    } else {
+      console.log(response);
     }
   };
   return (
