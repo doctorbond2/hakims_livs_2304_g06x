@@ -1,5 +1,5 @@
 import Category from "../models/category.model.js";
-
+import Product from "../models/product.model.js";
 export async function createCategory(req, res) {
   console.log("Category test");
 
@@ -112,10 +112,7 @@ export const deleteCategoryById = async (req, res) => {
     const category = await Category.findByIdAndDelete({ _id: id }, req.body);
 
     if (category) {
-      res.status(200).json({
-        message: `Category ${category.name} deleted successfully`,
-        deleted_category: category,
-      });
+      res.status(204).send();
     }
   } catch (err) {
     console.log(err.message);
@@ -124,39 +121,23 @@ export const deleteCategoryById = async (req, res) => {
     });
   }
 };
-
-// import express from "express";
-// import Category from "../models/category.model.js"; // Adjust the path according to your structure
-
-// const router = express.Router();
-
-// router.get("/categories-with-count", async (req, res) => {
-//   try {
-//     const categoriesWithCount = await Category.aggregate([
-//       {
-//         $lookup: {
-//           from: "products", // the collection to join
-//           localField: "_id", // field from the categories collection
-//           foreignField: "category", // field from the products collection matching localField
-//           as: "products", // the array field name where matched documents will be placed
-//         },
-//       },
-//       {
-//         $addFields: {
-//           productCount: { $size: "$products" },
-//         },
-//       },
-//       {
-//         $project: {
-//           products: 0, // Exclude the products array from the final output if you just want the count
-//         },
-//       },
-//     ]);
-
-//     res.json(categoriesWithCount);
-//   } catch (error) {
-//     res.status(500).send(error);
-//   }
-// });
-
-// export default router;
+export const getDetailedCategories = async (req, res) => {
+  try {
+    const allCategories = await Category.find();
+    const detailedCategories = [];
+    for (const ctgry of allCategories) {
+      const x = await Product.find({ category: ctgry });
+      detailedCategories.push({
+        productCount: x.length,
+        ...ctgry._doc,
+      });
+    }
+    if (detailedCategories && detailedCategories.length > 0) {
+      res.status(200).json(detailedCategories);
+    }
+  } catch (err) {
+    return res
+      .status(500)
+      .json({ message: "Something went wrong", error: err.message });
+  }
+};

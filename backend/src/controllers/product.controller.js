@@ -1,4 +1,5 @@
 import Product from "../models/product.model.js";
+import Category from "../models/category.model.js";
 
 export const createProduct = async (req, res) => {
   console.log("product test");
@@ -23,7 +24,7 @@ export const createProduct = async (req, res) => {
 export const getProducts = async (req, res) => {
   if (req.query) {
     let page = parseInt(req.query.page) || 1;
-    let pageSize = parseInt(req.query.pageSize) || 10;
+    let pageSize = parseInt(req.query.pageSize) || 20;
     let pageSkip = page - 1;
     try {
       const products = await Product.find().skip(pageSkip).limit(pageSize);
@@ -112,7 +113,7 @@ export const deleteProductById = async (req, res) => {
   try {
     const product = await Product.findByIdAndDelete({ _id: id }, req.body);
     if (product) {
-      res.status(200).json({
+      res.status(204).json({
         message: "Product deleted successfully",
         deleted_product: product,
       });
@@ -125,8 +126,8 @@ export const deleteProductById = async (req, res) => {
   }
 };
 
-export const getProductByCategory = async (req, res) => {
-  console.log("test get product by category")
+export const getProductsByCategoryId = async (req, res) => {
+  console.log("test get product by category");
   const categoryId = req.params.categoryId;
 
   if (!categoryId) {
@@ -136,17 +137,17 @@ export const getProductByCategory = async (req, res) => {
   }
 
   try {
-    const products = await Product.find({category: categoryId}).populate("category");
-    res.json(products);
+    const products = await Product.find({ category: categoryId }).populate(
+      "category"
+    );
+    res.status(200).json(products);
   } catch (err) {
     console.log(err.message);
     res.status(500).json({
       error: err.message,
     });
   }
-
 };
-
 
 export const TEST_deleteAllProducts = async () => {
   if (!req.body && !req.body.key) {
