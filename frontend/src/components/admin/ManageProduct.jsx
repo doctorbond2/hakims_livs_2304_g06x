@@ -91,14 +91,21 @@ export default function ManageProduct({
 
   return (
     <shad.Card className="w-80 shadCardPadding">
+<<<<<<< HEAD
       <form onSubmit={handleSubmit}>
         {product.image && addOrEdit != "add" && (
+=======
+      <form onSubmit={handleSubmit} className={shad.form}>
+        {/* add img */}
+        {product.image && (
+>>>>>>> c4189c6fc79939accb45952f88c60f4ae215cf0f
           <img
             src={product.image.url}
             alt={product.image.alt}
             style={{ maxWidth: "50%", height: "auto" }}
           />
         )}
+<<<<<<< HEAD
         <shad.Label htmlFor="image.url">Image URL</shad.Label>
         <shad.Input
           id="image.url"
@@ -106,6 +113,21 @@ export default function ManageProduct({
           type="text"
           value={newProduct.image.url}
           onChange={handleChange}
+=======
+        <label htmlFor="imageURL">Image URL</label>
+        <br />
+        <input
+          id="imageURL"
+          type="text"
+          placeholder={
+            addOrEdit === "add"
+              ? "Ex. www.example.com/image.jpg"
+              : product.image.url
+          }
+          value={newProduct.image}
+          onChange={handleImageURLChange}
+          className={shad.input}
+>>>>>>> c4189c6fc79939accb45952f88c60f4ae215cf0f
         />
 
         <shad.Label htmlFor="image.alt">Image Alt</shad.Label>
@@ -113,8 +135,17 @@ export default function ManageProduct({
           id="image.alt"
           name="image.alt"
           type="text"
+<<<<<<< HEAD
           value={newProduct.image.alt}
           onChange={handleChange}
+=======
+          placeholder={
+            addOrEdit === "add" ? "Ex. Milk, Bread, etc." : product.name
+          }
+          value={newProduct.name}
+          onChange={handleProductNameChange}
+          className={shad.input}
+>>>>>>> c4189c6fc79939accb45952f88c60f4ae215cf0f
         />
 
         {/* Upprepa för de andra attributen, nu med shad-komponenter */}
@@ -168,6 +199,12 @@ export default function ManageProduct({
           id="price"
           name="price"
           type="number"
+<<<<<<< HEAD
+=======
+          placeholder={
+            addOrEdit === "add" ? "Ex. 10, 20, 30, etc." : product.price
+          }
+>>>>>>> c4189c6fc79939accb45952f88c60f4ae215cf0f
           value={newProduct.price}
           onChange={handleChange}
         />
@@ -177,6 +214,12 @@ export default function ManageProduct({
           id="stock"
           name="stock"
           type="number"
+<<<<<<< HEAD
+=======
+          placeholder={
+            addOrEdit === "add" ? "Ex. 10, 20, 30, etc." : product.stock
+          }
+>>>>>>> c4189c6fc79939accb45952f88c60f4ae215cf0f
           value={newProduct.stock}
           onChange={handleChange}
         />

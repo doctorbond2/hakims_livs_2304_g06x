@@ -24,6 +24,7 @@ export default function Admin() {
     }
   }
 
+<<<<<<< HEAD
   async function handleDelete(productId) {
     try {
       const response = await DELETE_REQUEST(
@@ -39,6 +40,8 @@ export default function Admin() {
 
   //Lägg in en knapp för att hämta alla produkter
   // klicka på produkt och få upp en modal med info om produkten
+=======
+>>>>>>> c4189c6fc79939accb45952f88c60f4ae215cf0f
   useEffect(() => {
     async function fetchProducts() {
       try {
