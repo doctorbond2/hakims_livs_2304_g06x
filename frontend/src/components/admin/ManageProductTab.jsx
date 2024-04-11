@@ -105,7 +105,7 @@ export default function ManageProductTab() {
       {showProducts && (
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 min-w-full ">
           {products.map((product, index) => (
-            <div key={index} className="p-5 min-w-full ">
+            <div key={product.id} className="p-5 min-w-full ">
               <ProductCard
                 product={product}
                 buyOrEdit="Edit"

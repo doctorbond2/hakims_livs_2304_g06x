@@ -24,7 +24,7 @@ export const createProduct = async (req, res) => {
 export const getProducts = async (req, res) => {
   if (req.query) {
     let page = parseInt(req.query.page) || 1;
-    let pageSize = parseInt(req.query.pageSize) || 15;
+    let pageSize = parseInt(req.query.pageSize) || 20;
     let pageSkip = page - 1;
     try {
       const products = await Product.find().skip(pageSkip).limit(pageSize);
