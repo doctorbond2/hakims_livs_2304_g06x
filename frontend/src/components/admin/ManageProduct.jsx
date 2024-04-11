@@ -166,10 +166,10 @@ export default function ManageProduct({
         />
 
         {addOrEdit === "add" ? (
-          <shad.Button type="submit">"Add Product" </shad.Button>
+          <shad.Button type="submit">Add Product </shad.Button>
         ) : (
           <shad.Button type="button" onClick={handleEdit}>
-            "Update Product"
+            Update Product
           </shad.Button>
         )}
 
