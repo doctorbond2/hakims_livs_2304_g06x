@@ -4,7 +4,7 @@ import ProductCardBody from "./ProductCardBody";
 import ProductModal from "./ProductModal"; // Re-added for the "buy" scenario
 import ManageProduct from "@/components/admin/ManageProduct";
 
-const ProductCard = ({ product, buyOrEdit, onSubmit }) => {
+const ProductCard = ({ product, buyOrEdit, onSubmit, onEdit, onDelete }) => {
   const [isBuy, setIsBuy] = useState(buyOrEdit.toLowerCase() === "köp");
 
   useEffect(() => {
@@ -22,7 +22,11 @@ const ProductCard = ({ product, buyOrEdit, onSubmit }) => {
                 <ProductModal product={product} />
               </shad.DialogContent>
               <shad.DialogTrigger asChild>
-                <a>
+                <a className="relative">
+                  {" "}
+                  {product.discountRate > 0 && (
+                    <div className="absolute  top-1 left-1 rounded p-1.5 bg-red-500 text-white text-sm italic font-bold">-{product.discountRate}%</div>
+                  )}
                   <ProductCardBody product={product} />
                 </a>
               </shad.DialogTrigger>
@@ -30,16 +34,15 @@ const ProductCard = ({ product, buyOrEdit, onSubmit }) => {
           ) : (
             // For scenarios other than "buy"
             <>
-              <shad.DialogContent className="sm:max-w-[600px] justify-center">
-                <shad.Card className="border-slate-300">
-                  <ManageProduct onSubmit={onSubmit} addOrEdit="edit" product={product} />
+              <shad.DialogContent className="sm:max-w-[600px] justify-center max-h-screen overflow-auto">
+                <shad.Card className="border-slate-300 max-h-screen">
+                  <ManageProduct onSubmit={onSubmit} addOrEdit="edit" product={product} onDelete={onDelete} onEdit={onEdit} />
                 </shad.Card>
               </shad.DialogContent>
               <ProductCardBody product={product} />
             </>
           )}
-
-<div className="pb-2 content-end flex justify-center">
+          <div className="pb-2 content-end flex justify-center">
             {!isBuy ? (
               <shad.DialogTrigger asChild>
                 <shad.Button className="w-[230px]">{buyOrEdit}</shad.Button>

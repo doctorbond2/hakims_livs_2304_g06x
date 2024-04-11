@@ -112,10 +112,7 @@ export const deleteCategoryById = async (req, res) => {
     const category = await Category.findByIdAndDelete({ _id: id }, req.body);
 
     if (category) {
-      res.status(200).json({
-        message: `Category ${category.name} deleted successfully`,
-        deleted_category: category,
-      });
+      res.status(204).send();
     }
   } catch (err) {
     console.log(err.message);
@@ -124,36 +121,19 @@ export const deleteCategoryById = async (req, res) => {
     });
   }
 };
-export const getCategoriesWithProducts = async (req, res) => {
+export const getDetailedCategories = async (req, res) => {
   try {
-    const productsPerCategory = await Product.aggregate([
-      {
-        $group: {
-          _id: "$category",
-          count: { $sum: 1 },
-        },
-      },
-      {
-        $lookup: {
-          from: "categories",
-          localField: "_id",
-          foreignField: "_id",
-          as: "categoryData",
-        },
-      },
-      {
-        $unwind: "$categoryData",
-      },
-      {
-        $project: {
-          _id: "$categoryData._id",
-          name: "$categoryData.name",
-          count: 1,
-        },
-      },
-    ]);
-    if (productsPerCategory) {
-      res.status(200).json(productsPerCategory);
+    const allCategories = await Category.find();
+    const detailedCategories = [];
+    for (const ctgry of allCategories) {
+      const x = await Product.find({ category: ctgry });
+      detailedCategories.push({
+        productCount: x.length,
+        ...ctgry._doc,
+      });
+    }
+    if (detailedCategories && detailedCategories.length > 0) {
+      res.status(200).json(detailedCategories);
     }
   } catch (err) {
     return res

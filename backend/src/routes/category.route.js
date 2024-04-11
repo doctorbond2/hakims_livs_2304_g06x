@@ -6,17 +6,17 @@ import {
   getCategoryById,
   updateCategoryById,
   deleteCategoryById,
-  getCategoriesWithProducts,
+  getDetailedCategories,
 } from "../controllers/category.controller.js";
 
 const router = express.Router();
 
-router.post("/create", createCategory);
-router.get("/:name", getCategoryByName);
+router.get("/get-by-name/:id", getCategoryByName);
 router.get("/:id", getCategoryById);
-router.put("/:id", updateCategoryById);
-router.delete("/:id", deleteCategoryById);
-router.get("/products/amount", getCategoriesWithProducts);
+router.get("/products/details", getDetailedCategories);
+router.post("/create", createCategory);
+router.put("/update/:id", updateCategoryById);
+router.delete("/delete/:id", deleteCategoryById);
 
 router.get("/", getCategories);
 

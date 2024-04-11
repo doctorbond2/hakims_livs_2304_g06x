@@ -1,14 +1,9 @@
-import React, { useEffect, useState } from "react";
-import { GET_REQUEST } from "@/utils/helpers/request.helper";
-import { POST_REQUEST } from "@/utils/helpers/request.helper";
-import * as shad from "@/components/ui/shadBarrel";
-// import AddNewProduct from "@/components/admin/AddNewProduct";
-import ProductList from "@/components/productList/ProductList";
-import ProductCard from "@/components/productList/productCards/ProductCard";
-import ManageProduct from "@/components/admin/ManageProduct";
-// import { ProductCardBody } from "@/components/productList/productCards/ProductCardBody";
+import React, { useState } from "react";
+import ManageProductTab from "@/components/admin/ManageProductTab";
+import CategoryManager from "@/components/admin/categoryManager/CategoryManager";
 
 export default function Admin() {
+<<<<<<< HEAD
   const [showAddProduct, setShowAddProduct] = useState(false);
   const [products, setProducts] = useState([{}]);
   const [showProducts, setShowProducts] = useState(false);
@@ -58,16 +53,32 @@ export default function Admin() {
     }
     fetchProducts();
   }, []);
+=======
+  const [activeTab, setActiveTab] = useState("products");
+>>>>>>> df50f18e97a43e12450919089af00e127f271f58
 
   return (
-    <>
-      <shad.Button
-        onClick={() => setShowAddProduct(!showAddProduct)}
-        variant="outline"
-      >
-        Add new product
-      </shad.Button>
+    <div className="flex">
+      <div className="w-48 bg-gray-100 h-screen p-5">
+        <button
+          className={`block w-full text-left ${
+            activeTab === "products" ? "text-blue-500" : "text-black"
+          }`}
+          onClick={() => setActiveTab("products")}
+        >
+          Hantera Produkter
+        </button>
+        <button
+          className={`block w-full text-left ${
+            activeTab === "categories" ? "text-blue-500" : "text-black"
+          }`}
+          onClick={() => setActiveTab("categories")}
+        >
+          Hantera Kategorier
+        </button>
+      </div>
 
+<<<<<<< HEAD
       {showAddProduct && <ManageProduct onSubmit={handleSubmit} />}
 
       <shad.Button
@@ -99,5 +110,12 @@ export default function Admin() {
         </div>
       )}
     </>
+=======
+      <div className="flex-grow p-15 flex justify-center">
+        {activeTab === "products" && <ManageProductTab />}
+        {activeTab === "categories" && <CategoryManager />}
+      </div>
+    </div>
+>>>>>>> df50f18e97a43e12450919089af00e127f271f58
   );
 }

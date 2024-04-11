@@ -1,22 +1,49 @@
 import React from "react";
 import * as shad from "@/components/ui/shadBarrel";
-const CategoryListItem = ({ category }) => {
+import EditCategoryModal from "./EditCategoryModal";
+const CategoryListItem = ({ category, handleDeleteCategory, index }) => {
+  const category_id = category._id;
+  console.log("CATEGORY:", category);
+  const handleDelete = async () => {
+    if (category_id) {
+      await handleDeleteCategory(category_id, index);
+    }
+  };
+  const number = 12;
   return (
     <>
-      <shad.TableRow>
-        <shad.TableCell className="font-medium">{category.name}</shad.TableCell>
-        <shad.TableCell>{category.count} pcs</shad.TableCell>
-        <shad.TableCell>
-          <shad.Button variant="secondary" className="">
-            Edit
-          </shad.Button>
-        </shad.TableCell>
-        <shad.TableCell className="text-right">
-          <shad.Button variant="destructive" className="">
-            Delete
-          </shad.Button>
-        </shad.TableCell>
-      </shad.TableRow>
+      <shad.Dialog>
+        <shad.TableRow>
+          <shad.TableCell className="font-medium">
+            {category.name}
+          </shad.TableCell>
+          <shad.TableCell className="font-medium">
+            <span className="font-bold">{category.productCount}</span>{" "}
+            {"produkter"}
+          </shad.TableCell>
+          <shad.TableCell></shad.TableCell>
+          <shad.TableCell className="text-right">
+            <shad.DialogTrigger asChild>
+              <shad.Button
+                variant="outline"
+                className="shadow-md shadow-gray-500/50 mr-2"
+              >
+                Redigera
+              </shad.Button>
+            </shad.DialogTrigger>
+            <shad.Button
+              variant="destructive"
+              className="shadow-md shadow-gray-500/50"
+              onClick={handleDelete}
+            >
+              Radera
+            </shad.Button>
+          </shad.TableCell>
+        </shad.TableRow>
+        <shad.DialogContent>
+          {category && <EditCategoryModal {...{ category }} />}
+        </shad.DialogContent>
+      </shad.Dialog>
     </>
   );
 };
