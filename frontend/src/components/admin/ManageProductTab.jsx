@@ -15,38 +15,56 @@ export default function ManageProductTab() {
   const [products, setProducts] = useState([{}]);
   const [showProducts, setShowProducts] = useState(false);
   const updateProducts = async () => {
-    const updatedProducts = await GET_REQUEST("/api/products/");
-    if (updatedProducts) {
-      setProducts([...updatedProducts]);
+    try {
+      const updatedProducts = await GET_REQUEST("/api/products/");
+      if (updatedProducts) {
+        setProducts([...updatedProducts]);
+      }
+    } catch (err) {
+      console.error(err.message);
     }
   };
   async function handleSubmit(newProduct) {
-    if (await POST_REQUEST("/api/products/create/", newProduct)) {
-      console.log("Product added");
-      updateProducts();
+    try {
+      if (await POST_REQUEST("/api/products/create/", newProduct)) {
+        console.log("Product added");
+        updateProducts();
+      }
+    } catch (err) {
+      console.error(err.message);
     }
   }
 
   async function handleEdit(product) {
-    if (await PUT_REQUEST(`/api/products/update/${product.id}`, product)) {
-      updateProducts();
-    } else {
-      console.log("Product not updated");
+    try {
+      if (await PUT_REQUEST(`/api/products/update/${product.id}`, product)) {
+        updateProducts();
+      }
+    } catch (err) {
+      console.error(err.message);
     }
   }
 
   async function handleDelete(productId) {
-    if (await DELETE_REQUEST(`/api/products/delete/${productId}`)) {
-      console.log("Product deleted");
-      updateProducts();
+    try {
+      if (await DELETE_REQUEST(`/api/products/delete/${productId}`)) {
+        console.log("Product deleted");
+        updateProducts();
+      }
+    } catch (err) {
+      console.error(err.message);
     }
   }
 
   useEffect(() => {
     async function fetchProducts() {
-      const data = await GET_REQUEST("/api/products/");
-      if (data) {
-        setProducts(data);
+      try {
+        const data = await GET_REQUEST("/api/products/");
+        if (data) {
+          setProducts(data);
+        }
+      } catch (err) {
+        console.error(err.message);
       }
     }
     fetchProducts();

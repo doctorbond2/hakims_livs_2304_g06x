@@ -1,7 +1,7 @@
 import React from "react";
-
+import * as shad from "@/components/ui/shadBarrel";
 const PManagerAddModal = () => {
-  return <div>PManagerAddModal</div>;
+  return <></>;
 };
 
 export default PManagerAddModal;

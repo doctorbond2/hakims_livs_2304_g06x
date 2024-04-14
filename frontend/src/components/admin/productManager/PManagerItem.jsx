@@ -1,8 +1,7 @@
 import React from "react";
 import * as shad from "@/components/ui/shadBarrel";
 import PManangerEditModal from "./PManangerEditModal";
-function PManagerItem({ product }) {
-  console.log(product);
+function PManagerItem({ product, categoryList, updateProducts }) {
   const handleDelete = async () => {
     if (category_id) {
       await handleDeleteCategory(category_id, index);
@@ -51,7 +50,13 @@ function PManagerItem({ product }) {
             </shad.TableCell>
           </shad.TableRow>
           <shad.DialogContent>
-            {product ? <PManangerEditModal /> : "Loading"}
+            {product ? (
+              <PManangerEditModal
+                {...{ product, categoryList, updateProducts }}
+              />
+            ) : (
+              "Loading"
+            )}
           </shad.DialogContent>
         </shad.Dialog>
       )}

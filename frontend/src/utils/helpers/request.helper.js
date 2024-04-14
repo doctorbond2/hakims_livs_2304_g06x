@@ -25,7 +25,7 @@ export async function GET_REQUEST(URL) {
       return null;
     }
   } catch (err) {
-    return { error: "GET REQUEST ERROR: " + err.message };
+    throw err;
   }
 }
 export async function POST_REQUEST(URL, DATA) {
@@ -37,8 +37,7 @@ export async function POST_REQUEST(URL, DATA) {
       return null;
     }
   } catch (err) {
-    console.error({ error: "POST REQUEST ERROR: " + err.message });
-    return null;
+    throw err;
   }
 }
 export async function PUT_REQUEST(URL, DATA) {
@@ -50,8 +49,7 @@ export async function PUT_REQUEST(URL, DATA) {
       return false;
     }
   } catch (err) {
-    console.error({ error: "UPDATE REQUEST ERROR: " + err.message });
-    return false;
+    throw err;
   }
 }
 //Gör om till admin senare
@@ -64,8 +62,7 @@ export async function DELETE_REQUEST(URL) {
       return false;
     }
   } catch (err) {
-    console.error({ error: "DELETE REQUEST ERROR: " + err.message });
-    return false;
+    throw err;
   }
 }
 //TODO FINISH AUTH FOR BIG BAD DELETE REQUEST

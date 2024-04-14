@@ -16,12 +16,16 @@ const CategoryListItem = ({ category, handleDeleteCategory, index }) => {
       console.log("Not valid target.");
       return;
     }
-    if (
-      await PUT_REQUEST("/api/products/update/" + id, {
-        category: null,
-      })
-    ) {
-      console.log("Removed from category. Product has now category: null");
+    try {
+      if (
+        await PUT_REQUEST("/api/products/update/" + id, {
+          category: null,
+        })
+      ) {
+        console.log("Removed from category. Product has now category: null");
+      }
+    } catch (err) {
+      console.error(err.message);
     }
   };
   const updateCategory = async (e) => {
@@ -33,10 +37,14 @@ const CategoryListItem = ({ category, handleDeleteCategory, index }) => {
     }
     delete c_info.productCount;
 
-    if (await PUT_REQUEST("/api/category/update/" + id, c_info)) {
-      console.log("Update success.");
-      const updatedCategory = await GET_REQUEST("/api/category/" + id);
-      set_c_info({ ...updatedCategory });
+    try {
+      if (await PUT_REQUEST("/api/category/update/" + id, c_info)) {
+        console.log("Update success.");
+        const updatedCategory = await GET_REQUEST("/api/category/" + id);
+        set_c_info({ ...updatedCategory });
+      }
+    } catch (err) {
+      console.error(err);
     }
   };
   const handleDelete = async () => {
