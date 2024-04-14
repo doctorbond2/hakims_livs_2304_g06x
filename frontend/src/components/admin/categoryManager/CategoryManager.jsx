@@ -13,10 +13,14 @@ const CategoryManager = () => {
     if (!yes) {
       return;
     }
-    if (await DELETE_REQUEST("/api/category/delete/" + id)) {
-      const newList = [...categoryList];
-      newList.splice(index, 1);
-      setCategoryList(newList);
+    try {
+      if (await DELETE_REQUEST("/api/category/delete/" + id)) {
+        const newList = [...categoryList];
+        newList.splice(index, 1);
+        setCategoryList(newList);
+      }
+    } catch (err) {
+      console.error(err.message);
     }
   };
 
