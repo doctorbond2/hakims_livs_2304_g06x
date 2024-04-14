@@ -6,9 +6,13 @@ const CategoryFilter = ({ onSelectCategory }) => {
 
   useEffect(() => {
     const fetchCategories = async () => {
-      const data = await GET_REQUEST("/api/category");
-      if (data) {
-        setCategories(data);
+      try {
+        const data = await GET_REQUEST("/api/category");
+        if (data) {
+          setCategories(data);
+        }
+      } catch (err) {
+        console.error(err.message);
       }
     };
     fetchCategories();

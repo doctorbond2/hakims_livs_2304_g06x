@@ -6,10 +6,11 @@ const CategoryList = ({ categoryList, handleDeleteCategory }) => {
     <>
       <shad.Dialog>
         <div className="flex justify-center pt-10">
-          <shad.Table className="w-[500px] shadow">
+          <shad.Table className="w-[65vw] shadow">
             <shad.TableHeader>
               <shad.TableRow>
-                <shad.TableHead>KATEGORIER</shad.TableHead>
+                <shad.TableHead>Titel </shad.TableHead>
+                <shad.TableHead>Antal</shad.TableHead>
                 <shad.TableHead>
                   <shad.DialogTrigger>
                     <shad.Button className={"bg-gray-400"}>+</shad.Button>
