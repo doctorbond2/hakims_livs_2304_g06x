@@ -1,5 +1,4 @@
 import ProductCard from "@/components/productList/productCards/ProductCard";
-import ProductModal from "@/components/productList/productCards/ProductModal";
 const ProductList = ({ productList }) => {
   return (
     <>
@@ -8,7 +7,9 @@ const ProductList = ({ productList }) => {
           {productList &&
             productList.map((product) => (
               <>
-                <ProductCard product={product} />
+                <div>
+                  <ProductCard product={product} buyOrEdit={"Köp"} />
+                </div>
               </>
             ))}
         </div>

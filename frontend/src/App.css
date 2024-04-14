@@ -68,8 +68,7 @@ select {
     transition-duration: 0.01ms !important;
     scroll-behavior: auto !important;
   }
-} /*# sourceMappingURL=App.css.map */
-
+}
 input {
   width: 50%;
   padding: 0.5rem;
@@ -78,3 +77,13 @@ input {
   border-radius: 4px;
 }
 
+.shadCardPadding {
+  padding: 1rem;
+  box-shadow: 0 4px 6px 0 hsla(0, 0%, 0%, 0.1);
+  border-radius: 4px;
+}
+.shadCardPadding input {
+  margin-bottom: 5px;
+  padding: 5px;
+  width: 100%;
+} /*# sourceMappingURL=App.css.map */

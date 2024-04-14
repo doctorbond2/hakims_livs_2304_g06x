@@ -1,4 +1,6 @@
 import Product from "../models/product.model.js";
+import Category from "../models/category.model.js";
+import { getProductsQueryHandler } from "../utils/helpers/queryHelpers.js";
 
 export const createProduct = async (req, res) => {
   console.log("product test");
@@ -7,6 +9,7 @@ export const createProduct = async (req, res) => {
       error: "No body submitted",
     });
   }
+  console.log("REQBODY: ", req.body);
   try {
     const product = new Product(req.body);
     await product.save();
@@ -20,23 +23,23 @@ export const createProduct = async (req, res) => {
 };
 
 export const getProducts = async (req, res) => {
-  if (req.query) {
-    let page = parseInt(req.query.page) || 1;
-    let pageSize = parseInt(req.query.pageSize) || 10;
-    let pageSkip = page - 1;
-    try {
-      const products = await Product.find().skip(pageSkip).limit(pageSize);
-      return res.status(200).json(products);
-    } catch (err) {
-      console.log(err.message);
+  if (req.query.page) {
+    const response = await getProductsQueryHandler(req.query);
+    if (!response.error) {
+      return res.status(200).json(response);
+    } else {
+      console.log(response.error);
       return res.status(500).json({
-        error: err.message,
+        error: response.error,
       });
     }
   }
-
+  //Safetylimit på 50
   try {
-    const products = await Product.find();
+    const products = await Product.find()
+      .limit(50)
+      .populate("category")
+      .sort({ title: 1 });
     res.status(200).json(products);
   } catch (err) {
     res.status(500).json({
@@ -56,9 +59,7 @@ export const getProductById = async (req, res) => {
   try {
     const product = await Product.findById(req.params.id);
     if (!product) {
-      return res.status(404).json({
-        error: "Product not found.",
-      });
+      throw new Error("Product not found");
     }
     res.status(200).json(product);
   } catch (err) {
@@ -113,15 +114,62 @@ export const deleteProductById = async (req, res) => {
   try {
     const product = await Product.findByIdAndDelete({ _id: id }, req.body);
     if (product) {
-      res.status(200).json({
+      res.status(204).json({
         message: "Product deleted successfully",
         deleted_product: product,
       });
-    } 
+    }
   } catch (err) {
     console.log(err.message);
     res.status(500).json({
       error: err.message,
     });
   }
-}
+};
+
+export const getProductsByCategoryId = async (req, res) => {
+  console.log("test get product by category");
+  const categoryId = req.params.categoryId;
+
+  if (!categoryId) {
+    return res.status(400).json({
+      error: "No category id submitted",
+    });
+  }
+
+  try {
+    const products = await Product.find({ category: categoryId }).populate(
+      "category"
+    );
+    res.status(200).json(products);
+  } catch (err) {
+    console.log(err.message);
+    res.status(500).json({
+      error: err.message,
+    });
+  }
+};
+
+export const TEST_deleteAllProducts = async () => {
+  if (!req.body && !req.body.key) {
+    return res.status(400).json({ error: "No api key??" });
+  }
+  const { key } = req.body;
+  const deleteKey = process.env.DELETE_PRODUCTS_KEY;
+  if (toString(key) !== toString(deleteKey)) {
+    return res
+      .status(401)
+      .json({ error: "Unauthorized access. Get lost noob." });
+  }
+  try {
+    const result = await Product.find().deleteMany();
+    if (result) {
+      res.status(200).json({
+        message:
+          "All products have been removed from the database. My god, what have you done?",
+      });
+    }
+  } catch (err) {
+    return res.status(500).json({ error: err.message });
+  }
+};
