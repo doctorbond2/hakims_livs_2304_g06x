@@ -5,6 +5,7 @@ import Footer from "./components/Footer";
 import Home from "./pages/Home";
 import Admin from "./pages/Admin";
 import CategoryManager from "./components/admin/categoryManager/CategoryManager";
+import Checkout from "./pages/Checkout";
 function App() {
   return (
     <>
@@ -13,6 +14,7 @@ function App() {
         <Route path="/" element={<Home />}></Route>
         <Route path="/products" element={"Who knows what lies beyond?"}></Route>
         <Route path="/admin" element={<Admin />}></Route>
+        <Route path="/checkout" element={<Checkout />}></Route>
       </Routes>
       {/* <Footer /> */}
     </>

@@ -1,4 +1,5 @@
 import * as shad from "@/components/ui/shadBarrel";
+import { useCart } from "@/components/header/shoppingCart/CartContext.jsx";
 
 function DetailSection({ title, info }) {
   return (
@@ -10,6 +11,7 @@ function DetailSection({ title, info }) {
 }
 
 export default function ProductModal({ product }) {
+  const { addToCart } = useCart();
   return (
     <>
       {product.discountRate > 0 && <div className="absolute top-1 left-1 rounded p-1.5 bg-red-500 text-white text-sm italic font-bold">-{product.discountRate}%</div>}
@@ -20,7 +22,9 @@ export default function ProductModal({ product }) {
         <h2 className="text-3xl">{product.title}</h2>
         <shad.CardDescription>{product.description}</shad.CardDescription>
         <shad.CardTitle className="text-red-500 text-4xl font-bold italic">{product.discountedPrice}:-</shad.CardTitle>
-        <shad.Button className="row-start-4 row-end-4">Köp</shad.Button>
+        <shad.Button onClick={() => addToCart(product, 1)} className="row-start-4 row-end-4">
+          Köp
+        </shad.Button>
       </div>
       <div className="w-full">
         <DetailSection title="Varumärke:" info={`${product.brand}`} />
