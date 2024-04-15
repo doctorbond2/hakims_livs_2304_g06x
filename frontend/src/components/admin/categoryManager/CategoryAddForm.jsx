@@ -2,9 +2,9 @@ import React from "react";
 import { useState } from "react";
 import * as shad from "@/components/ui/shadBarrel";
 const CategoryAddForm = ({ handleAddCategory }) => {
-  const [c_form, set_c_form] = useState({ name: "", description: "" });
+  const [c_form, set_c_form] = useState({ title: "", description: "" });
   const handleChangeTitle = (e) => {
-    set_c_form({ ...c_form, name: e.target.value });
+    set_c_form({ ...c_form, title: e.target.value });
   };
   const handleChangeDesc = (e) => {
     set_c_form({ ...c_form, description: e.target.value });
@@ -24,7 +24,7 @@ const CategoryAddForm = ({ handleAddCategory }) => {
             name="category-add-title"
             type="text"
             placeholder="Ex. Fruits"
-            value={c_form.name}
+            value={c_form.title}
             onChange={handleChangeTitle}
           />
           <shad.Label htmlFor="image.url">Beskrivning</shad.Label>

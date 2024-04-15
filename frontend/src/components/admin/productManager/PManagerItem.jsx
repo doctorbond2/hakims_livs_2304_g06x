@@ -17,14 +17,13 @@ function PManagerItem({ product, categoryList, updateProducts }) {
             </shad.TableCell>
             <shad.TableCell className="font-medium">
               <span className="font-bold"></span>{" "}
-              {product.category?.name ? product.category.name : "Noname"}
+              {product.category?.title ? product.category.title : "Noname"}
             </shad.TableCell>
             <shad.TableCell className="font-medium">
               <span className="font-bold"></span> {product.stock} st
             </shad.TableCell>
             <shad.TableCell className="font-medium">
-              <span className="font-bold"></span> {product.price} kr /{" "}
-              {product.comparePrice} {product.unit}
+              <span className="font-bold"></span> {product.price} kr
             </shad.TableCell>
             <shad.TableCell className="font-medium">
               <span className="font-bold"></span>

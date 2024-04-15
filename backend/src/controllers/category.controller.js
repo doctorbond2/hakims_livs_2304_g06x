@@ -1,7 +1,6 @@
 import Category from "../models/category.model.js";
 import Product from "../models/product.model.js";
 
-
 export async function createCategory(req, res) {
   console.log("Category test");
 
@@ -31,14 +30,14 @@ export async function getCategories(req, res) {
 export async function getCategoryByName(req, res) {
   console.log("Category by name test");
 
-  if (!req.params.name) {
+  if (!req.params.title) {
     return res.status(400).json({
-      message: "Category name not found",
+      message: "Category title not found",
     });
   }
 
   try {
-    let category = await Category.findOne({ name: req.params.name });
+    let category = await Category.findOne({ title: req.params.title });
     res.status(200).json(category);
   } catch (err) {
     console.log(err.message);
@@ -87,7 +86,7 @@ export const updateCategoryById = async (req, res) => {
     const category = await Category.findByIdAndUpdate({ _id: id }, req.body);
     if (category) {
       res.status(200).json({
-        message: `Category ${category.name} updated successfully`,
+        message: `Category ${category.title} updated successfully`,
         updated_category: category,
       });
     }
