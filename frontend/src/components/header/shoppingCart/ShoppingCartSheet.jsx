@@ -1,38 +1,29 @@
-import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
-import {
-  Sheet,
-  SheetClose,
-  SheetContent,
-  SheetDescription,
-  SheetFooter,
-  SheetHeader,
-  SheetTitle,
-  SheetTrigger,
-} from "@/components/ui/sheet";
-import DemoPage from "@/components/header/shoppingCart/page";
+import * as shad from "@/components/ui/shadBarrel";
+import TableContent from "@/components/header/shoppingCart/shoppingCartContent/page";
+import { Link } from "react-router-dom";
 
 export default function ShoppingCartSheet() {
   return (
-    <Sheet>
-      <SheetTrigger asChild>
-        <Button variant="outline">
-        Kundvagn
-        </Button>
-      </SheetTrigger>
-      <SheetContent>
-        <SheetHeader>
-          <SheetTitle>Kundvagn</SheetTitle>
-          <SheetDescription>
-            Make changes to your profile here. Click save when you're done.
-          </SheetDescription>
-        </SheetHeader>
+    <shad.Sheet>
+      <shad.SheetTrigger asChild>
+        <shad.Button variant="outline">Kundvagn</shad.Button>
+      </shad.SheetTrigger>
+      <shad.SheetContent>
+        <shad.SheetHeader>
+          <shad.SheetTitle>Kundvagn</shad.SheetTitle>
+          <shad.SheetDescription>Make changes to your profile here. Click save when you're done.</shad.SheetDescription>
+        </shad.SheetHeader>
         <div>
-          <DemoPage />
+          <TableContent />
+          <div className="mt-4 flex justify-end">
+            {" "}
+            <Link to="/checkout">
+              {" "}
+              <shad.Button>Till Kassan</shad.Button>
+            </Link>
+          </div>
         </div>
-        <SheetFooter></SheetFooter>
-      </SheetContent>
-    </Sheet>
+      </shad.SheetContent>
+    </shad.Sheet>
   );
 }

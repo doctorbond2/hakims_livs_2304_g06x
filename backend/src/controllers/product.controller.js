@@ -1,5 +1,6 @@
 import Product from "../models/product.model.js";
 import Category from "../models/category.model.js";
+import { getProductsQueryHandler } from "../utils/helpers/queryHelpers.js";
 
 export const createProduct = async (req, res) => {
   console.log("product test");
@@ -22,23 +23,23 @@ export const createProduct = async (req, res) => {
 };
 
 export const getProducts = async (req, res) => {
-  if (req.query) {
-    let page = parseInt(req.query.page) || 1;
-    let pageSize = parseInt(req.query.pageSize) || 20;
-    let pageSkip = page - 1;
-    try {
-      const products = await Product.find().skip(pageSkip).limit(pageSize);
-      return res.status(200).json(products);
-    } catch (err) {
-      console.log(err.message);
+  if (req.query.page) {
+    const response = await getProductsQueryHandler(req.query);
+    if (!response.error) {
+      return res.status(200).json(response);
+    } else {
+      console.log(response.error);
       return res.status(500).json({
-        error: err.message,
+        error: response.error,
       });
     }
   }
-
+  //Safetylimit på 50
   try {
-    const products = await Product.find();
+    const products = await Product.find()
+      .limit(50)
+      .populate("category")
+      .sort({ title: 1 });
     res.status(200).json(products);
   } catch (err) {
     res.status(500).json({

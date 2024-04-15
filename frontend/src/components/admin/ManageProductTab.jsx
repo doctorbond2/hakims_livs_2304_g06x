@@ -14,15 +14,21 @@ export default function ManageProductTab() {
   const [showAddProduct, setShowAddProduct] = useState(false);
   const [products, setProducts] = useState([{}]);
   const [showProducts, setShowProducts] = useState(false);
-
-  async function handleSubmit(newProduct) {
-    console.log(newProduct);
+  const updateProducts = async () => {
     try {
-      const response = await POST_REQUEST("/api/products/create/", newProduct);
-      if (response.status === 201) {
-        console.log("Good job dude");
-      } else {
-        console.log("auhuaehuaheuaheuhauhueuahuhae");
+      const updatedProducts = await GET_REQUEST("/api/products/");
+      if (updatedProducts) {
+        setProducts([...updatedProducts]);
+      }
+    } catch (err) {
+      console.error(err.message);
+    }
+  };
+  async function handleSubmit(newProduct) {
+    try {
+      if (await POST_REQUEST("/api/products/create/", newProduct)) {
+        console.log("Product added");
+        updateProducts();
       }
     } catch (err) {
       console.error(err.message);
@@ -31,49 +37,34 @@ export default function ManageProductTab() {
 
   async function handleEdit(product) {
     try {
-      const response = await PUT_REQUEST(
-        `/api/products/update/${product.id}`,
-        product
-      );
-      if (response.status === 200) {
-        const newResponse = await GET_REQUEST("/api/products/");
-        if (newResponse.status === 200) {
-          setProducts([...newResponse.data]);
-        }
+      if (await PUT_REQUEST(`/api/products/update/${product.id}`, product)) {
+        updateProducts();
       }
     } catch (err) {
       console.error(err.message);
-      console.log("Product not updated");
     }
   }
 
   async function handleDelete(productId) {
     try {
-      const response = await DELETE_REQUEST(
-        `/api/products/delete/${productId}`
-      );
-      if (response.status === 204) {
+      if (await DELETE_REQUEST(`/api/products/delete/${productId}`)) {
         console.log("Product deleted");
-        const newResponse = await GET_REQUEST("/api/products/");
-        if (newResponse.status === 200) {
-          setProducts([...newResponse.data]);
-        }
+        updateProducts();
       }
     } catch (err) {
       console.error(err.message);
-      console.log("Product not deleted");
     }
   }
 
   useEffect(() => {
     async function fetchProducts() {
       try {
-        const response = await GET_REQUEST("/api/products/");
-        if (response.data) {
-          setProducts(response.data);
+        const data = await GET_REQUEST("/api/products/");
+        if (data) {
+          setProducts(data);
         }
       } catch (err) {
-        console.log(err.message);
+        console.error(err.message);
       }
     }
     fetchProducts();

@@ -1,5 +1,5 @@
-import React, { useEffect, useState } from 'react';
-import { GET_REQUEST } from '@/utils/helpers/request.helper';
+import React, { useEffect, useState } from "react";
+import { GET_REQUEST } from "@/utils/helpers/request.helper";
 
 const CategoryFilter = ({ onSelectCategory }) => {
   const [categories, setCategories] = useState([]);
@@ -7,20 +7,19 @@ const CategoryFilter = ({ onSelectCategory }) => {
   useEffect(() => {
     const fetchCategories = async () => {
       try {
-        const response = await GET_REQUEST('/api/category');
-        if (response.data) {
-          setCategories(response.data);
+        const data = await GET_REQUEST("/api/category");
+        if (data) {
+          setCategories(data);
         }
       } catch (err) {
-        console.log(err.message);
+        console.error(err.message);
       }
     };
-
     fetchCategories();
   }, []);
 
   const handleCategoryChange = (categoryId) => {
-    onSelectCategory(categoryId); 
+    onSelectCategory(categoryId);
   };
 
   return (

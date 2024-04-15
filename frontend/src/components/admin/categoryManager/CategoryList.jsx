@@ -2,16 +2,15 @@ import * as shad from "@/components/ui/shadBarrel";
 import CategoryListItem from "./CategoryListItem";
 import CategoryAddModal from "./CategoryAddModal";
 const CategoryList = ({ categoryList, handleDeleteCategory }) => {
-  console.log(categoryList);
-
   return (
     <>
       <shad.Dialog>
         <div className="flex justify-center pt-10">
-          <shad.Table className="w-[500px] shadow">
+          <shad.Table className="w-[65vw] shadow">
             <shad.TableHeader>
               <shad.TableRow>
-                <shad.TableHead>KATEGORIER</shad.TableHead>
+                <shad.TableHead>Titel </shad.TableHead>
+                <shad.TableHead>Antal</shad.TableHead>
                 <shad.TableHead>
                   <shad.DialogTrigger>
                     <shad.Button className={"bg-gray-400"}>+</shad.Button>

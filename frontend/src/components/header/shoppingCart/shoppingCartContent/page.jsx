@@ -3,26 +3,26 @@ import { columns } from "./columns";
 import { DataTable } from "./data-table";
 
 function getData() {
-  // Simulate fetching data asynchronously
-  return Promise.resolve([
-    {
-      id: "728ed52f",
-      amount: 100,
-      productName: "Potatoes",
-      totalPrice: "19.99",
-    },
-    // Add more data as needed
-  ]);
+  const cartData = JSON.parse(localStorage.getItem("shoppingCart")) || [];
+
+  const transformedData = cartData.map((item) => ({
+    id: item._id,
+    productName: item.title,
+    amount: item.cartQuantity,
+    totalPrice: (item.discountedPrice * item.cartQuantity).toFixed(2),
+  }));
+
+  return Promise.resolve(transformedData);
 }
 
-function DemoPage() {
+function tableContent() {
   const [data, setData] = useState([]);
 
   useEffect(() => {
     getData().then((fetchedData) => {
       setData(fetchedData);
     });
-  }, []); // Empty dependency array means this effect runs once on mount
+  }, []);
 
   return (
     <div className="container mx-auto py-10">
@@ -31,4 +31,4 @@ function DemoPage() {
   );
 }
 
-export default DemoPage;
+export default tableContent;
