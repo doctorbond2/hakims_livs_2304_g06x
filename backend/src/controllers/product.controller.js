@@ -149,11 +149,20 @@ export const getProductsByCategoryId = async (req, res) => {
     });
   }
 };
-
-export const TEST_deleteAllProducts = async () => {
-  if (!req.body && !req.body.key) {
-    return res.status(400).json({ error: "No api key??" });
+export const admin_deleteAllProducts = async (req, res) => {
+  try {
+    const result = await Product.find().deleteMany();
+    if (result) {
+      res.status(204).json({
+        message:
+          "All products have been removed from the database. My god, what have you done?",
+      });
+    }
+  } catch (err) {
+    return res.status(500).json({ error: err.message });
   }
+};
+export const TEST_deleteAllProducts = async () => {
   const { key } = req.body;
   const deleteKey = process.env.DELETE_PRODUCTS_KEY;
   if (toString(key) !== toString(deleteKey)) {

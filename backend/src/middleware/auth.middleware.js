@@ -1,4 +1,5 @@
-export function authMiddleware(req, res, next) {
+import { compareAdminKeys } from "../utils/helpers/apiHelpers.js";
+export function authTokenMiddleware(req, res, next) {
   const token = req.header("Authorization") || "";
   const accessToken = token.split(" ")?.[1] || "";
   if (token) {
@@ -8,3 +9,11 @@ export function authMiddleware(req, res, next) {
   next();
 }
 //POSTMAN AUTH
+export function authKeyMiddleware(req, res, next) {
+  const { authorization: key } = req.headers;
+  if (compareAdminKeys(key)) {
+    next();
+  } else {
+    return res.send("Bloop");
+  }
+}

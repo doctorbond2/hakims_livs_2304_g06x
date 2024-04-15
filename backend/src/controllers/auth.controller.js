@@ -1,4 +1,4 @@
-import User from "../models/user.model";
+import User from "../models/user.model.js";
 
 //TODO
 //TOKENS ACCESS TOKEN JWT
@@ -21,4 +21,10 @@ export const registerUser = async (req, res) => {
   } catch (error) {
     registerErrorHandler(error, res, _user?.email);
   }
+};
+export const megaAuthTest = async (req, res) => {
+  console.log("test auth");
+  return res.status(200).json({
+    medd: "hejsan",
+  });
 };
