@@ -5,26 +5,13 @@ import DetailedOrderList from './DetailedOrderList';
 function OrderManager() {
   const [selectedOrder, setSelectedOrder] = useState(null);
   const [orders, setOrders] = useState([]);
-  
 
-  const handleSelectOrder = (order) => {
-    setSelectedOrder(order);
+  const handleSelectOrder = async (orderId) => {
+    setSelectedOrder(orderId);
+    console.log(`Selected order with ID ${orderId}`);
+    console.log(selectedOrder);
   };
 
-  const handleRemoveOrder = async (orderId) => {
-    try {
-      await axios.delete(`/api/order/${orderId}`);
-      
-      setOrders(orders.filter((order) => order._id !== orderId));
-      
-      if (selectedOrder && selectedOrder._id === orderId) {
-        setSelectedOrder(null);
-      }
-      console.log(`Order with ID ${orderId} has been successfully removed.`);
-    } catch (error) {
-      console.error(`Error removing order with ID ${orderId}:`, error);
-    }
-  };
 
   return (
     <div>
@@ -32,9 +19,9 @@ function OrderManager() {
       <OrderList onSelectOrder={handleSelectOrder} />
       {selectedOrder && (
         <DetailedOrderList
-          orderId={selectedOrder._id}
+          orderId={selectedOrder}
           onClose={() => setSelectedOrder(null)}
-          onRemoveOrder={() => handleRemoveOrder(selectedOrder._id)}
+          
         />
       )}
     </div>

@@ -1,4 +1,5 @@
 import Order from "../models/order.model.js";
+import mongoose from "mongoose";
 
 export async function getOrderList(req, res) {
   try {
@@ -63,5 +64,25 @@ export async function getOrderById(req, res) {
     return res.status(400).json(
         {error: "No body submitted"}
     );
+  }
+}
+
+export async function createOrder(req, res) {
+  console.log("test create order");
+
+  if (!req.body) {
+    return res.status(400).json(
+        {error: "No body submitted"}
+    );
+  }
+
+  try {
+    let order = await Order.create(req.body);
+    res.status(201).json(order);
+  } catch (err) {
+    res.status(500).json(
+        {error: err.message}
+    );
+    console.log(err.message);
   }
 }
