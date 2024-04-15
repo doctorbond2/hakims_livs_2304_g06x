@@ -24,20 +24,11 @@ export default function Admin() {
         >
           Hantera Kategorier
         </button>
-        <button
-          className={`block w-full text-left ${
-            activeTab === "test" ? "text-blue-500" : "text-black"
-          }`}
-          onClick={() => setActiveTab("test")}
-        >
-          test
-        </button>
       </div>
 
       <div className="flex-grow p-15 flex justify-center">
-        {activeTab === "products" && <ManageProductTab />}
+        {activeTab === "products" && <PManager />}
         {activeTab === "categories" && <CategoryManager />}
-        {activeTab === "test" && <PManager />}
       </div>
     </div>
   );

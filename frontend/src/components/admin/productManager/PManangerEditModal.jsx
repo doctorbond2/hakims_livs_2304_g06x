@@ -1,11 +1,9 @@
-import React, { useEffect } from "react";
-import { useState } from "react";
+import React, { useEffect, useState } from "react";
 import * as shad from "@/components/ui/shadBarrel";
 import { PUT_REQUEST, GET_REQUEST } from "@/utils/helpers/request.helper";
 const PManangerEditModal = ({ product, categoryList, updateProducts }) => {
   const baseUnits = ["kg", "g", "mg", "l", "ml", "cl"];
   const [newProduct, setNewProduct] = useState(product);
-
   const [selectListCatg, setSelectListCatg] = useState(categoryList);
   function handleChange(e) {
     const { name, value } = e.target;
@@ -118,8 +116,8 @@ const PManangerEditModal = ({ product, categoryList, updateProducts }) => {
               <shad.SelectTrigger className="w-[180px]">
                 <shad.SelectValue
                   placeholder={
-                    product.category?.name
-                      ? product.category.name
+                    product.category?.title
+                      ? product.category.title
                       : "Saknar kategori"
                   }
                 />
@@ -129,7 +127,7 @@ const PManangerEditModal = ({ product, categoryList, updateProducts }) => {
                   selectListCatg.map((category, index) => {
                     return (
                       <shad.SelectItem value={category._id}>
-                        {category.name}
+                        {category.title}
                       </shad.SelectItem>
                     );
                   })}

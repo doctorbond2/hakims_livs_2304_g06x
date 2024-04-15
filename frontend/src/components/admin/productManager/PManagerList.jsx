@@ -14,11 +14,15 @@ export const PManagerList = ({ productList, categoryList, updateProducts }) => {
                 <shad.TableHead>Titel</shad.TableHead>
                 <shad.TableHead>Kategori</shad.TableHead>
                 <shad.TableHead>Lagerstatus</shad.TableHead>
-                <shad.TableHead>Pris/JmfPris</shad.TableHead>
+                <shad.TableHead>Pris</shad.TableHead>
+                <shad.TableHead>JmfPris</shad.TableHead>
                 <shad.TableHead>
                   <shad.DialogTrigger>
                     <shad.Button className={"bg-gray-400"}>+</shad.Button>
                   </shad.DialogTrigger>
+                  <shad.DialogContent>
+                    <PManagerAddModal {...{ categoryList, updateProducts }} />
+                  </shad.DialogContent>
                 </shad.TableHead>
               </shad.TableRow>
             </shad.TableHeader>
@@ -28,7 +32,7 @@ export const PManagerList = ({ productList, categoryList, updateProducts }) => {
                   return (
                     <>
                       <PManagerItem
-                        key={"pm-" + index}
+                        key={"pm-" + product._id}
                         {...{
                           index,
                           product,

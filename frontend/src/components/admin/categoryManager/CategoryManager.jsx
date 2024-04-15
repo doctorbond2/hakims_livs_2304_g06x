@@ -23,15 +23,17 @@ const CategoryManager = () => {
       console.error(err.message);
     }
   };
-
+  const updateCategories = async () => {
+    const detailedCategories = await GET_REQUEST(
+      "/api/category/products/details"
+    );
+    if (detailedCategories) {
+      setCategoryList(detailedCategories);
+    }
+  };
   useEffect(() => {
     const fetchData = async () => {
-      const detailedCategories = await GET_REQUEST(
-        "/api/category/products/details"
-      );
-      if (detailedCategories) {
-        setCategoryList(detailedCategories);
-      }
+      updateCategories();
     };
     fetchData();
   }, []);
@@ -39,14 +41,15 @@ const CategoryManager = () => {
   return (
     <>
       <div className="flex w-full justify-center">
-        {categoryList && (
+        {
           <CategoryList
             {...{
               categoryList,
               handleDeleteCategory,
+              updateCategories,
             }}
           />
-        )}
+        }
       </div>
     </>
   );

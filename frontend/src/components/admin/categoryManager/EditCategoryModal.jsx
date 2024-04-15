@@ -33,7 +33,7 @@ const EditCategoryModal = ({
                 name="category-update-title"
                 type="text"
                 minLength={1}
-                value={c_info.name}
+                value={c_info.title}
                 onChange={(e) => {
                   handleInput(e, "name");
                 }}
