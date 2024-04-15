@@ -3,9 +3,11 @@ import { useState, useEffect } from "react";
 import ProductCardBody from "./ProductCardBody";
 import ProductModal from "./ProductModal"; // Re-added for the "buy" scenario
 import ManageProduct from "@/components/admin/ManageProduct";
+import { useCart } from "@/components/header/shoppingCart/CartContext.jsx";
 
 const ProductCard = ({ product, buyOrEdit, onSubmit, onEdit, onDelete }) => {
   const [isBuy, setIsBuy] = useState(buyOrEdit.toLowerCase() === "köp");
+  const { addToCart } = useCart();
 
   useEffect(() => {
     setIsBuy(buyOrEdit.toLowerCase() === "köp");
@@ -24,9 +26,7 @@ const ProductCard = ({ product, buyOrEdit, onSubmit, onEdit, onDelete }) => {
               <shad.DialogTrigger asChild>
                 <a className="relative">
                   {" "}
-                  {product.discountRate > 0 && (
-                    <div className="absolute  top-1 left-1 rounded p-1.5 bg-red-500 text-white text-sm italic font-bold">-{product.discountRate}%</div>
-                  )}
+                  {product.discountRate > 0 && <div className="absolute  top-1 left-1 rounded p-1.5 bg-red-500 text-white text-sm italic font-bold">-{product.discountRate}%</div>}
                   <ProductCardBody product={product} />
                 </a>
               </shad.DialogTrigger>
@@ -48,7 +48,9 @@ const ProductCard = ({ product, buyOrEdit, onSubmit, onEdit, onDelete }) => {
                 <shad.Button className="w-[230px]">{buyOrEdit}</shad.Button>
               </shad.DialogTrigger>
             ) : (
-              <shad.Button className="w-[230px]">{buyOrEdit}</shad.Button>
+              <shad.Button onClick={() => addToCart(product, 1)} className="w-[230px]">
+                Köp
+              </shad.Button>
             )}{" "}
           </div>
         </shad.Dialog>
