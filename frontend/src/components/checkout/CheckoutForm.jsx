@@ -1,8 +1,59 @@
 import * as shad from "@/components/ui/shadBarrel";
+import axios from "axios";
+import { useState, useEffect } from "react";
 
 function OrderForm() {
+  const [cartData, setCartData] = useState([]);
+
+  useEffect(() => {
+    const storedCartData = localStorage.getItem("shoppingCart");
+    const cartData = JSON.parse(storedCartData) || [];
+    console.log("Loaded cart data:", cartData);
+    setCartData(cartData);
+  }, []);
+
+  function handleSubmit() {
+    return async (e) => {
+      e.preventDefault();
+      const formData = new FormData(e.target);
+
+      const order = {
+        address: {
+          street: formData.get("street"),
+          city: formData.get("city"),
+          state: formData.get("state"),
+          zip: formData.get("zip"),
+          country: formData.get("country"),
+        },
+        customer: {
+          firstName: formData.get("firstName"),
+          lastName: formData.get("lastName"),
+          email: formData.get("email"),
+        },
+        payment: {
+          cardNumber: formData.get("cardNumber"),
+          expiration: formData.get("expiration"),
+          cardHolder: formData.get("cardHolder"),
+          cvv: formData.get("cvv"),
+        },
+        items: cartData.map((item) => ({
+          id: item._id,
+          quantity: item.cartQuantity,
+        })),
+      };
+
+      try {
+        await axios.post("/api/checkout/create", order);
+        alert("Order placed successfully!");
+        localStorage.removeItem("shoppingCart");
+      } catch (error) {
+        alert("An error occurred. Please try again.");
+      }
+    };
+  }
+
   return (
-    <form className="space-y-6">
+    <form className="space-y-6" onSubmit={handleSubmit()}>
       <h2 className="text-2xl font-bold">Leveransadress</h2>
       <shad.Input
         type="text"
