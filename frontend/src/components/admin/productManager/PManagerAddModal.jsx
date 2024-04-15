@@ -3,6 +3,7 @@ import * as shad from "@/components/ui/shadBarrel";
 import { POST_REQUEST } from "@/utils/helpers/request.helper";
 const PManagerAddModal = ({ categoryList, updateProducts }) => {
   const baseUnits = ["kg", "g", "mg", "l", "ml", "cl"];
+
   const [newProduct, setNewProduct] = useState({
     image: { url: "", alt: "Product Image" },
     price: "",
@@ -122,7 +123,9 @@ const PManagerAddModal = ({ categoryList, updateProducts }) => {
             onValueChange={handleCategoryChange}
           >
             <shad.SelectTrigger className="w-[180px]">
-              <shad.SelectValue placeholder={categoryList[0].title} />
+              <shad.SelectValue
+                placeholder={categoryList?.title && categoryList[0].title}
+              />
             </shad.SelectTrigger>
             <shad.SelectContent>
               {selectListCatg &&
