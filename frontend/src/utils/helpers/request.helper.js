@@ -65,10 +65,22 @@ export async function DELETE_REQUEST(URL) {
     throw err;
   }
 }
+export async function admin_DELETE_REQUEST(URL) {
+  try {
+    if (!adminKey) {
+      throw new Error("Access denied");
+    }
+    const response = await admin.delete(URL);
+    if (response.status === 204) {
+      return { response: response, ok: "Deleted" };
+    } else {
+      return false;
+    }
+  } catch (err) {
+    throw err;
+  }
+}
 //TODO FINISH AUTH FOR BIG BAD DELETE REQUEST
 export async function DELETE_adminREQUEST(URL) {
-  if (!adminKey) {
-    return { error: "Access denied." };
-  }
   return admin.delete(BaseUrl + URL);
 }

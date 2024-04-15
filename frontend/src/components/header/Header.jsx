@@ -1,8 +1,11 @@
 import * as shad from "@/components/ui/shadBarrel";
 import ShoppingCartSheet from "./shoppingCart/ShoppingCartSheet";
-import LoginDialog from "./nav/login/LoginDialog";
+import LoginDialog from "../login/LoginDialog";
 import { Link } from "react-router-dom";
+import { useAuth } from "@/utils/hooks/AuthContext";
 const Header = () => {
+  const { loggedIn } = useAuth();
+
   return (
     <>
       <header className="w-full bg-slate-500 p-4">
@@ -30,9 +33,15 @@ const Header = () => {
                 </Link>
               </li>
               <li>
-                <Link to="/admin" className="text-white">
-                  Admin Panel
-                </Link>
+                {loggedIn ? (
+                  <Link to="/admin" className="text-white">
+                    Admin Panel
+                  </Link>
+                ) : (
+                  <Link to="/" className="text-white">
+                    in Panel
+                  </Link>
+                )}
               </li>
               <li>
                 <LoginDialog />
