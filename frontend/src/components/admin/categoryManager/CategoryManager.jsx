@@ -39,14 +39,14 @@ const CategoryManager = () => {
   return (
     <>
       <div className="flex w-full justify-center">
-        {categoryList && (
+        {
           <CategoryList
             {...{
               categoryList,
               handleDeleteCategory,
             }}
           />
-        )}
+        }
       </div>
     </>
   );

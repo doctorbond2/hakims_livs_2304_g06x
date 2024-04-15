@@ -1,5 +1,5 @@
 import { Schema, model } from "mongoose";
-
+import { removeProductsFromCategory } from "../utils/hooks/category.hooks.js";
 const categorySchema = new Schema(
   {
     name: {
@@ -22,7 +22,7 @@ const categorySchema = new Schema(
     index: true,
   }
 );
-
+categorySchema.pre("deleteOne", removeProductsFromCategory);
 const Category = model("Category", categorySchema);
 
 export default Category;

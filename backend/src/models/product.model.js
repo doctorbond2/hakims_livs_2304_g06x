@@ -83,8 +83,8 @@ productSchema.virtual("savings").get(function () {
   return parseFloat(savings.toFixed(2));
 });
 
-productSchema.virtual("comparePrice").get(function() {
-  const discountedPrice = this.price - (this.price * this.discountRate / 100);
+productSchema.virtual("comparePrice").get(function () {
+  const discountedPrice = this.price - (this.price * this.discountRate) / 100;
   const quantity = this.quantity || 1;
   const comparePrice = discountedPrice / quantity;
   return parseFloat(comparePrice.toFixed(2));
