@@ -4,7 +4,7 @@ import {
   useReactTable,
 } from "@tanstack/react-table";
 import * as shad from "@/components/ui/shadBarrel";
-import Form from "./Form";
+import CheckoutForm from "./CheckoutForm";
 
 export function CheckoutTable({ columns, data }) {
   const table = useReactTable({
@@ -43,7 +43,7 @@ export function CheckoutTable({ columns, data }) {
           )}
         </shad.TableBody>
       </shad.Table>
-      <Form />
+      <CheckoutForm />
     </div>
   );
 }

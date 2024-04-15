@@ -2,15 +2,22 @@ import Order from "../models/order.model.js";
 
 export async function getOrderList(req, res) {
   try {
-    let orders = await Order.find({}, {_id: 1, "customer.firstName": 1, "customer.lastName": 1, total: 1, status: 1, createdAt: 1});
+    let orders = await Order.find(
+      {},
+      {
+        _id: 1,
+        "customer.firstName": 1,
+        "customer.lastName": 1,
+        total: 1,
+        status: 1,
+        createdAt: 1,
+      }
+    );
     res.status(200).json(orders);
   } catch (err) {
-    res.status(500).json(
-        { error: err.message }
-    );
+    res.status(500).json({ error: err.message });
   }
 }
-
 
 export async function getOrderById(req, res) {
   console.log("Order by ID test");
@@ -48,20 +55,15 @@ export async function getOrderById(req, res) {
 
     if (!order || order.length === 0) {
       return res.status(404).json({ message: "Order not found" });
-    };
+    }
 
     res.status(200).json(order[0]);
-
   } catch (err) {
-    res.status(500).json(
-        { error: err.message })
-        ;
+    res.status(500).json({ error: err.message });
     console.log(err.message);
   }
 
   if (!req.body) {
-    return res.status(400).json(
-        {error: "No body submitted"}
-    );
+    return res.status(400).json({ error: "No body submitted" });
   }
 }
