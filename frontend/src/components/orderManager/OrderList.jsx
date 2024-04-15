@@ -1,5 +1,6 @@
 import axios from 'axios';
 import React, { useState, useEffect } from 'react';
+import { GET_REQUEST } from '@/utils/helpers/request.helper';
 
 function OrderList({ onSelectOrder }) {
   const [orders, setOrders] = useState([]); 
@@ -7,10 +8,10 @@ function OrderList({ onSelectOrder }) {
   useEffect(() => {
     const fetchOrders = async () => {
       try {
-        const response = await axios.get('/api/order');
-        setOrders(response.data);
-      } catch (err) {
-        console.error(err);
+        const fetchedOrders = await GET_REQUEST('/api/order');
+        setOrders(fetchedOrders);
+      } catch (error) {
+        console.error('Error fetching orders:', error);
       }
     };
 
@@ -33,9 +34,9 @@ function OrderList({ onSelectOrder }) {
       {orders.map((order) => (
         <div key={order._id} className="order-item" onClick={() => onSelectOrder(order._id)}>
           <p><strong>Order ID:</strong> {order._id}</p>
-          <p><strong>Customer Name:</strong> {`${order.customer.firstName} ${order.customer.lastName}`}</p>
+          <p><strong>Customer Name:</strong> {`${order.customer?.firstName} ${order.customer?.lastName}`}</p>
           <p><strong>Total:</strong> {order.total}</p>
-          <p><strong>Status:</strong> {order.status}</p>
+          <p><strong>Status:</strong> {order.status.paid ? 'Paid' : 'Not Paid'}, {order.status.shipped ? 'Shipped' : 'Not Shipped'}</p>
         </div>
       ))}
     </>
