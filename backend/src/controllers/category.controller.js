@@ -1,5 +1,7 @@
 import Category from "../models/category.model.js";
 import Product from "../models/product.model.js";
+
+
 export async function createCategory(req, res) {
   console.log("Category test");
 
