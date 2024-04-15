@@ -57,7 +57,7 @@ const CategoryListItem = ({ category, handleDeleteCategory, index }) => {
       <shad.Dialog>
         <shad.TableRow>
           <shad.TableCell className="font-medium">
-            {category.name}
+            {category.title}
           </shad.TableCell>
           <shad.TableCell className="font-medium">
             <span className="font-bold">{category.productCount}</span>{" "}

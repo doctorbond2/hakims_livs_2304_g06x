@@ -16,7 +16,7 @@ function PManager({}) {
         const categories = await GET_REQUEST("/api/category/");
         if (categories) {
           setCategoryList(categories);
-          console.log("CATEGORYLIST: ", categoryList);
+          console.log("CATEGORYLIST: ", categories);
         }
       } catch (err) {
         console.error(err);

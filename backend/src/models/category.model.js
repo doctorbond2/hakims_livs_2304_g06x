@@ -2,7 +2,7 @@ import { Schema, model } from "mongoose";
 import { removeProductsFromCategory } from "../utils/hooks/category.hooks.js";
 const categorySchema = new Schema(
   {
-    name: {
+    title: {
       type: String,
       required: true,
       unique: true,
