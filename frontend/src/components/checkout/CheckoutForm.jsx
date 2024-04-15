@@ -8,7 +8,7 @@ function OrderForm() {
   useEffect(() => {
     const storedCartData = localStorage.getItem("shoppingCart");
     const cartData = JSON.parse(storedCartData) || [];
-    console.log("Loaded cart data:", cartData); // Detta hjälper dig att se vad du faktiskt får ut
+    console.log("Loaded cart data:", cartData);
     setCartData(cartData);
   }, []);
 
@@ -43,7 +43,7 @@ function OrderForm() {
       };
 
       try {
-        await axios.post("/api/orders", order);
+        await axios.post("/api/checkout/create", order);
         alert("Order placed successfully!");
         localStorage.removeItem("shoppingCart");
       } catch (error) {
