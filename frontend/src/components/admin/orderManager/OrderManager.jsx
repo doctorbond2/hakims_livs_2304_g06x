@@ -4,7 +4,7 @@ import DetailedOrderList from "./DetailedOrderList";
 
 function OrderManager() {
   const [selectedOrder, setSelectedOrder] = useState(null);
-  const [orders, setOrders] = useState([]);
+  const [orderList, setOrderList] = useState([]);
 
   const handleSelectOrder = async (orderId) => {
     setSelectedOrder(orderId);
@@ -19,7 +19,7 @@ function OrderManager() {
           <strong>Order Manager</strong>
         </h2>
         <OrderList onSelectOrder={handleSelectOrder} />
-        {selectedOrder && <DetailedOrderList orderId={selectedOrder} />}
+        {selectedOrder && <DetailedOrderList {...{ orderList }} />}
       </div>
     </>
   );

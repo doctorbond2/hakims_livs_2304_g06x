@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { GET_REQUEST } from "@/utils/helpers/request.helper";
-
+import * as shad from "@/components/ui/shadBarrel";
 function DetailedOrderList({ orderId }) {
   const [orderDetails, setOrderDetails] = useState(null);
 
