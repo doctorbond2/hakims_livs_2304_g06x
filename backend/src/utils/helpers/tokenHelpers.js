@@ -67,27 +67,3 @@ export const generateBothAdminTokens = async (user) => {
     adminRefresh: admin_refresh_Token,
   };
 };
-const verifyToken = async (req, res, token, secret_key, next) => {
-  try {
-    const verifiedToken = jwt.verify(token, secret_key);
-    if (!verifiedToken) {
-      return res.status(400).send("Access denied");
-    }
-    req.decodedToken = verifiedToken;
-    next();
-  } catch (err) {
-    return res.status(401).send("Invalid token");
-  }
-};
-const verifyRefreshToken = async (req, res, token, secret_key, next) => {
-  try {
-    const verifiedRefreshToken = jwt.verify(token, secret_key);
-    if (!verifiedRefreshToken) {
-      return res.status(400).send("Access denied");
-    }
-    req.decodedRefreshToken = verifiedRefreshToken;
-    next();
-  } catch (err) {
-    return res.status(401).send("Invalid token");
-  }
-};
