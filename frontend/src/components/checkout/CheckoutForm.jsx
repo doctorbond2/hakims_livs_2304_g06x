@@ -6,11 +6,11 @@ import { useState, useEffect } from "react";
 function OrderForm() {
   const [cartData, setCartData] = useState([]);
   const [newOrder, setNewOrder] = useState({
-    address: {
-      street: "",
+    shippingAddress: {
+      streetAddress: "",
       city: "",
-      state: "",
-      zip: "",
+      county: "",
+      postalCode: "",
       country: "",
     },
     customer: {
@@ -18,39 +18,37 @@ function OrderForm() {
       lastName: "",
       email: "",
     },
-    payment: {
+    paymentDetails: {
       cardNumber: "",
-      expiration: "",
-      cardHolder: "",
+      expDate: "",
+      cardName: "",
       cvv: "",
     },
     items: [],
   });
 
-  function handleAddressDetails(e) {
+  function handleShippingAddressChange(e) {
     const { name, value } = e.target;
-    setNewOrder({
-      ...newOrder,
-      address: { ...newOrder.address, [name]: value },
-    });
-    console.log(name, "name");
-    console.log(value, "value");
+    setNewOrder((prevOrder) => ({
+      ...prevOrder,
+      shippingAddress: { ...prevOrder.shippingAddress, [name]: value },
+    }));
   }
 
-  function handleCustomerDetails(e) {
+  function handleCustomerDetailsChange(e) {
     const { name, value } = e.target;
-    setNewOrder({
-      ...newOrder,
-      customer: { ...newOrder.customer, [name]: value },
-    });
+    setNewOrder((prevOrder) => ({
+      ...prevOrder,
+      customer: { ...prevOrder.customer, [name]: value },
+    }));
   }
 
-  function handlePaymentChange(e) {
+  function handlePaymentDetailsChange(e) {
     const { name, value } = e.target;
-    setNewOrder({
-      ...newOrder,
-      payment: { ...newOrder.payment, [name]: value },
-    });
+    setNewOrder((prevOrder) => ({
+      ...prevOrder,
+      paymentDetails: { ...prevOrder.paymentDetails, [name]: value },
+    }));
   }
 
   useEffect(() => {
@@ -64,18 +62,16 @@ function OrderForm() {
     setCartData(cartData);
   }, []);
 
-  function handleSubmit() {
-    return async (e) => {
-      e.preventDefault();
-      const formData = new FormData(e.target);
-      try {
-        await POST_REQUEST("/api/order/create", newOrder);
-        alert("Order placed successfully!");
-        localStorage.removeItem("shoppingCart");
-      } catch (error) {
-        alert("An error occurred. Please try again.");
-      }
-    };
+  async function handleSubmit(e) {
+    e.preventDefault();
+    try {
+      const response = await POST_REQUEST("/api/order/create", newOrder);
+      alert("Order placed successfully!");
+      localStorage.removeItem("shoppingCart");
+    } catch (error) {
+      console.error(error.message);
+      alert("An error occurred. Please try again.");
+    }
   }
 
   return (
@@ -86,10 +82,10 @@ function OrderForm() {
         <shad.Input
           type="text"
           placeholder="Gatuaddress"
-          name="street"
+          name="streetAddress"
           className="w-full mt-1"
-          value={newOrder.address.street}
-          onChange={handleAddressDetails}
+          value={newOrder.shippingAddress.streetAddress}
+          onChange={handleShippingAddressChange}
           required
         />
       </shad.Label>
@@ -100,8 +96,8 @@ function OrderForm() {
           placeholder="Stad"
           name="city"
           className="w-full mt-1"
-          value={newOrder.address.city}
-          onChange={handleAddressDetails}
+          value={newOrder.shippingAddress.city}
+          onChange={handleShippingAddressChange}
           required
         />
       </shad.Label>
@@ -110,10 +106,10 @@ function OrderForm() {
         <shad.Input
           type="text"
           placeholder="Län"
-          name="state"
+          name="county"
           className="w-full mt-1"
-          value={newOrder.address.state}
-          onChange={handleAddressDetails}
+          value={newOrder.shippingAddress.county}
+          onChange={handleShippingAddressChange}
           required
         />
       </shad.Label>
@@ -122,10 +118,10 @@ function OrderForm() {
         <shad.Input
           type="text"
           placeholder="Postnummer"
-          name="zip"
+          name="postalCode"
           className="w-full mt-1"
-          value={newOrder.address.zip}
-          onChange={handleAddressDetails}
+          value={newOrder.shippingAddress.postalCode}
+          onChange={handleShippingAddressChange}
           pattern="^\d{3}\s?\d{2}$"
           required
         />
@@ -137,8 +133,8 @@ function OrderForm() {
           placeholder="Land"
           name="country"
           className="w-full mt-1"
-          value={newOrder.address.country}
-          onChange={handleAddressDetails}
+          value={newOrder.shippingAddress.country}
+          onChange={handleShippingAddressChange}
           required
         />
       </shad.Label>
@@ -152,7 +148,7 @@ function OrderForm() {
           name="firstName"
           className="w-full mt-1"
           value={newOrder.customer.firstName}
-          onChange={handleCustomerDetails}
+          onChange={handleCustomerDetailsChange}
           required
         />
       </shad.Label>
@@ -164,7 +160,7 @@ function OrderForm() {
           name="lastName"
           className="w-full mt-1"
           value={newOrder.customer.lastName}
-          onChange={handleCustomerDetails}
+          onChange={handleCustomerDetailsChange}
           required
         />
       </shad.Label>
@@ -176,7 +172,7 @@ function OrderForm() {
           name="email"
           className="w-full mt-1"
           value={newOrder.customer.email}
-          onChange={handleCustomerDetails}
+          onChange={handleCustomerDetailsChange}
           required
         />
       </shad.Label>
@@ -190,8 +186,8 @@ function OrderForm() {
           name="cardNumber"
           className="w-full mt-1"
           pattern="^\d{16}$"
-          value={newOrder.payment.cardNumber}
-          onChange={handlePaymentChange}
+          value={newOrder.paymentDetails.cardNumber}
+          onChange={handlePaymentDetailsChange}
           required
         />
       </shad.Label>
@@ -200,11 +196,11 @@ function OrderForm() {
         <shad.Input
           type="text"
           placeholder="Utgångsdatum (MM/YY)"
-          name="expiration"
+          name="expDate"
           className="w-full mt-1"
           pattern="^(0[1-9]|1[0-2])\/?([0-9]{2})$"
-          value={newOrder.payment.expiration}
-          onChange={handlePaymentChange}
+          value={newOrder.paymentDetails.expDate}
+          onChange={handlePaymentDetailsChange}
           required
         />
       </shad.Label>
@@ -213,10 +209,10 @@ function OrderForm() {
         <shad.Input
           type="text"
           placeholder="Kortinnehavarens namn"
-          name="cardHolder"
+          name="cardName"
           className="w-full mt-1"
-          value={newOrder.payment.cardHolder}
-          onChange={handlePaymentChange}
+          value={newOrder.paymentDetails.cardName}
+          onChange={handlePaymentDetailsChange}
           required
         />
       </shad.Label>
@@ -228,8 +224,8 @@ function OrderForm() {
           name="cvv"
           className="w-full mt-1"
           pattern="^\d{3}$"
-          value={newOrder.payment.cvv}
-          onChange={handlePaymentChange}
+          value={newOrder.paymentDetails.cvv}
+          onChange={handlePaymentDetailsChange}
           required
         />
       </shad.Label>
