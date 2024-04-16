@@ -32,30 +32,7 @@ export async function getOrderById(req, res) {
       { _id: orderID },
       { total: 1, status: 1, paymentDetails: 1, items: 1, shippingAddress: 1 }
     ).populate("items.product");
-    // const order = await Order.aggregate([
-    //   { $match: { _id: orderID } },
-    //   // {
-    //   //   $lookup: {
-    //   //     from: "products",
-    //   //     localField: "items.product",
-    //   //     foreignField: "_id",
-    //   //     as: "product",
-    //   //   },
-    //   // },
-    //   // {
-    //   //   $project: {
-    //   //     "customer.firstName": 1,
-    //   //     "customer.lastName": 1,
-    //   //     "customer.email": 1,
-    //   //     total: 1,
-    //   //     status: 1,
-    //   //     shippingAddress: 1,
-    //   //     paymentDetails: 1,
-    //   //     "product.name": 1,
-    //   //     "products.quantity": "$items.quantity",
-    //   //   },
-    //   // },
-    // ]);
+
 
     if (!order || order.length === 0) {
       return res.status(404).json({ message: "Order not found" });
