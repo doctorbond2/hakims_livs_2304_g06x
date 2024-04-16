@@ -9,6 +9,7 @@ export { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 export { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
 export { ScrollArea } from "@/components/ui/scroll-area";
 export { Separator } from "@/components/ui/separator";
+export { Switch } from "@/components/ui/switch";
 // DOCUMENTATION EXAMPLES: (Two different ways of importing)
 
 // 1: import { Button, Input, Label, Card, Select, Sheet, Table } from "@/components/ui/shadBarrel"; WRITTEN AS: <Button />
