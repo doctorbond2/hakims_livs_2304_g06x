@@ -4,8 +4,7 @@ import axios from "axios";
 import { useState, useEffect } from "react";
 
 function OrderForm() {
-  const [cartData, setCartData] = useState([]);
-  const [newOrder, setNewOrder] = useState({
+  const defaultOrder = {
     shippingAddress: {
       streetAddress: "",
       city: "",
@@ -25,7 +24,35 @@ function OrderForm() {
       cvv: "",
     },
     items: [],
-  });
+  };
+  const [cartData, setCartData] = useState([]);
+  const [newOrder, setNewOrder] = useState(defaultOrder);
+
+  useEffect(() => {
+    const cartDataJSON = localStorage.getItem("shoppingCart");
+    if (cartDataJSON) {
+      setCartData(JSON.parse(cartDataJSON));
+      const formattedCartData = JSON.parse(cartDataJSON).map((item) => ({
+        product: item.id,
+        quantity: item.quantity,
+        price: item.price,
+      }));
+
+      setCartData(formattedCartData);
+
+      //totalsumman från varukorgen
+      const total = formattedCartData.reduce((totalSum, item) => {
+        return totalSum + item.price * item.quantity;
+      }, 0);
+      setNewOrder((prevOrder) => ({ ...prevOrder, total: total }));
+
+      setNewOrder((prevOrder) => ({
+        ...prevOrder,
+        items: formattedCartData,
+        total: total,
+      }));
+    }
+  }, []);
 
   function handleShippingAddressChange(e) {
     const { name, value } = e.target;
@@ -53,21 +80,18 @@ function OrderForm() {
 
   useEffect(() => {
     console.log(newOrder, "newOrder");
+    console.log("newOrder.items", newOrder.items);
   }, [newOrder]);
-
-  useEffect(() => {
-    const storedCartData = localStorage.getItem("shoppingCart");
-    const cartData = JSON.parse(storedCartData) || [];
-    console.log("Loaded cart data:", cartData);
-    setCartData(cartData);
-  }, []);
 
   async function handleSubmit(e) {
     e.preventDefault();
     try {
       const response = await POST_REQUEST("/api/order/create", newOrder);
-      alert("Order placed successfully!");
-      localStorage.removeItem("shoppingCart");
+      if (response) {
+        alert("Order placed successfully!");
+        localStorage.removeItem("shoppingCart");
+        setNewOrder(defaultOrder);
+      }
     } catch (error) {
       console.error(error.message);
       alert("An error occurred. Please try again.");
