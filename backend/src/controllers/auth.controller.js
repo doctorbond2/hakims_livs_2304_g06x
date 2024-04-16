@@ -7,6 +7,7 @@ export const loginController = async (req, res) => {
   if (!req.body) {
     return res.status(400).json({ error: "No body submitted" });
   }
+
   const _userLoginDetails = req.body;
 
   try {

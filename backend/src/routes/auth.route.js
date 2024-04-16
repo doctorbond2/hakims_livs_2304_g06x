@@ -8,4 +8,5 @@ const router = express.Router();
 
 router.get("/test", authKeyMiddleware, megaAuthTest);
 router.post("/auth/login", loginController);
+router.post("/auth/register");
 export default router;
