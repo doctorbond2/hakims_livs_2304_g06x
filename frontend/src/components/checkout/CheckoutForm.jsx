@@ -6,11 +6,11 @@ import { useState, useEffect } from "react";
 function OrderForm() {
   const [cartData, setCartData] = useState([]);
   const [newOrder, setNewOrder] = useState({
-    address: {
-      street: "",
+    shippingAddress: {
+      streetAddress: "",
       city: "",
-      state: "",
-      zip: "",
+      county: "",
+      postalCode: "",
       country: "",
     },
     customer: {
@@ -18,28 +18,37 @@ function OrderForm() {
       lastName: "",
       email: "",
     },
-    payment: {
+    paymentDetails: {
       cardNumber: "",
-      expiration: "",
-      cardHolder: "",
+      expDate: "",
+      cardName: "",
       cvv: "",
     },
     items: [],
   });
 
-  function handleChange(e) {
+  function handleShippingAddressChange(e) {
     const { name, value } = e.target;
-    setNewOrder({ ...newOrder, [name]: value });
-    console.log(name, "name");
-    console.log(value, "value");
+    setNewOrder((prevOrder) => ({
+      ...prevOrder,
+      shippingAddress: { ...prevOrder.shippingAddress, [name]: value },
+    }));
   }
 
-  function handlePaymentChange(e) {
+  function handleCustomerDetailsChange(e) {
     const { name, value } = e.target;
-    setNewOrder({
-      ...newOrder,
-      payment: { ...newOrder.payment, [name]: value },
-    });
+    setNewOrder((prevOrder) => ({
+      ...prevOrder,
+      customer: { ...prevOrder.customer, [name]: value },
+    }));
+  }
+
+  function handlePaymentDetailsChange(e) {
+    const { name, value } = e.target;
+    setNewOrder((prevOrder) => ({
+      ...prevOrder,
+      paymentDetails: { ...prevOrder.paymentDetails, [name]: value },
+    }));
   }
 
   useEffect(() => {
@@ -53,96 +62,173 @@ function OrderForm() {
     setCartData(cartData);
   }, []);
 
-  function handleSubmit() {
-    return async (e) => {
-      e.preventDefault();
-      const formData = new FormData(e.target);
-
-      try {
-        await POST_REQUEST("/api/order/create", newOrder);
-        alert("Order placed successfully!");
-        localStorage.removeItem("shoppingCart");
-      } catch (error) {
-        alert("An error occurred. Please try again.");
-      }
-    };
+  async function handleSubmit(e) {
+    e.preventDefault();
+    try {
+      const response = await POST_REQUEST("/api/order/create", newOrder);
+      alert("Order placed successfully!");
+      localStorage.removeItem("shoppingCart");
+    } catch (error) {
+      console.error(error.message);
+      alert("An error occurred. Please try again.");
+    }
   }
 
   return (
     <form className="space-y-6" onSubmit={handleSubmit}>
       <h2 className="text-2xl font-bold">Leveransadress</h2>
-      <shad.Input
-        type="text"
-        placeholder="Gatuaddress"
-        name="street"
-        className="w-full"
-        value={newOrder.address.street}
-        id="street"
-        onChange={handleChange}
-        required
-      />
-      <shad.Input type="text" placeholder="Stad" className="w-full" required />
-      <shad.Input type="text" placeholder="Län" className="w-full" required />
-      <shad.Input
-        type="text"
-        placeholder="Postnummer"
-        className="w-full"
-        pattern="^\d{3}\s?\d{2}$"
-        required
-      />
-      <shad.Input type="text" placeholder="Land" className="w-full" required />
+      <shad.Label className="block">
+        Gatuadress
+        <shad.Input
+          type="text"
+          placeholder="Gatuaddress"
+          name="streetAddress"
+          className="w-full mt-1"
+          value={newOrder.shippingAddress.streetAddress}
+          onChange={handleShippingAddressChange}
+          required
+        />
+      </shad.Label>
+      <shad.Label className="block">
+        Stad
+        <shad.Input
+          type="text"
+          placeholder="Stad"
+          name="city"
+          className="w-full mt-1"
+          value={newOrder.shippingAddress.city}
+          onChange={handleShippingAddressChange}
+          required
+        />
+      </shad.Label>
+      <shad.Label className="block">
+        Län
+        <shad.Input
+          type="text"
+          placeholder="Län"
+          name="county"
+          className="w-full mt-1"
+          value={newOrder.shippingAddress.county}
+          onChange={handleShippingAddressChange}
+          required
+        />
+      </shad.Label>
+      <shad.Label className="block">
+        Postnummer
+        <shad.Input
+          type="text"
+          placeholder="Postnummer"
+          name="postalCode"
+          className="w-full mt-1"
+          value={newOrder.shippingAddress.postalCode}
+          onChange={handleShippingAddressChange}
+          pattern="^\d{3}\s?\d{2}$"
+          required
+        />
+      </shad.Label>
+      <shad.Label className="block">
+        Land
+        <shad.Input
+          type="text"
+          placeholder="Land"
+          name="country"
+          className="w-full mt-1"
+          value={newOrder.shippingAddress.country}
+          onChange={handleShippingAddressChange}
+          required
+        />
+      </shad.Label>
 
       <h2 className="text-2xl font-bold">Kunduppgifter</h2>
-      <shad.Input
-        type="text"
-        placeholder="Förnamn"
-        className="w-full"
-        required
-      />
-      <shad.Input
-        type="text"
-        placeholder="Efternamn"
-        className="w-full"
-        required
-      />
-      <shad.Input
-        type="email"
-        placeholder="E-post"
-        className="w-full"
-        required
-      />
+      <shad.Label className="block">
+        Förnamn
+        <shad.Input
+          type="text"
+          placeholder="Förnamn"
+          name="firstName"
+          className="w-full mt-1"
+          value={newOrder.customer.firstName}
+          onChange={handleCustomerDetailsChange}
+          required
+        />
+      </shad.Label>
+      <shad.Label className="block">
+        Efternamn
+        <shad.Input
+          type="text"
+          placeholder="Efternamn"
+          name="lastName"
+          className="w-full mt-1"
+          value={newOrder.customer.lastName}
+          onChange={handleCustomerDetailsChange}
+          required
+        />
+      </shad.Label>
+      <shad.Label className="block">
+        E-post
+        <shad.Input
+          type="email"
+          placeholder="E-post"
+          name="email"
+          className="w-full mt-1"
+          value={newOrder.customer.email}
+          onChange={handleCustomerDetailsChange}
+          required
+        />
+      </shad.Label>
 
       <h2 className="text-2xl font-bold">Betalningsuppgifter</h2>
-      <shad.Input
-        type="text"
-        placeholder="Kortnummer"
-        className="w-full"
-        pattern="^\d{16}$"
-        name="cardNumber"
-        value={newOrder.payment.cardNumber}
-        onChange={handlePaymentChange}
-        required
-      />
-      <shad.Input
-        type="text"
-        placeholder="Utgångsdatum (MM/YY)"
-        className="w-full"
-        pattern="^(0[1-9]|1[0-2])\/?([0-9]{2})$"
-        required
-      />
-      <shad.Input
-        type="text"
-        placeholder="Kortinnehavarens namn"
-        className="w-full"
-        required
-      />
-      <shad.Input
-        type="text"
-        placeholder="CVV"
-        className="w-full"
-        pattern="^\d{3}$"
-        required
-      />
+      <shad.Label className="block">
+        Kortnummer
+        <shad.Input
+          type="text"
+          placeholder="Kortnummer"
+          name="cardNumber"
+          className="w-full mt-1"
+          pattern="^\d{16}$"
+          value={newOrder.paymentDetails.cardNumber}
+          onChange={handlePaymentDetailsChange}
+          required
+        />
+      </shad.Label>
+      <shad.Label className="block">
+        Utgångsdatum (MM/YY)
+        <shad.Input
+          type="text"
+          placeholder="Utgångsdatum (MM/YY)"
+          name="expDate"
+          className="w-full mt-1"
+          pattern="^(0[1-9]|1[0-2])\/?([0-9]{2})$"
+          value={newOrder.paymentDetails.expDate}
+          onChange={handlePaymentDetailsChange}
+          required
+        />
+      </shad.Label>
+      <shad.Label className="block">
+        Kortinnehavarens namn
+        <shad.Input
+          type="text"
+          placeholder="Kortinnehavarens namn"
+          name="cardName"
+          className="w-full mt-1"
+          value={newOrder.paymentDetails.cardName}
+          onChange={handlePaymentDetailsChange}
+          required
+        />
+      </shad.Label>
+      <shad.Label className="block">
+        CVV
+        <shad.Input
+          type="text"
+          placeholder="CVV"
+          name="cvv"
+          className="w-full mt-1"
+          pattern="^\d{3}$"
+          value={newOrder.paymentDetails.cvv}
+          onChange={handlePaymentDetailsChange}
+          required
+        />
+      </shad.Label>
 
       <shad.Button
         type="submit"
