@@ -2,6 +2,7 @@ import User from "../models/user.model.js";
 import {
   generateBothTokens,
   generateBothTokens as getTokens,
+  generateBothAdminTokens as getAdminTokens,
 } from "../utils/helpers/tokenHelpers.js";
 import { comparePasswords } from "../utils/hooks/user.hooks.js";
 
@@ -23,12 +24,16 @@ export const loginController = async (req, res) => {
     console.log("2:", password, user.password, user);
     const comparison = comparePasswords(password, user.password);
     if (comparison) {
-      const userResponse = user.toObject();
-      delete userResponse.password;
-      delete userResponse.order;
-      const tokens = await getTokens(user);
-      userResponse.tokens = tokens;
-      res.status(200).json(userResponse);
+      const tokens = user.admin
+        ? await getAdminTokens(user)
+        : await getTokens(user);
+      if (tokens) {
+        console.log("TOOOOOKEEEENS");
+        const userResponse = user.toObject();
+        delete userResponse.password;
+        userResponse.tokens = tokens;
+        res.status(200).json(userResponse);
+      }
     }
   } catch (err) {
     console.log(err.message);
@@ -36,10 +41,11 @@ export const loginController = async (req, res) => {
   }
 };
 export const logoutController = async (req, res) => {
+  console.log("test logout");
   if (!req.body) {
     return res.status(400).json({ error: "No body submitted" });
   }
-  res.status(200).send("Logged out:(");
+  res.status(200).json("Logged out");
 };
 export const registerController = async (req, res) => {
   console.log("hi");
@@ -49,13 +55,14 @@ export const registerController = async (req, res) => {
   const _user = req.body;
   try {
     const user = await User.create(_user);
+
     const tokens = await getTokens(user);
     res.json(tokens);
   } catch (error) {
     return res.status(500).json({ error: error.message });
   }
 };
-export const adminLogin = async (req, res) => {
+export const adminLoginController = async (req, res) => {
   if (!req.body) {
     return res.status(400).json({ error: "No body submitted" });
   }

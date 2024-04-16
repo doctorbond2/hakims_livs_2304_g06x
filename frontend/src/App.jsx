@@ -6,7 +6,14 @@ import Home from "./pages/Home";
 import Admin from "./pages/Admin";
 import CategoryManager from "./components/admin/categoryManager/CategoryManager";
 import Checkout from "./pages/Checkout";
+import { useAuth } from "./utils/hooks/AuthContext";
+import { useEffect } from "react";
 function App() {
+  const { loggedIn } = useAuth();
+
+  // useEffect(() => {
+
+  // },[loggedIn])
   return (
     <>
       <Header />

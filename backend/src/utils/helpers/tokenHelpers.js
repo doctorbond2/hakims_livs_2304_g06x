@@ -43,7 +43,7 @@ export const generateBothTokens = async (user) => {
   };
 };
 export const generateBothAdminTokens = async (user) => {
-  console.log(user.id);
+  console.log("ADMIN; ", user.id);
   const admin_token = jwt.sign(
     {
       userId: user.id,
@@ -62,8 +62,28 @@ export const generateBothAdminTokens = async (user) => {
       expiresIn: "28d",
     }
   );
+  const accesstoken = jwt.sign(
+    {
+      userId: user.id,
+    },
+    secret_key,
+    {
+      expiresIn: "1m",
+    }
+  );
+  const refreshToken = jwt.sign(
+    {
+      userId: user.id,
+    },
+    secret_refresh_key,
+    {
+      expiresIn: "28d",
+    }
+  );
   return {
     adminAccess: admin_token,
     adminRefresh: admin_refresh_Token,
+    access: accesstoken,
+    refresh: refreshToken,
   };
 };
