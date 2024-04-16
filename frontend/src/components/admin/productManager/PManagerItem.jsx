@@ -1,10 +1,17 @@
 import React from "react";
 import * as shad from "@/components/ui/shadBarrel";
 import PManangerEditModal from "./PManangerEditModal";
-function PManagerItem({ product, categoryList, updateProducts }) {
+function PManagerItem({
+  product,
+  categoryList,
+  updateProducts,
+  handleDeleteProduct,
+  index,
+}) {
+  const product_id = product._id;
   const handleDelete = async () => {
-    if (category_id) {
-      await handleDeleteCategory(category_id, index);
+    if (product_id) {
+      await handleDeleteProduct(product_id, index);
     }
   };
   return (

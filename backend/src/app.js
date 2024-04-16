@@ -2,6 +2,9 @@ import express from "express";
 import userRouter from "./routes/user.route.js";
 import productRouter from "./routes/product.route.js";
 import categoryRouter from "./routes/category.route.js";
+import orderRouter from "./routes/order.route.js";
+
+import authRouter from "./routes/auth.route.js";
 import cors from "cors";
 const app = express();
 app.use(cors());
@@ -13,4 +16,6 @@ app.get("/", (req, res) => {
 app.use("/api/user", userRouter);
 app.use("/api/products", productRouter);
 app.use("/api/category", categoryRouter);
+app.use("/api/auth", authRouter);
+app.use("/api/order", orderRouter);
 export default app;

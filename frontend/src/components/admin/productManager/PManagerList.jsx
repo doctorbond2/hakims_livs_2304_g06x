@@ -1,9 +1,13 @@
 import React from "react";
 import * as shad from "@/components/ui/shadBarrel";
 import PManagerItem from "./PManagerItem";
-import { GET_REQUEST } from "@/utils/helpers/request.helper";
 import PManagerAddModal from "./PManagerAddModal";
-export const PManagerList = ({ productList, categoryList, updateProducts }) => {
+export const PManagerList = ({
+  productList,
+  categoryList,
+  updateProducts,
+  handleDeleteProduct,
+}) => {
   return (
     <>
       <shad.Dialog>
@@ -38,6 +42,7 @@ export const PManagerList = ({ productList, categoryList, updateProducts }) => {
                           product,
                           categoryList,
                           updateProducts,
+                          handleDeleteProduct,
                         }}
                       />
                     </>
