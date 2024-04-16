@@ -13,13 +13,15 @@ function OrderManager() {
   };
 
   return (
-    <div>
-      <h2>
-        <strong>Order Manager</strong>
-      </h2>
-      <OrderList onSelectOrder={handleSelectOrder} />
-      {selectedOrder && <DetailedOrderList orderId={selectedOrder} />}
-    </div>
+    <>
+      <div>
+        <h2>
+          <strong>Order Manager</strong>
+        </h2>
+        <OrderList onSelectOrder={handleSelectOrder} />
+        {selectedOrder && <DetailedOrderList orderId={selectedOrder} />}
+      </div>
+    </>
   );
 }
 

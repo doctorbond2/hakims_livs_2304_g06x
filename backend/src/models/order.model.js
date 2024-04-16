@@ -3,7 +3,7 @@ import mongoose from "mongoose";
 const { Schema, model } = mongoose;
 
 const ShippingAddressSchema = new Schema({
-  streetAdress: {
+  streetAddress: {
     type: String,
     required: [true, "Gatuaddress krävs"],
   },
@@ -48,7 +48,10 @@ const OrderSchema = new Schema(
   {
     items: {
       type: [OrderItemSchema],
-      validate: [(v) => Array.isArray(v) && v.length > 0, "Minst en artikel krävs"],
+      validate: [
+        (v) => Array.isArray(v) && v.length > 0,
+        "Minst en artikel krävs",
+      ],
     },
     total: {
       type: Number,
@@ -87,7 +90,10 @@ const OrderSchema = new Schema(
       expDate: {
         type: String,
         required: [true, "Utgångsdatum krävs"],
-        match: [/^(0[1-9]|1[0-2])\/?([0-9]{2})$/, "Ogiltigt utgångsdatumformat"],
+        match: [
+          /^(0[1-9]|1[0-2])\/?([0-9]{2})$/,
+          "Ogiltigt utgångsdatumformat",
+        ],
       },
       cardName: {
         type: String,
