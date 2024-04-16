@@ -17,7 +17,7 @@ function OLManagerModal({ order, updateOrder }) {
               <shad.TableHead>Orderdatum</shad.TableHead>
               <shad.TableCaption>{order.createdAt}</shad.TableCaption>
             </shad.TableRow>
-            
+
             <shad.TableRow>
               <shad.TableHead>Kundinformation</shad.TableHead>
             </shad.TableRow>
@@ -40,9 +40,10 @@ function OLManagerModal({ order, updateOrder }) {
               <shad.TableCell>
                 {" "}
                 {order.shippingAddress
-                  ? `${order.shippingAddress.streetAddress}, ${order.shippingAddress.city}`
+                  ? `${order.shippingAddress.streetAddress}, ${order.shippingAddress.postalCode},
+                  ${order.shippingAddress.county}`
                   : "Adress saknas"}
-                  {console.log(order.streetAddress)}
+                {console.log(order.streetAddress)}
               </shad.TableCell>
             </shad.TableRow>
             <shad.TableBody>
@@ -79,9 +80,7 @@ function OLManagerModal({ order, updateOrder }) {
             </shad.TableRow>
             <shad.TableRow>
               <shad.TableCell>
-                <shad.Switch >
-                    För betalning
-                </shad.Switch>
+                <shad.Switch>För betalning</shad.Switch>
               </shad.TableCell>
               <shad.TableCell>
                 <shad.Switch>För skickad</shad.Switch>
