@@ -1,17 +1,21 @@
 import React, { useState, useEffect, useRef } from "react";
 import axios from "axios";
 import { debounce } from "lodash";
-import ReactDOM from "react-dom"; // Import ReactDOM for the portal
+import ReactDOM from "react-dom";
 import * as shad from "@/components/ui/shadBarrel";
 import ProductModal from "@/components/productList/productCards/ProductModal";
+import { Cross1Icon } from "@radix-ui/react-icons";
 
 const SearchBar = () => {
   const [query, setQuery] = useState("");
   const [products, setProducts] = useState([]);
   const [error, setError] = useState("");
   const [portalPosition, setPortalPosition] = useState({ top: 0, left: 0, width: 0 });
+  const [showPortal, setShowPortal] = useState(false);
   const inputRef = useRef(null);
-  const verticalOffset = 10; // Adjust this value as needed
+  const portalRef = useRef(null);
+  const verticalOffset = 10;
+
   const searchProducts = debounce(async (query) => {
     if (!query) {
       setProducts([]);
@@ -50,8 +54,41 @@ const SearchBar = () => {
     };
   }, []);
 
+  useEffect(() => {
+    const handleClick = (event) => {
+      if (portalRef.current && !portalRef.current.contains(event.target)) {
+        setShowPortal(false);
+      }
+    };
+
+    if (showPortal) {
+      document.addEventListener("mousedown", handleClick);
+    } else {
+      document.removeEventListener("mousedown", handleClick);
+    }
+
+    return () => {
+      document.removeEventListener("mousedown", handleClick);
+    };
+  }, [showPortal]);
+
+  const handleInputFocus = () => {
+    setShowPortal(true);
+  };
+
+  const handleClearInput = () => {
+    setQuery("");
+    inputRef.current.focus();
+  };
+
+  const clearButton = query.length > 0 && (
+    <button className="-ml-6 font-bold" onClick={handleClearInput}>
+      <Cross1Icon />
+    </button>
+  );
+
   const resultsDropdown = (
-    <div style={{ position: "absolute", top: portalPosition.top, left: portalPosition.left, width: portalPosition.width }}>
+    <div ref={portalRef} style={{ position: "absolute", top: portalPosition.top, left: portalPosition.left, width: portalPosition.width }}>
       {error ? (
         <p style={{ color: "red" }}>{error}</p>
       ) : (
@@ -79,9 +116,12 @@ const SearchBar = () => {
   return (
     <div className="relative">
       <form onSubmit={(e) => e.preventDefault()}>
-        <shad.Input ref={inputRef} type="text" placeholder="Sök efter produkter..." value={query} onChange={(e) => setQuery(e.target.value)} />
+        <div className="flex">
+          <shad.Input ref={inputRef} type="text" placeholder="Sök efter produkter..." value={query} onChange={(e) => setQuery(e.target.value)} onFocus={handleInputFocus} />
+          {clearButton}
+        </div>
       </form>
-      {ReactDOM.createPortal(resultsDropdown, document.getElementById("portal-root"))}
+      {showPortal && ReactDOM.createPortal(resultsDropdown, document.getElementById("portal-root"))}
     </div>
   );
 };
