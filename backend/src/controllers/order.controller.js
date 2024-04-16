@@ -7,11 +7,13 @@ export async function getOrderList(req, res) {
       {},
       {
         _id: 1,
-        "customer.firstName": 1,
-        "customer.lastName": 1,
+        customer: 1,
+        shippingAddress: 1,
+        
         total: 1,
         status: 1,
         createdAt: 1,
+        
       }
     );
     res.status(200).json(orders);
