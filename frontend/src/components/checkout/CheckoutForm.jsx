@@ -1,9 +1,50 @@
 import * as shad from "@/components/ui/shadBarrel";
+import { POST_REQUEST } from "@/utils/helpers/request.helper";
 import axios from "axios";
 import { useState, useEffect } from "react";
 
 function OrderForm() {
   const [cartData, setCartData] = useState([]);
+  const [newOrder, setNewOrder] = useState({
+    address: {
+      street: "",
+      city: "",
+      state: "",
+      zip: "",
+      country: "",
+    },
+    customer: {
+      firstName: "",
+      lastName: "",
+      email: "",
+    },
+    payment: {
+      cardNumber: "",
+      expiration: "",
+      cardHolder: "",
+      cvv: "",
+    },
+    items: [],
+  });
+
+  function handleChange(e) {
+    const { name, value } = e.target;
+    setNewOrder({ ...newOrder, [name]: value });
+    console.log(name, "name");
+    console.log(value, "value");
+  }
+
+  function handlePaymentChange(e) {
+    const { name, value } = e.target;
+    setNewOrder({
+      ...newOrder,
+      payment: { ...newOrder.payment, [name]: value },
+    });
+  }
+
+  useEffect(() => {
+    console.log(newOrder, "newOrder");
+  }, [newOrder]);
 
   useEffect(() => {
     const storedCartData = localStorage.getItem("shoppingCart");
@@ -17,33 +58,8 @@ function OrderForm() {
       e.preventDefault();
       const formData = new FormData(e.target);
 
-      const order = {
-        address: {
-          street: formData.get("street"),
-          city: formData.get("city"),
-          state: formData.get("state"),
-          zip: formData.get("zip"),
-          country: formData.get("country"),
-        },
-        customer: {
-          firstName: formData.get("firstName"),
-          lastName: formData.get("lastName"),
-          email: formData.get("email"),
-        },
-        payment: {
-          cardNumber: formData.get("cardNumber"),
-          expiration: formData.get("expiration"),
-          cardHolder: formData.get("cardHolder"),
-          cvv: formData.get("cvv"),
-        },
-        items: cartData.map((item) => ({
-          id: item._id,
-          quantity: item.cartQuantity,
-        })),
-      };
-
       try {
-        await axios.post("/api/checkout/create", order);
+        await POST_REQUEST("/api/order/create", newOrder);
         alert("Order placed successfully!");
         localStorage.removeItem("shoppingCart");
       } catch (error) {
@@ -53,12 +69,16 @@ function OrderForm() {
   }
 
   return (
-    <form className="space-y-6" onSubmit={handleSubmit()}>
+    <form className="space-y-6" onSubmit={handleSubmit}>
       <h2 className="text-2xl font-bold">Leveransadress</h2>
       <shad.Input
         type="text"
         placeholder="Gatuaddress"
+        name="street"
         className="w-full"
+        value={newOrder.address.street}
+        id="street"
+        onChange={handleChange}
         required
       />
       <shad.Input type="text" placeholder="Stad" className="w-full" required />
@@ -98,6 +118,9 @@ function OrderForm() {
         placeholder="Kortnummer"
         className="w-full"
         pattern="^\d{16}$"
+        name="cardNumber"
+        value={newOrder.payment.cardNumber}
+        onChange={handlePaymentChange}
         required
       />
       <shad.Input
