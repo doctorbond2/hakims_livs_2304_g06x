@@ -1,11 +1,17 @@
 import * as shad from "@/components/ui/shadBarrel";
 import LoginTab from "./LoginTab";
-export default function LoginDialog() {
+export default function LoginDialog({ loggedIn, logout }) {
   return (
     <shad.Dialog>
-      <shad.DialogTrigger asChild>
-        <shad.Button variant="outline">Logga in</shad.Button>
-      </shad.DialogTrigger>
+      {loggedIn ? (
+        <shad.Button variant="outline" onClick={logout}>
+          Logga ut
+        </shad.Button>
+      ) : (
+        <shad.DialogTrigger asChild>
+          <shad.Button variant="outline">Logga in</shad.Button>
+        </shad.DialogTrigger>
+      )}
       <shad.DialogContent className="sm:max-w-[450px] flex">
         <LoginTab />
       </shad.DialogContent>
