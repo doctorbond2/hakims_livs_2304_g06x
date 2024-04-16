@@ -3,20 +3,6 @@ import * as shad from "@/components/ui/shadBarrel";
 
 function OLManagerModal({ order, updateOrder }) {
 
-    const handlePaidToggle = () => {
-      const updatedPaid = !order.status.paid;
-      updateOrder({ ...order, status: { ...order.status, paid: updatedPaid } });
-    };
-
-    // Function to handle toggle for shipped status
-    const handleShippedToggle = () => {
-      const updatedShipped = !order.status.shipped;
-      updateOrder({
-        ...order,
-        status: { ...order.status, shipped: updatedShipped },
-      });
-    };
-
 
   return (
     <>
@@ -31,7 +17,7 @@ function OLManagerModal({ order, updateOrder }) {
               <shad.TableHead>Orderdatum</shad.TableHead>
               <shad.TableCaption>{order.createdAt}</shad.TableCaption>
             </shad.TableRow>
-            .
+
             <shad.TableRow>
               <shad.TableHead>Kundinformation</shad.TableHead>
             </shad.TableRow>
@@ -54,9 +40,10 @@ function OLManagerModal({ order, updateOrder }) {
               <shad.TableCell>
                 {" "}
                 {order.shippingAddress
-                  ? `${order.shippingAddress.streetAddress}, ${order.shippingAddress.city}`
+                  ? `${order.shippingAddress.streetAddress}, ${order.shippingAddress.postalCode},
+                  ${order.shippingAddress.county}`
                   : "Adress saknas"}
-                  {console.log(order.streetAddress)}
+                {console.log(order.streetAddress)}
               </shad.TableCell>
             </shad.TableRow>
             <shad.TableBody>
@@ -93,9 +80,7 @@ function OLManagerModal({ order, updateOrder }) {
             </shad.TableRow>
             <shad.TableRow>
               <shad.TableCell>
-                <shad.Switch >
-                    För betalning
-                </shad.Switch>
+                <shad.Switch>För betalning</shad.Switch>
               </shad.TableCell>
               <shad.TableCell>
                 <shad.Switch>För skickad</shad.Switch>

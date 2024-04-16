@@ -9,6 +9,7 @@ export async function getOrderList(req, res) {
         _id: 1,
         customer: 1,
         shippingAddress: 1,
+        
         total: 1,
         status: 1,
         createdAt: 1,
