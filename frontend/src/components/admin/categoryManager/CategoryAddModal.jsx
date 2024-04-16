@@ -1,7 +1,7 @@
 import React from "react";
 import * as shad from "@/components/ui/shadBarrel";
 import CategoryAddForm from "./CategoryAddForm";
-import { POST_REQUEST } from "@/utils/helpers/request.helper";
+import { admin_POST_REQUEST } from "@/utils/helpers/request.helper";
 
 const CategoryAddModal = ({ updateCategories }) => {
   const handleAddCategory = async (data) => {
@@ -10,7 +10,7 @@ const CategoryAddModal = ({ updateCategories }) => {
       return;
     }
     try {
-      if (await POST_REQUEST("/api/category/create/", data)) {
+      if (await admin_POST_REQUEST("/api/category/create/", data)) {
         console.log("Category created!");
         updateCategories();
       }

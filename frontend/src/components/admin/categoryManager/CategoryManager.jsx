@@ -2,7 +2,7 @@ import * as shad from "@/components/ui/shadBarrel";
 import { useEffect, useState } from "react";
 import { GET_REQUEST } from "@/utils/helpers/request.helper";
 import CategoryAddForm from "./CategoryAddForm";
-import { DELETE_REQUEST } from "@/utils/helpers/request.helper";
+import { admin_DELETE_REQUEST } from "@/utils/helpers/request.helper";
 import CategoryList from "@/components/admin/categoryManager/CategoryList";
 
 const CategoryManager = () => {
@@ -14,7 +14,7 @@ const CategoryManager = () => {
       return;
     }
     try {
-      if (await DELETE_REQUEST("/api/category/delete/" + id)) {
+      if (await admin_DELETE_REQUEST("/api/category/delete/" + id)) {
         const newList = [...categoryList];
         newList.splice(index, 1);
         setCategoryList(newList);
