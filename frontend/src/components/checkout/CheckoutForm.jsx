@@ -29,11 +29,29 @@ function OrderForm() {
   const [newOrder, setNewOrder] = useState(defaultOrder);
 
   useEffect(() => {
-    const storedCartData = localStorage.getItem("shoppingCart");
-    const newCartData = JSON.parse(storedCartData) || [];
-    console.log("Loaded cart data:", newCartData);
-    setCartData(newCartData);
-    setNewOrder((prevOrder) => ({ ...prevOrder, items: newCartData }));
+    const cartDataJSON = localStorage.getItem("shoppingCart");
+    if (cartDataJSON) {
+      setCartData(JSON.parse(cartDataJSON));
+      const formattedCartData = JSON.parse(cartDataJSON).map((item) => ({
+        product: item.id,
+        quantity: item.quantity,
+        price: item.price,
+      }));
+
+      setCartData(formattedCartData);
+
+      //totalsumman från varukorgen
+      const total = formattedCartData.reduce((totalSum, item) => {
+        return totalSum + item.price * item.quantity;
+      }, 0);
+      setNewOrder((prevOrder) => ({ ...prevOrder, total: total }));
+
+      setNewOrder((prevOrder) => ({
+        ...prevOrder,
+        items: formattedCartData,
+        total: total,
+      }));
+    }
   }, []);
 
   function handleShippingAddressChange(e) {
