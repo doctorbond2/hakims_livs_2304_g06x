@@ -8,15 +8,15 @@ import {
   deleteCategoryById,
   getDetailedCategories,
 } from "../controllers/category.controller.js";
-
+import { authKeyMiddleware as authKey } from "../middleware/auth.middleware.js";
 const router = express.Router();
 
 router.get("/get-by-name/:id", getCategoryByName);
 router.get("/:id", getCategoryById);
 router.get("/products/details", getDetailedCategories);
-router.post("/create", createCategory);
-router.put("/update/:id", updateCategoryById);
-router.delete("/delete/:id", deleteCategoryById);
+router.post("/create", authKey, createCategory);
+router.put("/update/:id", authKey, updateCategoryById);
+router.delete("/delete/:id", authKey, deleteCategoryById);
 
 router.get("/", getCategories);
 
