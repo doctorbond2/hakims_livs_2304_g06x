@@ -11,11 +11,11 @@ import {
 import { authKeyMiddleware as authKey } from "../middleware/auth.middleware.js";
 const router = express.Router();
 
-router.post("/create", createProduct);
+router.post("/create", authKey, createProduct);
 router.get("/", getProducts);
 router.get("/category/:categoryId", getProductsByCategoryId);
 router.get("/:id", getProductById);
-router.put("/update/:id", updateProductById);
+router.put("/update/:id", authKey, updateProductById);
 router.delete("/delete/:id", authKey, deleteProductById);
-router.delete("/auth/complete/delete", admin_deleteAllProducts);
+router.delete("/auth/complete/delete", authKey, admin_deleteAllProducts);
 export default router;

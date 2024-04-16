@@ -1,5 +1,5 @@
 import { Schema, model } from "mongoose";
-
+import { hashNewOrChangedPW } from "../utils/hooks/user.hooks.js";
 const userSchema = new Schema({
   username: {
     type: String,
@@ -31,11 +31,13 @@ const userSchema = new Schema({
     },
   },
   email: { type: String, required: true, unique: true, trim: true },
-  admin: { type: Boolean, required: true, default: false },
+  admin: { type: Boolean, default: false },
   firstName: { type: String, required: true, trim: true },
   lastName: { type: String, required: true, trim: true },
   order: [{ type: Schema.Types.ObjectId, ref: "Order" }],
 });
+
+userSchema.pre("save", hashNewOrChangedPW);
 
 const User = model("User", userSchema);
 
