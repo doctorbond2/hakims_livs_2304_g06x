@@ -1,26 +1,68 @@
-import React, { useState } from "react";
-import OrderList from "./OrderList";
-import DetailedOrderList from "./DetailedOrderList";
+import React from "react";
+import { useEffect, useState } from "react";
+import OLManagerList from "./OLManagerList";
+import {
+  GET_REQUEST,
+  admin_DELETE_REQUEST,
+} from "@/utils/helpers/request.helper";
 
-function OrderManager() {
-  const [selectedOrder, setSelectedOrder] = useState(null);
-  const [orderList, setOrderList] = useState([]);
+function OrderManager({}) {
+  const [orderList, setOrderList] = useState(null);
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const orders = await GET_REQUEST("/api/order/");
+        if (orders) {
+          setOrderList(orders);
+        }
+       
+      } catch (err) {
+        console.error(err);
+      }
+    };
+    fetchData();
 
-  const handleSelectOrder = async (orderId) => {
-    setSelectedOrder(orderId);
-    console.log(`Selected order with ID ${orderId}`);
-    console.log(selectedOrder);
+  }, []);
+
+  const updateOrder = async () => {
+    try {
+      const updatedOrder = await GET_REQUEST("/api/order/");
+      if (updatedOrder) {
+        setOrderList([...updatedOrder]);
+      }
+    } catch (err) {
+      console.error(err.message);
+    }
   };
 
+  const handleDeleteOrder = async (id, index) => {
+    const yes = confirm("Are you sure you want to delete? JA, Knappen funkar!");
+    if (!yes) {
+      return;
+    }
+    try {
+      if (await admin_DELETE_REQUEST("/api/order/delete/" + id)) {
+        const newOrderList = [...orderList];
+        newOrderList.splice(index, 1);
+        setOrderList(newOrderList);
+      }
+    } catch (err) {
+      console.error(err.message);
+    }
+  };
   return (
     <>
-      <div>
-        <h2>
-          <strong>Order Manager</strong>
-        </h2>
-        <OrderList onSelectOrder={handleSelectOrder} />
-        {selectedOrder && <DetailedOrderList {...{ orderList }} />}
-      </div>
+      {orderList && (
+        <div className="flex w-full justify-center">
+          <OLManagerList
+            {...{
+              orderList,
+              handleDeleteOrder,
+              updateOrder,
+            }}
+          />
+        </div>
+      )}
     </>
   );
 }

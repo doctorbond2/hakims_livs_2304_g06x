@@ -28,9 +28,11 @@ export async function getOrderById(req, res) {
   }
   console.log(orderID);
   try {
-    const order = await Order.findOne({ _id: orderID }).populate(
-      "items.product"
-    );
+    const order = await Order.findOne(
+      { _id: orderID },
+      { total: 1, status: 1, paymentDetails: 1, items: 1, shippingAddress: 1 }
+    ).populate("items.product");
+
 
     if (!order || order.length === 0) {
       return res.status(404).json({ message: "Order not found" });
