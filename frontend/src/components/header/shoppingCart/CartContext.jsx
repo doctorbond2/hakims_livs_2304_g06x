@@ -7,26 +7,36 @@ export const CartProvider = ({ children }) => {
     const localData = localStorage.getItem("shoppingCart");
     return localData ? JSON.parse(localData) : [];
   });
-
+  const returnCartQuantity = (product) => {
+    const existingProductIndex = cart.findIndex(
+      (item) => item._id === product._id
+    );
+    console.log("INDEX: ", existingProductIndex);
+    if (existingProductIndex !== -1) {
+      return currentCart[existingProductIndex].cartQuantity > 0
+        ? currentCart[existingProductIndex].cartQuantity
+        : 0;
+    } else {
+      return 0;
+    }
+  };
   useEffect(() => {
     console.log("Cart updated:", cart);
     localStorage.setItem("shoppingCart", JSON.stringify(cart));
   }, [cart]);
   const removeFromCart = (product, quantityToRemove) => {
-    console.log("remove");
     let currentCart = JSON.parse(localStorage.getItem("shoppingCart")) || [];
-    const existingProductIndex = cart.findIndex(
+    const existingProductIndex = currentCart.findIndex(
       (item) => item._id === product._id
     );
     if (existingProductIndex !== -1) {
-      if (
-        (currentCart[existingProductIndex].cartQuantity -= quantityToRemove < 0)
-      ) {
+      currentCart[existingProductIndex].cartQuantity -= quantityToRemove;
+      if (currentCart[existingProductIndex].cartQuantity <= 0) {
+        console.log("test");
         currentCart.splice(existingProductIndex, 1);
         setCart(currentCart);
         return;
       }
-      currentCart[existingProductIndex].cartQuantity -= quantityToRemove;
       setCart(currentCart);
     } else {
       currentCart.splice(existingProductIndex, 1);
