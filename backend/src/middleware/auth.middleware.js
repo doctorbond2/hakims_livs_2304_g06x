@@ -1,10 +1,43 @@
 import { compareAdminKeys } from "../utils/helpers/apiHelpers.js";
+import jwt from "jsonwebtoken";
 import {
   generateAccessToken,
   generateBothAdminTokens,
 } from "../utils/helpers/tokenHelpers.js";
 const secret_key = process.env.JWT_ACCESS_KEY;
 const secret_refresh_key = process.env.JWT_REFRESH_KEY;
+export async function tokenTestOne(req, res, next) {
+  const user = req.body;
+  try {
+    const newToken = await generateAccessToken(user);
+    req.token = newToken;
+    next();
+  } catch (err) {
+    console.log(err);
+    return res.send("wrong test 1");
+  }
+}
+export async function tokenTestTwo(req, res, next) {
+  console.log(req.token);
+  try {
+    const decoded = jwt.verify(req.token, secret_key);
+    if (decoded) {
+      res.send(decoded);
+    }
+  } catch (err) {
+    return res.send("wrong test 2");
+  }
+}
+export async function tokenTestThree(req, res, next) {
+  try {
+    const decoded = jwt.verify(req.token, secret_key);
+    if (decoded) {
+      res.send(decoded);
+    }
+  } catch (err) {
+    return res.send("wrong test 2");
+  }
+}
 export async function authTokenMiddleware(req, res, next) {
   const accessToken = req.decodedAccessToken;
   const refreshToken = req.decodedRefreshToken;
@@ -40,6 +73,8 @@ export const verifyAccessTokenMiddleware = async (req, res, next) => {
   const authorizationHeader = req.header("Authorization") || "";
   const accessToken = authorizationHeader.split(" ")?.[1] || "";
   console.log("ACCESSTOKEN", accessToken);
+  console.log("THE SECRET KEY IS:", secret_key);
+  console.log(typeof accessToken);
   try {
     if (accessToken) {
       const decodedAccessToken = jwt.verify(accessToken, secret_key);
@@ -49,6 +84,7 @@ export const verifyAccessTokenMiddleware = async (req, res, next) => {
       throw new Error("Invalid token");
     }
   } catch (err) {
+    console.log(err);
     return res.status(401).send("Invalid token");
   }
 };
