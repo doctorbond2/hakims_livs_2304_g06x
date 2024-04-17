@@ -1,6 +1,7 @@
 import Order from "../models/order.model.js";
 import mongoose from "mongoose";
 
+
 export async function getOrderList(req, res) {
   try {
     let orders = await Order.find(
@@ -13,6 +14,7 @@ export async function getOrderList(req, res) {
         items: 1,
         status: 1,
         createdAt: 1,
+        paymentDetails: 1,
       }
     ).populate("items.product");
     res.status(200).json(orders);
@@ -22,17 +24,24 @@ export async function getOrderList(req, res) {
   }
 }
 export async function getOrderDetails() {}
+
 export async function getOrderById(req, res) {
   console.log("Order by ID test");
   const orderID = req.params.id;
   if (!orderID) {
     return res.status(400).json({ message: "Order ID not found" });
   }
+
+  
   console.log(orderID);
   try {
     const order = await Order.findOne(
       { _id: orderID },
-      { total: 1, status: 1, paymentDetails: 1, items: 1, shippingAddress: 1 }
+      { total: 1, 
+        status: 1, 
+        paymentDetails: 1, 
+        items: 1, 
+        shippingAddress: 1 }
     ).populate("items.products");
 
     if (!order || order.length === 0) {
