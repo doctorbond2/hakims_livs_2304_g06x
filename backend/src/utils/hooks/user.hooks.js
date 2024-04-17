@@ -31,3 +31,12 @@ export async function comparePasswords(input_password, document_password) {
     throw err;
   }
 }
+export async function checkForAdmin(req, res, next) {
+  const document = this;
+  if (req.admin) {
+    document.admin = true;
+    next();
+  } else {
+    next();
+  }
+}

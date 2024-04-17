@@ -48,15 +48,16 @@ export const logoutController = async (req, res) => {
   res.status(200).json("Logged out");
 };
 export const registerController = async (req, res) => {
-  console.log("hi");
   if (!req.body) {
     return res.status(400).json({ error: "No body submitted" });
   }
   const _user = req.body;
+
   try {
     const user = await User.create(_user);
-
-    const tokens = await getTokens(user);
+    const tokens = req.admin
+      ? await getAdminTokens(user)
+      : await getTokens(user);
     res.json(tokens);
   } catch (error) {
     return res.status(500).json({ error: error.message });
