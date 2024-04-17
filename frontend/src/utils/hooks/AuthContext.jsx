@@ -1,4 +1,10 @@
-import React, { useContext, createContext, useState, ReactNode } from "react";
+import React, {
+  useContext,
+  createContext,
+  useState,
+  ReactNode,
+  useEffect,
+} from "react";
 import { LOGIN_REQUEST, LOGOUT_REQUEST } from "../helpers/request.helper";
 const AuthContext = createContext();
 export const useAuth = () => useContext(AuthContext);
@@ -56,6 +62,32 @@ export function AuthProvider({ children }) {
     }
     setLoggedIn(null);
   };
+  useEffect(() => {
+    const accessToken = JSON.parse(localStorage.getItem("accessToken"));
+    const refreshToken = JSON.parse(localStorage.getItem("refreshToken"));
+    const adminToken = JSON.parse(localStorage.getItem("adminToken"));
+    const adminRefresh = JSON.parse(localStorage.getItem("adminRefresh"));
+
+    if (accessToken && refreshToken && adminRefresh && adminToken) {
+      setLoggedIn({
+        access: true,
+        admin_access: true,
+        token: accessToken,
+        refreshToken: refreshToken,
+        adminToken: adminToken,
+        adminRefresh: adminRefresh,
+      });
+    } else if (accessToken && refreshToken) {
+      setLoggedIn({
+        access: true,
+        admin_access: false,
+        token: accessToken,
+        refreshToken: refreshToken,
+      });
+    } else {
+      alert("You need to log in agagin OK? ");
+    }
+  }, []);
   return (
     <AuthContext.Provider value={{ loggedIn, login, logout, register }}>
       {children}

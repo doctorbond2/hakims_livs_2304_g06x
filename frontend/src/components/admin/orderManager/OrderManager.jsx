@@ -8,7 +8,7 @@ import {
 
 function OrderManager({}) {
   const [orderList, setOrderList] = useState(null);
-  
+
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -16,13 +16,11 @@ function OrderManager({}) {
         if (orders) {
           setOrderList(orders);
         }
-       
       } catch (err) {
         console.error(err);
       }
     };
     fetchData();
-
   }, []);
 
   const updateOrder = async () => {

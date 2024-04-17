@@ -2,7 +2,7 @@ import axios from "axios";
 const BaseUrl = import.meta.env.VITE_BaseUrl;
 const adminKey = import.meta.env.VITE_ADMIN_KEY;
 const adminCheck = () => {
-  if (!adminKey && adminKey === null && adminKey === undefined) {
+  if (!adminKey || adminKey === null || adminKey === undefined) {
     throw new Error("Access denied");
   }
 };
