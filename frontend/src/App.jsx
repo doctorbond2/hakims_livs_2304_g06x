@@ -1,19 +1,35 @@
 import "./App.css";
 import { Routes, Route, Navigate } from "react-router-dom";
 import Header from "./components/header/Header";
-import Footer from "./components/Footer";
 import Home from "./pages/Home";
 import Admin from "./pages/Admin";
-import CategoryManager from "./components/admin/categoryManager/CategoryManager";
 import Checkout from "./pages/Checkout";
-import { useAuth } from "./utils/hooks/AuthContext";
 import { useEffect } from "react";
+import { useAuth } from "./utils/hooks/AuthContext";
 function App() {
   const { loggedIn } = useAuth();
 
-  // useEffect(() => {
-
-  // },[loggedIn])
+  useEffect(() => {
+    if (loggedIn?.token) {
+      localStorage.setItem("accessToken", JSON.stringify(loggedIn.token));
+    }
+    if (loggedIn?.refreshToken) {
+      localStorage.setItem(
+        "refreshToken",
+        JSON.stringify(loggedIn.refreshToken)
+      );
+    }
+    if (loggedIn?.adminToken) {
+      localStorage.setItem("adminToken", JSON.stringify(loggedIn.adminToken));
+      console.log("LOGGED IN AS ADMIN!", loggedIn);
+    }
+    if (loggedIn?.adminRefresh) {
+      localStorage.setItem(
+        "adminRefresh",
+        JSON.stringify(loggedIn.adminRefresh)
+      );
+    }
+  }, [loggedIn]);
   return (
     <>
       <Header />
