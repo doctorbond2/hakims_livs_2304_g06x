@@ -72,22 +72,21 @@ const productSchema = new Schema(
 
 productSchema.virtual("discountedPrice").get(function () {
   const discountedPrice = this.price - (this.price * this.discountRate) / 100;
-  return parseFloat(discountedPrice.toFixed(2));
+  return Math.round(discountedPrice);
 });
 
 productSchema.virtual("savings").get(function () {
   const originalPrice = this.price;
-  const discountedPrice =
-    originalPrice - (originalPrice * this.discountRate) / 100;
+  const discountedPrice = originalPrice - (originalPrice * this.discountRate) / 100;
   const savings = originalPrice - discountedPrice;
-  return parseFloat(savings.toFixed(2));
+  return Math.round(savings);
 });
 
 productSchema.virtual("comparePrice").get(function () {
   const discountedPrice = this.price - (this.price * this.discountRate) / 100;
   const quantity = this.quantity || 1;
   const comparePrice = discountedPrice / quantity;
-  return parseFloat(comparePrice.toFixed(2));
+  return Math.round(comparePrice);
 });
 
 // productSchema.pre("save", (next) => {
@@ -97,6 +96,8 @@ productSchema.virtual("comparePrice").get(function () {
 //   }
 //   next();
 // });
+
+productSchema.index({ title: 'text', brand: 'text', description: 'text' });
 
 const Product = model("Product", productSchema);
 

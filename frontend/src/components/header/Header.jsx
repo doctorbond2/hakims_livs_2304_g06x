@@ -3,6 +3,7 @@ import ShoppingCartSheet from "./shoppingCart/ShoppingCartSheet";
 import LoginDialog from "../login/LoginDialog";
 import { Link } from "react-router-dom";
 import { useAuth } from "@/utils/hooks/AuthContext";
+import SearchBar from "./searchBar/SearchBar";
 const Header = () => {
   const { loggedIn, logout } = useAuth();
 
@@ -23,7 +24,7 @@ const Header = () => {
             </Link>
           </div>{" "}
           <div className="col-start-3 col-end-5">
-            <shad.Input type="text" placeholder="Sök..." />
+            <SearchBar />
           </div>
           <nav className="col-start-5 col-end-7 flex justify-end items-center space-x-4">
             <ul className="flex space-x-4 items-center pr-5">
@@ -33,7 +34,7 @@ const Header = () => {
                 </Link>
               </li>
               <li>
-                {loggedIn ? (
+                {loggedIn?.admin_access ? (
                   <Link to="/admin" className="text-white">
                     Admin Panel
                   </Link>

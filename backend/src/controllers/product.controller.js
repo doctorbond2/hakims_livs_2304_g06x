@@ -51,6 +51,7 @@ export const getProducts = async (req, res) => {
 
 export const getProductById = async (req, res) => {
   console.log("test product by ID");
+  console.log(req.params.id)
   if (!req.params.id) {
     return res.status(400).json({
       error: "No id submitted",

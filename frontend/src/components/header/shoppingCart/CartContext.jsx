@@ -7,29 +7,65 @@ export const CartProvider = ({ children }) => {
     const localData = localStorage.getItem("shoppingCart");
     return localData ? JSON.parse(localData) : [];
   });
-
+  const returnCartQuantity = (product) => {
+    const existingProductIndex = cart.findIndex(
+      (item) => item._id === product._id
+    );
+    console.log("INDEX: ", existingProductIndex);
+    if (existingProductIndex !== -1) {
+      return currentCart[existingProductIndex].cartQuantity > 0
+        ? currentCart[existingProductIndex].cartQuantity
+        : 0;
+    } else {
+      return 0;
+    }
+  };
   useEffect(() => {
     console.log("Cart updated:", cart);
     localStorage.setItem("shoppingCart", JSON.stringify(cart));
   }, [cart]);
-
+  const removeFromCart = (product, quantityToRemove) => {
+    let currentCart = JSON.parse(localStorage.getItem("shoppingCart")) || [];
+    const existingProductIndex = currentCart.findIndex(
+      (item) => item._id === product._id
+    );
+    if (existingProductIndex !== -1) {
+      currentCart[existingProductIndex].cartQuantity -= quantityToRemove;
+      if (currentCart[existingProductIndex].cartQuantity <= 0) {
+        console.log("test");
+        currentCart.splice(existingProductIndex, 1);
+        setCart(currentCart);
+        return;
+      }
+      setCart(currentCart);
+    } else {
+      currentCart.splice(existingProductIndex, 1);
+      setCart(currentCart);
+    }
+  };
   const addToCart = (product, quantityToAdd = 1) => {
-    let cart = JSON.parse(localStorage.getItem("shoppingCart")) || [];
-    const existingProductIndex = cart.findIndex((item) => item._id === product._id);
+    let currentCart = JSON.parse(localStorage.getItem("shoppingCart")) || [];
+    const existingProductIndex = cart.findIndex(
+      (item) => item._id === product._id
+    );
 
     if (existingProductIndex !== -1) {
-      cart[existingProductIndex].cartQuantity += quantityToAdd;
+      currentCart[existingProductIndex].cartQuantity += quantityToAdd;
+      setCart(currentCart);
     } else {
-      cart.push({
+      currentCart.push({
         ...product,
         cartQuantity: quantityToAdd,
       });
+      setCart(currentCart);
     }
-
-    localStorage.setItem("shoppingCart", JSON.stringify(cart));
   };
 
-  return <CartContext.Provider value={{ cart, addToCart }}>{children}</CartContext.Provider>;
+  return (
+    <CartContext.Provider value={{ cart, addToCart, removeFromCart }}>
+      {children}
+    </CartContext.Provider>
+  );
 };
 
 export const useCart = () => useContext(CartContext);

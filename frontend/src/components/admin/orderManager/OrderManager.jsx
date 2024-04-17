@@ -2,16 +2,17 @@ import React from "react";
 import { useEffect, useState } from "react";
 import OLManagerList from "./OLManagerList";
 import {
-  GET_REQUEST,
+  admin_GET_REQUEST,
   admin_DELETE_REQUEST,
 } from "@/utils/helpers/request.helper";
 
 function OrderManager({}) {
   const [orderList, setOrderList] = useState(null);
+  
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const orders = await GET_REQUEST("/api/order/");
+        const orders = await admin_GET_REQUEST("/api/order/");
         if (orders) {
           setOrderList(orders);
         }
@@ -26,7 +27,7 @@ function OrderManager({}) {
 
   const updateOrder = async () => {
     try {
-      const updatedOrder = await GET_REQUEST("/api/order/");
+      const updatedOrder = await admin_GET_REQUEST("/api/order/");
       if (updatedOrder) {
         setOrderList([...updatedOrder]);
       }
