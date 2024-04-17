@@ -7,8 +7,8 @@ import {
 
 function OLManagerModal({ order, }) {
   const [productNames, setProductNames] = useState([]);
-  const [paid, setPaid] = useState(order.status.paid);
-  const [shipped, setShipped] = useState(order.status.shipped);
+  const [paid, setPaid] = useState(false);
+  const [shipped, setShipped] = useState(false);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -25,14 +25,24 @@ function OLManagerModal({ order, }) {
     fetchData();
   }, [order.items]); 
 
-  /* const handlePaidToggle = async () => {
+  const handlePaidToggle = async () => {
     try {
       const updatedOrder = {
         ...order,
-        status: { ...order.status, paid: !paid },
+        status: { ...order.status, paid: !paid }, // Toggle paid status
       };
-      await PUT_REQUEST(`/api/orders/update/${order._id}`, updatedOrder);
-      setPaid(!paid);
+
+      // Skicka begäran med de uppdaterade statusvärdena
+      const response = await admin_PUT_REQUEST(
+        `/api/order/update/${order._id}`,
+        updatedOrder
+      );
+
+      // Om begäran lyckas, uppdatera det lokala tillståndet baserat på det nya värdet från databasen
+      if (response && response.data) {
+        setPaid(response.data.status.paid); // Uppdatera lokalt tillstånd med det nya värdet från databasen
+        console.log("Paid status updated:", response.data.status.paid);
+      }
     } catch (error) {
       console.error("Error updating paid status:", error);
     }
@@ -42,15 +52,24 @@ function OLManagerModal({ order, }) {
     try {
       const updatedOrder = {
         ...order,
-        status: { ...order.status, shipped: !shipped },
+        status: { ...order.status, shipped: !shipped }, // Toggle shipped status
       };
-      await admin_PUT_REQUEST(`/api/orders/update/${order._id}`, updatedOrder);
-      setShipped(!shipped);
+
+      // Skicka begäran med de uppdaterade statusvärdena
+      const response = await admin_PUT_REQUEST(
+        `/api/order/update/${order._id}`,
+        updatedOrder
+      );
+
+      // Om begäran lyckas, uppdatera det lokala tillståndet baserat på det nya värdet från databasen
+      if (response && response.data) {
+        setShipped(response.data.status.shipped); // Uppdatera lokalt tillstånd med det nya värdet från databasen
+      }
     } catch (error) {
       console.error("Error updating shipped status:", error);
     }
   };
- */
+
 
   return (
     <>
@@ -131,12 +150,12 @@ function OLManagerModal({ order, }) {
           </shad.TableRow>
           <shad.TableRow>
             <shad.TableCell>
-              <shad.Switch /* onClick={handlePaidToggle} */>
+              <shad.Switch onClick={handlePaidToggle}>
                 
               </shad.Switch>
             </shad.TableCell>
             <shad.TableCell>
-              <shad.Switch /* onClick={handleShippedToggle} */>
+              <shad.Switch onClick={handleShippedToggle}>
                 
               </shad.Switch>
             </shad.TableCell>
