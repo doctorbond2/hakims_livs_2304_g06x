@@ -1,9 +1,9 @@
 import * as shad from "@/components/ui/shadBarrel";
-import { useState, useEffect } from "react";
 import ProductCardBody from "./ProductCardBody";
 import ProductModal from "./ProductModal";
 import ProductAddMultiple from "./ProductAddMultiple";
 import { useCart } from "@/components/header/shoppingCart/CartContext";
+import { useState } from "react";
 const ProductCard = ({ product, buyOrEdit, onSubmit, onEdit, onDelete }) => {
   const [clicked, setClicked] = useState(false);
   const { addToCart } = useCart();
