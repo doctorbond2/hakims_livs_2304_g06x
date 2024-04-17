@@ -9,6 +9,7 @@ function OLManagerModal({ order }) {
   const [productNames, setProductNames] = useState([]);
   const [paid, setPaid] = useState(false);
   const [shipped, setShipped] = useState(false);
+  console.log("Order:", paid, shipped);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -29,9 +30,12 @@ function OLManagerModal({ order }) {
 
   const handlePaidToggle = async () => {
     try {
+      const newPaidStatus = !paid; 
+      setPaid(newPaidStatus); 
+
       const updatedOrder = {
         ...order,
-        status: { ...order.status, paid: !paid },
+        status: { ...order.status, paid: newPaidStatus },
       };
 
       const response = await admin_PUT_REQUEST(
@@ -40,7 +44,7 @@ function OLManagerModal({ order }) {
       );
 
       if (response && response.data) {
-        setPaid(response.data.status.paid);
+       
         console.log("Paid status updated:", response.data.status.paid);
       }
     } catch (error) {
@@ -50,9 +54,12 @@ function OLManagerModal({ order }) {
 
   const handleShippedToggle = async () => {
     try {
+      const newShippedStatus = !shipped; 
+      setShipped(newShippedStatus); 
+
       const updatedOrder = {
         ...order,
-        status: { ...order.status, shipped: !shipped },
+        status: { ...order.status, shipped: newShippedStatus },
       };
 
       const response = await admin_PUT_REQUEST(
@@ -61,7 +68,8 @@ function OLManagerModal({ order }) {
       );
 
       if (response && response.data) {
-        setShipped(response.data.status.shipped);
+        
+        console.log("Shipped status updated:", response.data.status.shipped);
       }
     } catch (error) {
       console.error("Error updating shipped status:", error);
@@ -70,7 +78,7 @@ function OLManagerModal({ order }) {
 
   return (
     <>
-      <shad.Table className="w-80 overflow-auto">
+      <shad.Table className="w-100 overflow-auto">
         {console.log(order)}
         <shad.Dialog>
           <shad.TableRow>
@@ -117,7 +125,7 @@ function OLManagerModal({ order }) {
                 return (
                   <shad.TableRow key={index}>
                     <shad.TableCell>
-                      {product ? product.title : "Ingen produkt hittad"}
+                      {product ? product.title : "Produktnamn saknas"}
                     </shad.TableCell>
                     <shad.TableCell>{item.quantity}</shad.TableCell>
                     <shad.TableCell>{item.price} kr</shad.TableCell>
@@ -150,7 +158,9 @@ function OLManagerModal({ order }) {
               <shad.Switch onClick={handlePaidToggle}></shad.Switch>
             </shad.TableCell>
             <shad.TableCell>
-              <shad.Switch onClick={handleShippedToggle}></shad.Switch>
+              <shad.Switch onClick={handleShippedToggle}>
+                
+              </shad.Switch>
             </shad.TableCell>
           </shad.TableRow>
         </shad.Dialog>
