@@ -41,9 +41,7 @@ function OrderManager({}) {
     }
     try {
       if (await admin_DELETE_REQUEST("/api/order/delete/" + id)) {
-        const newOrderList = [...orderList];
-        newOrderList.splice(index, 1);
-        setOrderList(newOrderList);
+        await updateOrder();
       }
     } catch (err) {
       console.error(err.message);

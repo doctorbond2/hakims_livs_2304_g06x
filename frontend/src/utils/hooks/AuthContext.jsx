@@ -42,9 +42,11 @@ export function AuthProvider({ children }) {
             });
           }
           console.log("LOGIN SUCCESS: Logged in as customer");
+          return true;
         }
       } catch (err) {
         console.error("Invalid login", err.message);
+        return false;
       }
     }
   };
