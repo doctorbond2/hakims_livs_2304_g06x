@@ -12,24 +12,50 @@ export const CartProvider = ({ children }) => {
     console.log("Cart updated:", cart);
     localStorage.setItem("shoppingCart", JSON.stringify(cart));
   }, [cart]);
-
+  const removeFromCart = (product, quantityToRemove) => {
+    console.log("remove");
+    let currentCart = JSON.parse(localStorage.getItem("shoppingCart")) || [];
+    const existingProductIndex = cart.findIndex(
+      (item) => item._id === product._id
+    );
+    if (existingProductIndex !== -1) {
+      if (
+        (currentCart[existingProductIndex].cartQuantity -= quantityToRemove < 0)
+      ) {
+        currentCart.splice(existingProductIndex, 1);
+        setCart(currentCart);
+        return;
+      }
+      currentCart[existingProductIndex].cartQuantity -= quantityToRemove;
+      setCart(currentCart);
+    } else {
+      currentCart.splice(existingProductIndex, 1);
+      setCart(currentCart);
+    }
+  };
   const addToCart = (product, quantityToAdd = 1) => {
-    let cart = JSON.parse(localStorage.getItem("shoppingCart")) || [];
-    const existingProductIndex = cart.findIndex((item) => item._id === product._id);
+    let currentCart = JSON.parse(localStorage.getItem("shoppingCart")) || [];
+    const existingProductIndex = cart.findIndex(
+      (item) => item._id === product._id
+    );
 
     if (existingProductIndex !== -1) {
-      cart[existingProductIndex].cartQuantity += quantityToAdd;
+      currentCart[existingProductIndex].cartQuantity += quantityToAdd;
+      setCart(currentCart);
     } else {
-      cart.push({
+      currentCart.push({
         ...product,
         cartQuantity: quantityToAdd,
       });
+      setCart(currentCart);
     }
-
-    localStorage.setItem("shoppingCart", JSON.stringify(cart));
   };
 
-  return <CartContext.Provider value={{ cart, addToCart }}>{children}</CartContext.Provider>;
+  return (
+    <CartContext.Provider value={{ cart, addToCart, removeFromCart }}>
+      {children}
+    </CartContext.Provider>
+  );
 };
 
 export const useCart = () => useContext(CartContext);
