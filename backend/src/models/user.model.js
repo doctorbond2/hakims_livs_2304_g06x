@@ -37,7 +37,7 @@ const userSchema = new Schema({
   admin: { type: Boolean, default: false },
   firstName: { type: String, required: true, trim: true },
   lastName: { type: String, required: true, trim: true },
-  order: [{ type: Schema.Types.ObjectId, ref: "Order" }],
+  orders: [{ type: Schema.Types.ObjectId, ref: "Order" }],
 });
 
 userSchema.pre("save", hashNewOrChangedPW);
