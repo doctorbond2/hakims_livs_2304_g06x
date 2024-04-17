@@ -1,21 +1,31 @@
 import * as shad from "@/components/ui/shadBarrel";
-import React from "react";
+import React, { useEffect } from "react";
 import LoginRegisterInput from "./LoginRegisterInput";
 import { useState } from "react";
-const LoginRegister = ({}) => {
+const LoginRegister = ({ register }) => {
   const [registerData, setregisterData] = useState({
+    firstName: "",
+    lastName: "",
+    email: "",
     username: "",
     password: "",
     password_again: "",
   });
-  const submitRegister = async () => {
-    console.log(registerData);
-    // try {
-    //   login();
-    // } catch (err) {
-    //   console.log(err.message);
-    // }
+  const submitRegister = async (e) => {
+    e.preventDefault();
+    console.log("SUBMIT!");
+    try {
+      if (registerData.password === registerData.password_again) {
+        await register(registerData);
+      }
+      console.log("DUBMIT!");
+    } catch (err) {
+      console.log(err.message);
+    }
   };
+  useEffect(() => {
+    console.log(registerData);
+  }, [registerData]);
   return (
     <>
       <shad.Card>
@@ -25,16 +35,14 @@ const LoginRegister = ({}) => {
             Maxa dina besparingar med Hakim!
           </shad.CardDescription>
         </shad.CardHeader>
-        <form>
+        <form onSubmit={submitRegister}>
           <shad.CardContent className="space-y-2">
             <LoginRegisterInput {...{ registerData, setregisterData }} />
           </shad.CardContent>
           <shad.CardFooter>
-            <shad.DialogClose>
-              <shad.Button type={"submit"} className="bg-green-800">
-                Skapa konto!
-              </shad.Button>
-            </shad.DialogClose>
+            <shad.Button type={"submit"} className="bg-green-800">
+              Skapa konto!
+            </shad.Button>
           </shad.CardFooter>
         </form>
       </shad.Card>

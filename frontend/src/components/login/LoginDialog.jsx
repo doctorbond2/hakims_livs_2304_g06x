@@ -12,7 +12,7 @@ export default function LoginDialog({ loggedIn, logout }) {
           <shad.Button variant="outline">Logga in</shad.Button>
         </shad.DialogTrigger>
       )}
-      <shad.DialogContent className="sm:max-w-[450px] flex bg-slate-700">
+      <shad.DialogContent className="sm:max-w-[450px] flex">
         <LoginTab />
       </shad.DialogContent>
     </shad.Dialog>
