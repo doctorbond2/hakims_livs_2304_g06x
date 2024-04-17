@@ -12,6 +12,10 @@ export async function authTokenMiddleware(req, res, next) {
     if (!refreshToken && !accessToken) {
       return res.status(401).json({ message: "Invalid access, please login." });
     }
+    if (accessToken) {
+      req.accessToken = accessToken;
+      next();
+    }
     if (refreshToken && !accessToken) {
       accessToken = await generateAccessToken();
       req.accessToken = accessToken;
@@ -32,8 +36,24 @@ export function authKeyMiddleware(req, res, next) {
     return res.send("Bloop");
   }
 }
+export const verifyAccessTokenMiddleware = async (req, res, next) => {
+  const authorizationHeader = req.header("Authorization") || "";
+  const accessToken = authorizationHeader.split(" ")?.[1] || "";
+  console.log("ACCESSTOKEN", accessToken);
+  try {
+    if (accessToken) {
+      const decodedAccessToken = jwt.verify(accessToken, secret_key);
+      req.decodedAccessToken = decodedAccessToken;
+      next();
+    } else {
+      throw new Error("Invalid token");
+    }
+  } catch (err) {
+    return res.status(401).send("Invalid token");
+  }
+};
 
-export const verifyTokensMiddleware = async (req, res, next) => {
+export const verifyBothTokensMiddleware = async (req, res, next) => {
   const authorizationHeader = req.header("Authorization") || "";
   const accessToken = authorizationHeader.split(" ")?.[1] || "";
   const refreshToken = req.header("Refresh-Token").split(" ")?.[1] || "";
@@ -54,6 +74,7 @@ export const verifyTokensMiddleware = async (req, res, next) => {
     console.error("Error verifying tokens:", err.message);
     return res.status(401).send("Invalid token");
   }
+  next();
 };
 // export const verifyAccessTokenMiddleware = async (req, res, next) => {
 //   const refreshToken = req.header("Refresh-Token").split(" ")?.[1] || "";

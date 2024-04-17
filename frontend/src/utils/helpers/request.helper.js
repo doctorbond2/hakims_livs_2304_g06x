@@ -45,6 +45,35 @@ export async function POST_REQUEST(URL, DATA) {
     throw err;
   }
 }
+export async function LOGIN_REQUEST(URL, DATA) {
+  try {
+    const response = await regular.post(URL, DATA);
+    if (response.status === 200) {
+      return response.data;
+    } else {
+      throw new Error(`Logout failed with status: ${response.status}`);
+    }
+  } catch (err) {
+    throw err;
+  }
+}
+export async function LOGOUT_REQUEST(URL, accessToken) {
+  console.log(typeof accessToken);
+  try {
+    const response = await axios.post(BaseUrl + URL, null, {
+      headers: {
+        Authorization: `Bearer ${accessToken}`,
+      },
+    });
+    if (response.status === 200) {
+      return { response: response, ok: "Logged out" };
+    } else {
+      return null;
+    }
+  } catch (err) {
+    throw err;
+  }
+}
 export async function PUT_REQUEST(URL, DATA) {
   try {
     const response = await regular.put(URL, DATA);

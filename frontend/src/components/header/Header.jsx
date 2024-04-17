@@ -5,7 +5,7 @@ import { Link } from "react-router-dom";
 import { useAuth } from "@/utils/hooks/AuthContext";
 import SearchBar from "./searchBar/SearchBar";
 const Header = () => {
-  const { loggedIn } = useAuth();
+  const { loggedIn, logout } = useAuth();
 
   return (
     <>
@@ -39,13 +39,11 @@ const Header = () => {
                     Admin Panel
                   </Link>
                 ) : (
-                  <Link to="/" className="text-white">
-                    in Panel
-                  </Link>
+                  ""
                 )}
               </li>
               <li>
-                <LoginDialog />
+                <LoginDialog {...{ loggedIn, logout }} />
               </li>
               <li>
                 <ShoppingCartSheet />
