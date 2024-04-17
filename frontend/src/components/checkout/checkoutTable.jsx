@@ -4,8 +4,28 @@ import {
   useReactTable,
 } from "@tanstack/react-table";
 import * as shad from "@/components/ui/shadBarrel";
+import CheckoutForm from "./CheckoutForm";
+import { columns } from "./columns";
+import { useCart } from "../header/shoppingCart/CartContext";
+import { useEffect, useState } from "react";
 
-export function CheckoutTable({ columns, data }) {
+export function CheckoutTable({}) {
+  const { cart } = useCart();
+  const [data, setData] = useState([]);
+  console.log("CART: ", cart);
+
+  const transformedData = cart.map((item) => ({
+    id: item._id,
+    image: item.image.url,
+    productName: item.title,
+    amount: item.cartQuantity,
+    totalPrice: (item.discountedPrice * item.cartQuantity).toFixed(2),
+  }));
+
+  useEffect(() => {
+    setData(transformedData);
+  }, [cart]);
+
   const table = useReactTable({
     data,
     columns,
@@ -35,8 +55,7 @@ export function CheckoutTable({ columns, data }) {
                 colSpan={columns.length}
                 className="h-24 text-center"
               >
-                Du kanske ska lägga till några produkter till kundvagnen innan
-                du går vidare till kassan???
+                Din varukorg är tom! :(
               </shad.TableCell>
             </shad.TableRow>
           )}

@@ -1,9 +1,13 @@
 import * as shad from "@/components/ui/shadBarrel";
 import { POST_REQUEST } from "@/utils/helpers/request.helper";
 import axios from "axios";
-import { useState, useEffect } from "react";
+import { useState, useEffect, createContext } from "react";
 import OrderConfirmation from "./OrderConfirmation";
-// import { useCart } from "@/components/header/shoppingCart/CartContext";
+// import useIsSubmitted from "./IsSubmitted";
+import { set } from "lodash";
+import { useCart } from "../header/shoppingCart/CartContext";
+
+const GlobalContext = createContext();
 
 function OrderForm() {
   const defaultOrder = {
@@ -27,10 +31,12 @@ function OrderForm() {
     },
     items: [],
   };
+  const { clearCart } = useCart();
+
+  const [orderDetails, setOrderDetails] = useState(null);
   const [cartData, setCartData] = useState([]);
   const [newOrder, setNewOrder] = useState(defaultOrder);
   const [orderComplete, setOrderComplete] = useState(false);
-  // const { cart } = useCart();
 
   useEffect(() => {
     const cartDataJSON = localStorage.getItem("shoppingCart");
@@ -88,16 +94,33 @@ function OrderForm() {
     console.log("newOrder.items", newOrder.items);
   }, [newOrder]);
 
+  async function fetchOrderDetails() {
+    try {
+      const response = await GET_REQUEST("/api/order/");
+      if (response && response.data) {
+        setOrderDetails(response.data);
+        // console.log("Order details fetched successfully:", response.data);
+        alert("Order details fetched successfully!");
+      }
+    } catch (err) {
+      console.error("Failed to fetch order details:", err.message);
+      alert("Failed to fetch order details. Please try again.");
+    }
+  }
+
   async function handleSubmit(e) {
     e.preventDefault();
     try {
       const response = await POST_REQUEST("/api/order/create", newOrder);
       if (response) {
         alert("Order placed successfully!");
-        localStorage.removeItem("shoppingCart");
+        // localStorage.removeItem("shoppingCart");
+        clearCart();
+        setOrderDetails(newOrder);
         setNewOrder(defaultOrder);
-        window.location.reload();
-        // setOrderConfirmation(true);
+        setOrderComplete(true);
+        // window.location.reload();
+        // alert(orderComplete);
       }
     } catch (error) {
       console.error(error.message);
@@ -109,7 +132,7 @@ function OrderForm() {
     <>
       {" "}
       {!orderComplete ? (
-        <form className="space-y-6" onSubmit={handleSubmit}>
+        <form className="space-y-6 w-96 p-10" onSubmit={handleSubmit}>
           <h2 className="text-2xl font-bold">Leveransadress</h2>
           <shad.Label className="block">
             Gatuadress
@@ -272,7 +295,9 @@ function OrderForm() {
           </shad.Button>
         </form>
       ) : (
-        <h1 className="text-2xl font-bold">Tack för din beställning!</h1>
+        <h1 className="text-2xl font-bold">Tack för din beställning!</h1> && (
+          <OrderConfirmation orderDetails={orderDetails} />
+        )
       )}
     </>
   );
