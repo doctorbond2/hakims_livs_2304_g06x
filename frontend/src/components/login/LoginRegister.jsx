@@ -1,6 +1,7 @@
 import * as shad from "@/components/ui/shadBarrel";
 import React from "react";
 import LoginRegisterInput from "./LoginRegisterInput";
+import { useState } from "react";
 const LoginRegister = ({}) => {
   const [registerData, setregisterData] = useState({
     username: "",
@@ -30,7 +31,9 @@ const LoginRegister = ({}) => {
           <LoginRegisterInput {...{ registerData, setregisterData }} />
         </shad.CardContent>
         <shad.CardFooter>
-          <shad.Button>Skapa konto!</shad.Button>
+          <shad.DialogClose>
+            <shad.Button>Skapa konto!</shad.Button>
+          </shad.DialogClose>
         </shad.CardFooter>
       </shad.Card>
     </>

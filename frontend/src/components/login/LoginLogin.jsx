@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import * as shad from "@/components/ui/shadBarrel";
 import LoginInput from "./LoginInput";
 const LoginLogin = ({ login }) => {
+  const [loginTry, setLoginTry] = useState(false);
   const [loginData, setLoginData] = useState({ username: "", password: "" });
   const submitLogin = async () => {
     console.log(loginData);
@@ -20,14 +21,16 @@ const LoginLogin = ({ login }) => {
           Logga in för att få handla av Hakim!
         </shad.CardDescription>
       </shad.CardHeader>
-      <shad.CardContent className="space-y-2">
-        <LoginInput {...{ setLoginData, loginData }} />
-      </shad.CardContent>
-      <shad.CardFooter>
-        <shad.Button className="bg-green-700" onClick={submitLogin}>
-          Logga in
-        </shad.Button>
-      </shad.CardFooter>
+      <form onSubmit={submitLogin}>
+        <shad.CardContent className="space-y-2">
+          <LoginInput {...{ setLoginData, loginData }} />
+        </shad.CardContent>
+        <shad.CardFooter>
+          <shad.Button className="bg-green-700" type={"submit"}>
+            Logga in
+          </shad.Button>
+        </shad.CardFooter>
+      </form>
     </shad.Card>
   );
 };
