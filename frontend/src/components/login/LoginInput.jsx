@@ -21,7 +21,8 @@ const LoginInput = ({ setLoginData, loginData }) => {
           Lösenord
         </shad.Label>
         <shad.Input
-          id="password"
+          type={"password"}
+          id="password-input"
           value={loginData.password}
           onChange={(e) => {
             setLoginData({ ...loginData, password: e.target.value });
