@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { columns } from "./columns";
 import { CheckoutTable } from "./checkoutTable";
+import { CheckoutForm } from "./CheckoutForm";
 
 function getData() {
   const cartData = JSON.parse(localStorage.getItem("shoppingCart")) || [];
@@ -28,6 +29,7 @@ function tableContent() {
   return (
     <div className="container mx-auto py-10 grid grid-cols-2">
       <CheckoutTable columns={columns} data={data} />
+      <CheckoutForm shoppingcartData={data} />
 
       <h1>hello</h1>
     </div>
