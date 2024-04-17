@@ -13,15 +13,15 @@ export async function getOrderList(req, res) {
         items: 1,
         status: 1,
         createdAt: 1,
-        
       }
-    );
+    ).populate("items.product");
     res.status(200).json(orders);
   } catch (err) {
+    console.log(err.message);
     res.status(500).json({ error: err.message });
   }
 }
-
+export async function getOrderDetails() {}
 export async function getOrderById(req, res) {
   console.log("Order by ID test");
   const orderID = req.params.id;
@@ -33,9 +33,7 @@ export async function getOrderById(req, res) {
     const order = await Order.findOne(
       { _id: orderID },
       { total: 1, status: 1, paymentDetails: 1, items: 1, shippingAddress: 1 }
-    ).populate(
-      {path:"items.product", select:"title price quantity"});
-
+    ).populate("items.products");
 
     if (!order || order.length === 0) {
       return res.status(404).json({ message: "Order not found" });
@@ -85,6 +83,27 @@ export async function updateOrderById(req, res) {
       res.status(200).json({
         message: "Order updated successfully",
         updated_order: order,
+      });
+    }
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+    console.log(err.message);
+  }
+}
+
+export async function deleteOrderById(req, res) {
+  console.log("test delete order by id");
+  if (!req.params.id) {
+    return res.status(400).json({ error: "No id submitted" });
+  }
+
+  const { id } = req.params;
+  try {
+    let order = await Order.findByIdAndDelete({ _id: id });
+    if (order) {
+      res.status(200).json({
+        message: "Order deleted successfully",
+        deleted_order: order,
       });
     }
   } catch (err) {

@@ -1,7 +1,11 @@
 import React from "react";
 import * as shad from "@/components/ui/shadBarrel";
 import OLManagerItem from "./OLManagerItem";
-export const OLManagerList = ({ orderList, handleDeleteOrder, updateOrder }) => {
+export const OLManagerList = ({
+  orderList,
+  handleDeleteOrder,
+  updateOrder,
+}) => {
   return (
     <>
       <shad.Dialog>

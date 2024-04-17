@@ -26,6 +26,8 @@ export function CheckoutTable({}) {
     setData(transformedData);
   }, [cart]);
 
+
+export function CheckoutTable({ columns, data }) {
   const table = useReactTable({
     data,
     columns,

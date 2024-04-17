@@ -5,7 +5,9 @@ const LoginInput = ({ setLoginData, loginData }) => {
     <>
       {" "}
       <div className="space-y-1">
-        <shad.Label htmlFor="username">Användarnamn</shad.Label>
+        <shad.Label htmlFor="username" required={true}>
+          Användarnamn
+        </shad.Label>
         <shad.Input
           id="username"
           defaultValue=""
@@ -15,7 +17,9 @@ const LoginInput = ({ setLoginData, loginData }) => {
         />
       </div>
       <div className="space-y-1">
-        <shad.Label htmlFor="password">Lösenord</shad.Label>
+        <shad.Label htmlFor="password" type="password" required={true}>
+          Lösenord
+        </shad.Label>
         <shad.Input
           id="password"
           value={loginData.password}

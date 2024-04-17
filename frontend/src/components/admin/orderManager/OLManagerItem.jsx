@@ -24,7 +24,7 @@ function OLManagerItem({
             <shad.TableCell className="font-medium">
               <span className="font-bold"></span>{" "}
               {order.customer
-                ? `${order.customer.firstName} ${order.customer.lastName}`
+                ? `${order.customer?.firstName} ${order.customer.lastName}`
                 : "Noname"}
             </shad.TableCell>
             <shad.TableCell className="font-medium">
@@ -32,11 +32,11 @@ function OLManagerItem({
             </shad.TableCell>
             <shad.TableCell className="font-medium">
               <span className="font-bold"></span>{" "}
-              {order.status.paid ? "Betalad" : "Ej betalad"}
+              {order.status?.paid ? "Betalad" : "Ej betalad"}
             </shad.TableCell>
             <shad.TableCell className="font-medium">
               <span className="font-bold"></span>
-              {order.status.shipped ? "Skickad" : "Behandlas"}
+              {order.status?.shipped ? "Skickad" : "Behandlas"}
             </shad.TableCell>
             <shad.TableCell></shad.TableCell>
             <shad.TableCell className="text-right">
@@ -58,10 +58,8 @@ function OLManagerItem({
             </shad.TableCell>
           </shad.TableRow>
           <shad.DialogContent>
-             {order ? (
-              <OLManangerModal
-                {...{ order, orderList, updateOrder }}
-              />
+            {order ? (
+              <OLManangerModal {...{ order, orderList, updateOrder }} />
             ) : (
               "Loading"
             )}

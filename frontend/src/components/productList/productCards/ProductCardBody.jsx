@@ -4,7 +4,7 @@ export default function ProductCardBody({ product, editMode }) {
   return (
     <>
       <shad.Dialog>
-        <shad.DialogTrigger asChild>
+        <shad.DialogTrigger asChild className="cursor-pointer">
           <shad.CardContent className="flex row-span-2 items-center justify-center p-5">
             <img
               type="button"
@@ -18,7 +18,7 @@ export default function ProductCardBody({ product, editMode }) {
           <ProductModal product={product} />
         </shad.DialogContent>
       </shad.Dialog>
-      <div className="p-10">
+      <div className="pt-10">
         <shad.CardTitle className="flex justify-center content-end pb-2 text-red-500">
           {product.discountedPrice.toFixed(2)} kr
         </shad.CardTitle>
