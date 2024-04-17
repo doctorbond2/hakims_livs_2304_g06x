@@ -67,3 +67,28 @@ export async function createOrder(req, res) {
     console.log(err.message);
   }
 }
+
+export async function updateOrderById(req, res) {
+  console.log("test update order by id");
+  if (!req.params.id) {
+    return res.status(400).json({ error: "No id submitted" });
+  }
+
+  if (!req.body) {
+    return res.status(400).json({ error: "No body submitted" });
+  }
+
+  const { id } = req.params;
+  try {
+    let order = await Order.findByIdAndUpdate({ _id: id }, req.body);
+    if (order) {
+      res.status(200).json({
+        message: "Order updated successfully",
+        updated_order: order,
+      });
+    }
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+    console.log(err.message);
+  }
+}
