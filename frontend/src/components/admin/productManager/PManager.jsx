@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 import qs from "qs";
 import PManagerList from "./PManagerList";
 import {
-  GET_REQUEST,
+  admin_GET_REQUEST,
   admin_DELETE_REQUEST,
 } from "@/utils/helpers/request.helper";
 function PManager({}) {
@@ -12,11 +12,11 @@ function PManager({}) {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const products = await GET_REQUEST("/api/products/");
+        const products = await admin_GET_REQUEST("/api/products/");
         if (products) {
           setProductList(products);
         }
-        const categories = await GET_REQUEST("/api/category/");
+        const categories = await admin_GET_REQUEST("/api/category/");
         if (categories) {
           setCategoryList(categories);
           console.log("CATEGORYLIST: ", categories);
@@ -29,7 +29,7 @@ function PManager({}) {
   }, []);
   const updateProducts = async () => {
     try {
-      const updatedProducts = await GET_REQUEST("/api/products/");
+      const updatedProducts = await admin_GET_REQUEST("/api/products/");
       if (updatedProducts) {
         setProductList([...updatedProducts]);
       }

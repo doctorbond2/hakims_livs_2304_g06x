@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import * as shad from "@/components/ui/shadBarrel";
-import { PUT_REQUEST, GET_REQUEST } from "@/utils/helpers/request.helper";
+import { admin_PUT_REQUEST, GET_REQUEST } from "@/utils/helpers/request.helper";
 const PManangerEditModal = ({ product, categoryList, updateProducts }) => {
   const baseUnits = ["kg", "g", "mg", "l", "ml", "cl"];
   const [newProduct, setNewProduct] = useState(product);
@@ -39,7 +39,7 @@ const PManangerEditModal = ({ product, categoryList, updateProducts }) => {
   async function handleEdit(e) {
     e.preventDefault();
     try {
-      if (await PUT_REQUEST(`/api/products/update/${product.id}`, newProduct)) {
+      if (await admin_PUT_REQUEST(`/api/products/update/${product.id}`, newProduct)) {
         updateProducts();
         console.log("Product updated");
       } else {

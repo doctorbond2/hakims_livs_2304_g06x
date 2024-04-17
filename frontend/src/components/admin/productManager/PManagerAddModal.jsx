@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import * as shad from "@/components/ui/shadBarrel";
-import { POST_REQUEST } from "@/utils/helpers/request.helper";
+import { admin_POST_REQUEST } from "@/utils/helpers/request.helper";
 const PManagerAddModal = ({ categoryList, updateProducts }) => {
   const baseUnits = ["kg", "g", "mg", "l", "ml", "cl"];
 
@@ -19,7 +19,7 @@ const PManagerAddModal = ({ categoryList, updateProducts }) => {
     console.log("NEW PRODUCT: ", newProduct);
     e.preventDefault();
     try {
-      if (await POST_REQUEST("/api/products/create/", newProduct)) {
+      if (await admin_POST_REQUEST("/api/products/create/", newProduct)) {
         console.log("Product added");
         updateProducts();
       }
