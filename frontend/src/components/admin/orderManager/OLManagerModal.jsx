@@ -5,26 +5,8 @@ import {
   admin_PUT_REQUEST,
 } from "@/utils/helpers/request.helper";
 
-function OLManagerModal({ order }) {
-  const [productNames, setProductNames] = useState([]);
- 
-
-  useEffect(() => {
-    const fetchData = async () => {
-      console.log(order.items.product);
-      try {
-        const products = await admin_GET_REQUEST(
-          `/api/products/${order.items.product}`
-        );
-        setProductNames(products);
-        console.log("Products fetched:", products);
-      } catch (error) {
-        console.error("Error fetching data:", error);
-      }
-    };
-
-    fetchData();
-  }, [order.items]);
+function OLManagerModal({ order, updateOrder }) {
+  console.log(order);
 
   const handleStatus = async (statusType) => {
     try {
@@ -41,13 +23,14 @@ function OLManagerModal({ order }) {
         `/api/order/update/${order._id}`,
         updatedOrder
       );
-
+      if (response) {
+        await updateOrder();
+      }
       if (response && response.data) {
         console.log("Order updated:", response.data);
       }
     } catch (err) {
       console.log("Error updating order:", err);
-     
     }
   };
   return (
@@ -93,13 +76,12 @@ function OLManagerModal({ order }) {
             <shad.TableHead>Kr/st</shad.TableHead>
             {order.items &&
               order.items.map((item, index) => {
-                const product = productNames.find(
-                  (product) => product._id === item.product._id
-                );
                 return (
                   <shad.TableRow key={index}>
                     <shad.TableCell>
-                      {product ? product.title : "Produktnamn saknas"}
+                      {item.product.title
+                        ? item.product.title
+                        : "Produktnamn saknas"}
                     </shad.TableCell>
                     <shad.TableCell>{item.quantity}</shad.TableCell>
                     <shad.TableCell>{item.price} kr</shad.TableCell>
