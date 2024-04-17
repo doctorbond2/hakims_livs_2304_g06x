@@ -17,7 +17,7 @@ const LoginInput = ({ setLoginData, loginData }) => {
         />
       </div>
       <div className="space-y-1">
-        <shad.Label htmlFor="password" required={true}>
+        <shad.Label htmlFor="password" type="password" required={true}>
           Lösenord
         </shad.Label>
         <shad.Input
