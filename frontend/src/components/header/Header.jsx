@@ -11,17 +11,12 @@ const Header = () => {
     <>
       <header className="w-full bg-slate-500 p-4">
         <div className="grid grid-cols-6 items-center">
-          <div className="col-start-2 col-end-3">
-            <Link
-              to="/"
-              className="text-white text-lg font-bold flex justify-end pr-5"
-            >
-              <img
-                style={{ width: "150px" }}
-                src="/HakimOnlineLogo.png"
-                alt="HakimLogo"
-              />
-            </Link>
+          <div className="col-start-2 col-end-3 flex justify-center">
+            <div className="w-52">
+              <Link to="/" className="w-full">
+                <img className="w-full h-auto object-cover" src="/HakimOnlineLogo2.png" alt="HakimLogo" />
+              </Link>
+            </div>
           </div>{" "}
           <div className="col-start-3 col-end-5">
             <SearchBar />
