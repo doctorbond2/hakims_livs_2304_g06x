@@ -5,7 +5,12 @@ import React, {
   ReactNode,
   useEffect,
 } from "react";
-import { LOGIN_REQUEST, LOGOUT_REQUEST } from "../helpers/request.helper";
+import {
+  LOGIN_REQUEST,
+  LOGOUT_REQUEST,
+  POST_REQUEST,
+} from "../helpers/request.helper";
+import { clear } from "localforage";
 const AuthContext = createContext();
 export const useAuth = () => useContext(AuthContext);
 
@@ -13,7 +18,24 @@ export function AuthProvider({ children }) {
   const [loggedIn, setLoggedIn] = useState(false);
 
   const register = async (registerData) => {
-    console.log("registered!");
+    if (!registerData) {
+      throw err;
+    }
+    try {
+      const response = await POST_REQUEST("/api/auth/register", registerData);
+      if (response) {
+        console.log("Registered new user, try to login!");
+        setLoggedIn({
+          access: true,
+          admin_access: false,
+          id: response._id,
+          token: response.tokens.access,
+          refreshToken: response.tokens.refresh,
+        });
+      }
+    } catch (err) {
+      console.error(err);
+    }
   };
   const login = async (loginData) => {
     console.log(loginData);
@@ -50,6 +72,12 @@ export function AuthProvider({ children }) {
       }
     }
   };
+  const clearLocalStorageTokens = () => {
+    localStorage.removeItem("accessToken");
+    localStorage.removeItem("refreshToken");
+    localStorage.removeItem("adminToken");
+    localStorage.removeItem("adminRefresh");
+  };
   const logout = async () => {
     try {
       const response = await LOGOUT_REQUEST(
@@ -58,6 +86,7 @@ export function AuthProvider({ children }) {
       );
       if (response) {
         console.log(response);
+        clearLocalStorageTokens();
       }
     } catch (err) {
       console.log(err.message);
@@ -86,8 +115,6 @@ export function AuthProvider({ children }) {
         token: accessToken,
         refreshToken: refreshToken,
       });
-    } else {
-      alert("You need to log in agagin OK? ");
     }
   }, []);
   return (

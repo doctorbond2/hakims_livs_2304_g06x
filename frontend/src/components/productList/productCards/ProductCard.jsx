@@ -9,12 +9,12 @@ const ProductCard = ({ product, buyOrEdit, onSubmit, onEdit, onDelete }) => {
   const { addToCart } = useCart();
   return (
     <>
-      <shad.Card className="w-[250px] h-[380px] grid grid-rows-1 border-slate-300">
+      <shad.Card className="w-[250px] h-[380px] grid grid-rows-1 border-slate-300 shadow-lg shadow-2xl">
         <>
           <a className="relative">
             {" "}
             {product.discountRate > 0 && (
-              <div className="absolute  top-1 left-1 rounded p-1.5 bg-red-500 text-white text-sm italic font-bold">
+              <div className="absolute  top-1 left-1 rounded p-1.5 bg-red-500 text-white text-sm italic font-bold z-10">
                 -{product.discountRate}%
               </div>
             )}

@@ -9,7 +9,7 @@ const Header = () => {
 
   return (
     <>
-      <header className="w-full bg-slate-500 p-4">
+      <header className="w-full bg-slate-500 p-4 bg-slate-700">
         <div className="grid grid-cols-6 items-center">
           <div className="col-start-2 col-end-3">
             <Link
