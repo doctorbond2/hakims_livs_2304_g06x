@@ -6,6 +6,7 @@ import React, {
   useEffect,
 } from "react";
 import { LOGIN_REQUEST, LOGOUT_REQUEST } from "../helpers/request.helper";
+import { clear } from "localforage";
 const AuthContext = createContext();
 export const useAuth = () => useContext(AuthContext);
 
@@ -50,6 +51,12 @@ export function AuthProvider({ children }) {
       }
     }
   };
+  const clearLocalStorageTokens = () => {
+    localStorage.removeItem("accessToken");
+    localStorage.removeItem("refreshToken");
+    localStorage.removeItem("adminToken");
+    localStorage.removeItem("adminRefresh");
+  };
   const logout = async () => {
     try {
       const response = await LOGOUT_REQUEST(
@@ -58,6 +65,7 @@ export function AuthProvider({ children }) {
       );
       if (response) {
         console.log(response);
+        clearLocalStorageTokens();
       }
     } catch (err) {
       console.log(err.message);
@@ -86,8 +94,6 @@ export function AuthProvider({ children }) {
         token: accessToken,
         refreshToken: refreshToken,
       });
-    } else {
-      alert("You need to log in agagin OK? ");
     }
   }, []);
   return (

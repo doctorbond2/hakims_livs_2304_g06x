@@ -38,6 +38,15 @@ export async function tokenTestThree(req, res, next) {
     return res.send("wrong test 2");
   }
 }
+
+export async function simpleTokenCheck(req, res, next) {
+  const authorizationHeader = req.header("Authorization") || "";
+  const accessToken = authorizationHeader.split(" ")?.[1] || "";
+  if (!accessToken) {
+    return res.status(401).json({ error: "I dont think you are logged in." });
+  }
+  next();
+}
 export async function authTokenMiddleware(req, res, next) {
   const accessToken = req.decodedAccessToken;
   const refreshToken = req.decodedRefreshToken;
@@ -86,8 +95,15 @@ export const verifyAccessTokenMiddleware = async (req, res, next) => {
       throw new Error("Invalid token");
     }
   } catch (err) {
-    console.log(err);
-    return res.status(401).send("Invalid token");
+    if (err instanceof jwt.TokenExpiredError) {
+      console.log("expired!");
+      const newAccessToken = generateAccessToken();
+      req.newAccessToken = newAccessToken;
+      next();
+    } else {
+      console.log(err);
+      return res.status(401).send("Invalid token");
+    }
   }
 };
 
