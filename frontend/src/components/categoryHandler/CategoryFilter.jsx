@@ -29,7 +29,7 @@ const CategoryFilter = ({ onSelectCategory }) => {
         <option value="">Alla produkter</option>
         {categories.map((category) => (
           <option key={category._id} value={category._id}>
-            {category.name}
+            {category.title}
           </option>
         ))}
       </select>

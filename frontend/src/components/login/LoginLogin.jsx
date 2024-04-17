@@ -5,11 +5,11 @@ const LoginLogin = ({ login }) => {
   const [loginData, setLoginData] = useState({ username: "", password: "" });
   const submitLogin = async () => {
     console.log(loginData);
-    // try {
-    //   login();
-    // } catch (err) {
-    //   console.log(err.message);
-    // }
+    try {
+      await login(loginData);
+    } catch (err) {
+      console.log(err.message);
+    }
   };
 
   return (

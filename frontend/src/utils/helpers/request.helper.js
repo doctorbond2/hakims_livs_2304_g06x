@@ -1,6 +1,11 @@
 import axios from "axios";
 const BaseUrl = import.meta.env.VITE_BaseUrl;
 const adminKey = import.meta.env.VITE_ADMIN_KEY;
+const adminCheck = () => {
+  if (!adminKey && adminKey === null && adminKey === undefined) {
+    throw new Error("Access denied");
+  }
+};
 const admin = axios.create({
   baseURL: BaseUrl,
   timeout: 6000,
@@ -40,6 +45,35 @@ export async function POST_REQUEST(URL, DATA) {
     throw err;
   }
 }
+export async function LOGIN_REQUEST(URL, DATA) {
+  try {
+    const response = await regular.post(URL, DATA);
+    if (response.status === 200) {
+      return response.data;
+    } else {
+      throw new Error(`Logout failed with status: ${response.status}`);
+    }
+  } catch (err) {
+    throw err;
+  }
+}
+export async function LOGOUT_REQUEST(URL, accessToken) {
+  console.log(typeof accessToken);
+  try {
+    const response = await axios.post(BaseUrl + URL, null, {
+      headers: {
+        Authorization: `Bearer ${accessToken}`,
+      },
+    });
+    if (response.status === 200) {
+      return { response: response, ok: "Logged out" };
+    } else {
+      return null;
+    }
+  } catch (err) {
+    throw err;
+  }
+}
 export async function PUT_REQUEST(URL, DATA) {
   try {
     const response = await regular.put(URL, DATA);
@@ -52,7 +86,7 @@ export async function PUT_REQUEST(URL, DATA) {
     throw err;
   }
 }
-//Gör om till admin senare
+
 export async function DELETE_REQUEST(URL) {
   try {
     const response = await regular.delete(URL);
@@ -65,11 +99,50 @@ export async function DELETE_REQUEST(URL) {
     throw err;
   }
 }
+
+export async function admin_POST_REQUEST(URL, DATA) {
+  try {
+    adminCheck();
+    const response = await admin.post(URL, DATA);
+    if (response.status === 201) {
+      return { response: response, ok: "Created" };
+    } else {
+      return null;
+    }
+  } catch (err) {
+    throw err;
+  }
+}
+export async function admin_PUT_REQUEST(URL, DATA) {
+  try {
+    adminCheck();
+    const response = await admin.put(URL, DATA);
+    if (response.status === 200) {
+      return { response: response, ok: "Updated" };
+    } else {
+      return false;
+    }
+  } catch (err) {
+    throw err;
+  }
+}
+export async function admin_GET_REQUEST(URL) {
+  try {
+    adminCheck();
+    const response = await admin.get(URL);
+    if (response.status === 200) {
+      return response.data;
+    } else {
+      return null;
+    }
+  } catch (err) {
+    throw err;
+  }
+}
+//Gör om till admin senare
 export async function admin_DELETE_REQUEST(URL) {
   try {
-    if (!adminKey) {
-      throw new Error("Access denied");
-    }
+    adminCheck();
     const response = await admin.delete(URL);
     if (response.status === 204) {
       return { response: response, ok: "Deleted" };
@@ -81,6 +154,3 @@ export async function admin_DELETE_REQUEST(URL) {
   }
 }
 //TODO FINISH AUTH FOR BIG BAD DELETE REQUEST
-export async function DELETE_adminREQUEST(URL) {
-  return admin.delete(BaseUrl + URL);
-}
