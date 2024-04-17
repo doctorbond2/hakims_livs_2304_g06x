@@ -26,19 +26,17 @@ export const CartProvider = ({ children }) => {
   }, [cart]);
   const removeFromCart = (product, quantityToRemove) => {
     let currentCart = JSON.parse(localStorage.getItem("shoppingCart")) || [];
-    const existingProductIndex = cart.findIndex(
+    const existingProductIndex = currentCart.findIndex(
       (item) => item._id === product._id
     );
     if (existingProductIndex !== -1) {
-      if (
-        (currentCart[existingProductIndex].cartQuantity -=
-          quantityToRemove <= 0)
-      ) {
+      currentCart[existingProductIndex].cartQuantity -= quantityToRemove;
+      if (currentCart[existingProductIndex].cartQuantity <= 0) {
+        console.log("test");
         currentCart.splice(existingProductIndex, 1);
         setCart(currentCart);
         return;
       }
-      currentCart[existingProductIndex].cartQuantity -= quantityToRemove;
       setCart(currentCart);
     } else {
       currentCart.splice(existingProductIndex, 1);

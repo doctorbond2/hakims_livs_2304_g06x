@@ -38,18 +38,20 @@ const ProductAddMultiple = ({ product, setClicked }) => {
   }, [productQuantity]);
   return (
     <>
-      <div className="pb-2 content-end flex justify-between">
+      <div className="pb-2 content-end flex justify-around">
         <shad.Button
+          className="w-20 bg-red-700"
           onClick={() => {
             handleProductQuantity("minus");
           }}
         >
           -
         </shad.Button>
-        <div className="w-[3vw] justify-center ml-12">
-          <shad.Label>{productQuantity}</shad.Label>
+        <div>
+          <shad.Label className="text-lg">{productQuantity}</shad.Label>
         </div>
         <shad.Button
+          className="w-20 bg-green-700"
           onClick={() => {
             handleProductQuantity("plus");
           }}

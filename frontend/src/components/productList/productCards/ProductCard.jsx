@@ -21,10 +21,11 @@ const ProductCard = ({ product, buyOrEdit, onSubmit, onEdit, onDelete }) => {
             <ProductCardBody product={product} />
           </a>
         </>
-        <div className="pb-2 content-end flex justify-center">
-          {!clicked ? (
+
+        {!clicked ? (
+          <div className="pb-2 content-end flex justify-center">
             <shad.Button
-              className="w-[230px]"
+              className="w-[230px] bg-green-600 italic text-lg"
               onClick={() => {
                 setClicked(true);
                 addToCart(product, 1);
@@ -32,10 +33,10 @@ const ProductCard = ({ product, buyOrEdit, onSubmit, onEdit, onDelete }) => {
             >
               Köp
             </shad.Button>
-          ) : (
-            <ProductAddMultiple {...{ product, setClicked }} />
-          )}
-        </div>
+          </div>
+        ) : (
+          <ProductAddMultiple {...{ product, setClicked }} />
+        )}
       </shad.Card>
     </>
   );
