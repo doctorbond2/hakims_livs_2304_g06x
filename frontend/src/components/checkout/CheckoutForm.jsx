@@ -3,9 +3,9 @@ import { POST_REQUEST } from "@/utils/helpers/request.helper";
 import axios from "axios";
 import { useState, useEffect } from "react";
 import OrderConfirmation from "./OrderConfirmation";
-import { useCart } from "@/components/header/shoppingCart/CartContext";
+// import { useCart } from "@/components/header/shoppingCart/CartContext";
 
-function OrderForm() {
+function OrderForm({ shoppingcartData }) {
   const defaultOrder = {
     shippingAddress: {
       streetAddress: "",
@@ -30,11 +30,11 @@ function OrderForm() {
   const [cartData, setCartData] = useState([]);
   const [newOrder, setNewOrder] = useState(defaultOrder);
   const [orderComplete, setOrderComplete] = useState(false);
-  const { cart } = useCart();
+  // const { cart } = useCart();
 
   useEffect(() => {
     const cartDataJSON = localStorage.getItem("shoppingCart");
-    console.log(cart);
+    // console.log(cart);
     if (cartDataJSON) {
       setCartData(JSON.parse(cartDataJSON));
       const formattedCartData = JSON.parse(cartDataJSON).map((item) => ({
