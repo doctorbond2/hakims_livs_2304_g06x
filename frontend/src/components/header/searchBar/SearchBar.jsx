@@ -95,7 +95,7 @@ const SearchBar = () => {
         products.map((product) => (
           <shad.Dialog key={product.id}>
             <shad.DialogTrigger asChild>
-              <a className="grid bg-slate-50 items-end border grid-cols-7 grid-rows-2">
+              <a className="grid bg-slate-50 items-end border grid-cols-7 grid-rows-2 cursor-pointer">
                 <div className="flex justify-center row-span-2 col-span-1 ">
                   <img className="max-w-full max-h-20 object-contain p-1" src={product.image.url} alt={product.image.alt || "Product Image"} />
                 </div>
