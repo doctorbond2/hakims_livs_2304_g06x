@@ -1,8 +1,5 @@
 import { Schema, model } from "mongoose";
-import {
-  hashNewOrChangedPW,
-  checkForAdmin,
-} from "../utils/hooks/user.hooks.js";
+import { hashNewOrChangedPW } from "../utils/hooks/user.hooks.js";
 const userSchema = new Schema({
   username: {
     type: String,
@@ -42,7 +39,6 @@ const userSchema = new Schema({
 
 userSchema.pre("save", hashNewOrChangedPW);
 
-userSchema.pre("save", checkForAdmin);
 const User = model("User", userSchema);
 
 export default User;
