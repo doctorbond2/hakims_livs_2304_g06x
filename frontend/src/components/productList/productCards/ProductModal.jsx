@@ -42,9 +42,6 @@ export default function ProductModal({ product }) {
       </div>
       <div className="w-full">
         <DetailSection title="Varumärke:" info={`${product.brand}`} />
-        <DetailSection title="Normalpris:" info={`${product.price} kr/st`} />
-        <DetailSection title="Du sparar:" info={`${product.savings} kr/st`} />
-        <DetailSection title="Jämförpris:" info={`${product.comparePrice} kr/${product.unit}`} />
         <DetailSection
           title="Normalpris:"
           info={`${product.price.toFixed(2)} kr/st`}
