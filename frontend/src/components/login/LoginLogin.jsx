@@ -4,7 +4,8 @@ import LoginInput from "./LoginInput";
 const LoginLogin = ({ login }) => {
   const [loginTry, setLoginTry] = useState(false);
   const [loginData, setLoginData] = useState({ username: "", password: "" });
-  const submitLogin = async () => {
+  const submitLogin = async (e) => {
+    e.preventDefault();
     console.log(loginData);
     try {
       await login(loginData);
@@ -22,13 +23,15 @@ const LoginLogin = ({ login }) => {
         </shad.CardDescription>
       </shad.CardHeader>
       <form onSubmit={submitLogin}>
-        <shad.CardContent className="space-y-2">
+        <shad.CardContent className="space-y-2 ">
           <LoginInput {...{ setLoginData, loginData }} />
         </shad.CardContent>
         <shad.CardFooter>
-          <shad.Button className="bg-green-700" type={"submit"}>
-            Logga in
-          </shad.Button>
+          <shad.DialogClose>
+            <shad.Button className="bg-green-800" type={"submit"}>
+              Logga in
+            </shad.Button>
+          </shad.DialogClose>
         </shad.CardFooter>
       </form>
     </shad.Card>

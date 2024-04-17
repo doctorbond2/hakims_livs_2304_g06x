@@ -7,6 +7,7 @@ export default function ProductCardBody({ product, editMode }) {
         <shad.DialogTrigger asChild className="cursor-pointer">
           <shad.CardContent className="flex row-span-2 items-center justify-center p-5">
             <img
+              className="h-auto transition-transform duration-300 transform hover:scale-105"
               type="button"
               style={{ height: "150px" }}
               src={product.image.url}

@@ -7,7 +7,7 @@ const ProductList = ({ productList }) => {
           {productList &&
             productList.map((product) => (
               <>
-                <div className="m-3 shadow-lg shadow-2xl">
+                <div className="m-3">
                   <ProductCard product={product} buyOrEdit={"Köp"} />
                 </div>
               </>

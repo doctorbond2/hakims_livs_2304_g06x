@@ -11,6 +11,8 @@ const LoginRegisterInput = ({}) => {
       <div className="space-y-1">
         <shad.Label htmlFor="password">Lösenord</shad.Label>
         <shad.Input id="password" defaultValue="" />
+        <shad.Label htmlFor="password">Upprepa lösenord</shad.Label>
+        <shad.Input id="password" defaultValue="" />
       </div>
     </>
   );

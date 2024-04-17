@@ -18,8 +18,6 @@ const LoginRegister = ({}) => {
   };
   return (
     <>
-      {" "}
-      COMING SOON
       <shad.Card>
         <shad.CardHeader>
           <shad.CardTitle>Registrera</shad.CardTitle>
@@ -27,14 +25,18 @@ const LoginRegister = ({}) => {
             Maxa dina besparingar med Hakim!
           </shad.CardDescription>
         </shad.CardHeader>
-        <shad.CardContent className="space-y-2">
-          <LoginRegisterInput {...{ registerData, setregisterData }} />
-        </shad.CardContent>
-        <shad.CardFooter>
-          <shad.DialogClose>
-            <shad.Button>Skapa konto!</shad.Button>
-          </shad.DialogClose>
-        </shad.CardFooter>
+        <form>
+          <shad.CardContent className="space-y-2">
+            <LoginRegisterInput {...{ registerData, setregisterData }} />
+          </shad.CardContent>
+          <shad.CardFooter>
+            <shad.DialogClose>
+              <shad.Button type={"submit"} className="bg-green-800">
+                Skapa konto!
+              </shad.Button>
+            </shad.DialogClose>
+          </shad.CardFooter>
+        </form>
       </shad.Card>
     </>
   );

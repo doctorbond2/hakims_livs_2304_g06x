@@ -10,8 +10,8 @@ export function TabsDemo() {
     console.log(loggedIn);
   }, [loggedIn]);
   return (
-    <shad.Tabs defaultValue="loginTab" className="w-[400px]">
-      <shad.TabsList className="grid w-full grid-cols-2">
+    <shad.Tabs defaultValue="loginTab" className="w-[400px] ">
+      <shad.TabsList className="grid w-full grid-cols-2 bg-green-200">
         <shad.TabsTrigger value="loginTab">Logga in</shad.TabsTrigger>
         <shad.TabsTrigger value="registerTab">
           Skapa nytt konto

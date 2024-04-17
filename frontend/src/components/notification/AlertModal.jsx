@@ -3,9 +3,10 @@ import * as shad from "@/components/ui/shadBarrel";
 const AlertModal = ({ content }) => {
   return (
     <>
-      <h4>
-        <shad.Card></shad.Card>
-      </h4>
+      <shad.Card>
+        <shad.CardContent> {content}</shad.CardContent>
+        <shad.Button>Ok</shad.Button>
+      </shad.Card>
     </>
   );
 };
