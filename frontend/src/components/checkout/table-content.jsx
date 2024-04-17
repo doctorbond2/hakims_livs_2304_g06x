@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { columns } from "./columns";
 import { CheckoutTable } from "./checkoutTable";
+import * as shad from "@/components/ui/shadBarrel";
 
 function getData() {
   const cartData = JSON.parse(localStorage.getItem("shoppingCart")) || [];
