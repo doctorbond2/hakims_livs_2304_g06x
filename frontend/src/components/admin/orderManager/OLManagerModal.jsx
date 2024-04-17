@@ -25,7 +25,7 @@ function OLManagerModal({ order, }) {
     fetchData();
   }, [order.items]); 
 
-  const handlePaidToggle = async () => {
+  /* const handlePaidToggle = async () => {
     try {
       const updatedOrder = {
         ...order,
@@ -50,7 +50,7 @@ function OLManagerModal({ order, }) {
       console.error("Error updating shipped status:", error);
     }
   };
-
+ */
 
   return (
     <>
@@ -131,12 +131,12 @@ function OLManagerModal({ order, }) {
           </shad.TableRow>
           <shad.TableRow>
             <shad.TableCell>
-              <shad.Switch onClick={handlePaidToggle}>
+              <shad.Switch /* onClick={handlePaidToggle} */>
                 
               </shad.Switch>
             </shad.TableCell>
             <shad.TableCell>
-              <shad.Switch onClick={handleShippedToggle}>
+              <shad.Switch /* onClick={handleShippedToggle} */>
                 
               </shad.Switch>
             </shad.TableCell>
