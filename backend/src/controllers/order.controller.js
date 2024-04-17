@@ -92,3 +92,24 @@ export async function updateOrderById(req, res) {
     console.log(err.message);
   }
 }
+
+export async function deleteOrderById(req, res) {
+  console.log("test delete order by id");
+  if (!req.params.id) {
+    return res.status(400).json({ error: "No id submitted" });
+  }
+
+  const { id } = req.params;
+  try {
+    let order = await Order.findByIdAndDelete({ _id: id });
+    if (order) {
+      res.status(200).json({
+        message: "Order deleted successfully",
+        deleted_order: order,
+      });
+    }
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+    console.log(err.message);
+  }
+}

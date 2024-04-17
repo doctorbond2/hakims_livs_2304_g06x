@@ -58,10 +58,8 @@ function OLManagerItem({
             </shad.TableCell>
           </shad.TableRow>
           <shad.DialogContent>
-             {order ? (
-              <OLManangerModal
-                {...{ order, orderList, updateOrder }}
-              />
+            {order ? (
+              <OLManangerModal {...{ order, orderList, updateOrder }} />
             ) : (
               "Loading"
             )}
