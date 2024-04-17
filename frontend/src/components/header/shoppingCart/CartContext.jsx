@@ -7,19 +7,12 @@ export const CartProvider = ({ children }) => {
     const localData = localStorage.getItem("shoppingCart");
     return localData ? JSON.parse(localData) : [];
   });
-  const returnCartQuantity = (product) => {
-    const existingProductIndex = cart.findIndex(
-      (item) => item._id === product._id
-    );
-    console.log("INDEX: ", existingProductIndex);
-    if (existingProductIndex !== -1) {
-      return currentCart[existingProductIndex].cartQuantity > 0
-        ? currentCart[existingProductIndex].cartQuantity
-        : 0;
-    } else {
-      return 0;
-    }
-  };
+
+  function clearCart() {
+    setCart([]);
+    const localData = localStorage.removeItem("shoppingCart");
+  }
+
   useEffect(() => {
     console.log("Cart updated:", cart);
     localStorage.setItem("shoppingCart", JSON.stringify(cart));
@@ -62,7 +55,9 @@ export const CartProvider = ({ children }) => {
   };
 
   return (
-    <CartContext.Provider value={{ cart, addToCart, removeFromCart }}>
+    <CartContext.Provider
+      value={{ cart, addToCart, removeFromCart, clearCart }}
+    >
       {children}
     </CartContext.Provider>
   );

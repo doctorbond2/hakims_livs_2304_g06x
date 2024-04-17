@@ -5,6 +5,18 @@ import {
   admin_PUT_REQUEST,
 } from "@/utils/helpers/request.helper";
 
+function maskCardNumber(cardNumber) {
+  if (!cardNumber || typeof cardNumber !== "string") {
+    return ""; 
+  }
+
+  const visibleDigits = 4; 
+  const maskedPart =
+    "*".repeat(cardNumber.length - visibleDigits) +
+    cardNumber.slice(-visibleDigits);
+  return maskedPart;
+}
+
 function OLManagerModal({ order, updateOrder }) {
   console.log(order);
 
@@ -56,6 +68,9 @@ function OLManagerModal({ order, updateOrder }) {
                 : "Noname"}
             </shad.TableCell>
             <shad.TableCell>{order.customer.email}</shad.TableCell>
+            <shad.TableCell>
+              Kort nr.{maskCardNumber(order.paymentDetails.cardNumber)}
+            </shad.TableCell>
           </shad.TableRow>
           <shad.TableRow>
             <shad.TableHead>Leveransadress</shad.TableHead>
