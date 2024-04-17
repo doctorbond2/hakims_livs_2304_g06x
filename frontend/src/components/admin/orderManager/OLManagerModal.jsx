@@ -1,46 +1,46 @@
-import React, {useEffect, useState} from "react";
+import React, { useEffect, useState } from "react";
 import * as shad from "@/components/ui/shadBarrel";
 import {
   admin_GET_REQUEST,
-  admin_PUT_REQUEST
+  admin_PUT_REQUEST,
 } from "@/utils/helpers/request.helper";
 
-function OLManagerModal({ order, }) {
+function OLManagerModal({ order }) {
   const [productNames, setProductNames] = useState([]);
   const [paid, setPaid] = useState(false);
   const [shipped, setShipped] = useState(false);
 
   useEffect(() => {
     const fetchData = async () => {
-      console.log(order.items.product)
+      console.log(order.items.product);
       try {
-        const products = await admin_GET_REQUEST(`/api/products/${order.items.product}`);
+        const products = await admin_GET_REQUEST(
+          `/api/products/${order.items.product}`
+        );
         setProductNames(products);
-
+        console.log("Products fetched:", products);
       } catch (error) {
         console.error("Error fetching data:", error);
       }
     };
 
     fetchData();
-  }, [order.items]); 
+  }, [order.items]);
 
   const handlePaidToggle = async () => {
     try {
       const updatedOrder = {
         ...order,
-        status: { ...order.status, paid: !paid }, // Toggle paid status
+        status: { ...order.status, paid: !paid },
       };
 
-      // Skicka begäran med de uppdaterade statusvärdena
       const response = await admin_PUT_REQUEST(
         `/api/order/update/${order._id}`,
         updatedOrder
       );
 
-      // Om begäran lyckas, uppdatera det lokala tillståndet baserat på det nya värdet från databasen
       if (response && response.data) {
-        setPaid(response.data.status.paid); // Uppdatera lokalt tillstånd med det nya värdet från databasen
+        setPaid(response.data.status.paid);
         console.log("Paid status updated:", response.data.status.paid);
       }
     } catch (error) {
@@ -52,24 +52,21 @@ function OLManagerModal({ order, }) {
     try {
       const updatedOrder = {
         ...order,
-        status: { ...order.status, shipped: !shipped }, // Toggle shipped status
+        status: { ...order.status, shipped: !shipped },
       };
 
-      // Skicka begäran med de uppdaterade statusvärdena
       const response = await admin_PUT_REQUEST(
         `/api/order/update/${order._id}`,
         updatedOrder
       );
 
-      // Om begäran lyckas, uppdatera det lokala tillståndet baserat på det nya värdet från databasen
       if (response && response.data) {
-        setShipped(response.data.status.shipped); // Uppdatera lokalt tillstånd med det nya värdet från databasen
+        setShipped(response.data.status.shipped);
       }
     } catch (error) {
       console.error("Error updating shipped status:", error);
     }
   };
-
 
   return (
     <>
@@ -150,14 +147,10 @@ function OLManagerModal({ order, }) {
           </shad.TableRow>
           <shad.TableRow>
             <shad.TableCell>
-              <shad.Switch onClick={handlePaidToggle}>
-                
-              </shad.Switch>
+              <shad.Switch onClick={handlePaidToggle}></shad.Switch>
             </shad.TableCell>
             <shad.TableCell>
-              <shad.Switch onClick={handleShippedToggle}>
-                
-              </shad.Switch>
+              <shad.Switch onClick={handleShippedToggle}></shad.Switch>
             </shad.TableCell>
           </shad.TableRow>
         </shad.Dialog>
