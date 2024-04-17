@@ -43,7 +43,6 @@ export function CheckoutTable({ columns, data }) {
           )}
         </shad.TableBody>
       </shad.Table>
-      <CheckoutForm />
     </div>
   );
 }
