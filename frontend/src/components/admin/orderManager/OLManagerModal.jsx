@@ -7,9 +7,7 @@ import {
 
 function OLManagerModal({ order }) {
   const [productNames, setProductNames] = useState([]);
-  const [paid, setPaid] = useState(false);
-  const [shipped, setShipped] = useState(false);
-  console.log("Order:", paid, shipped);
+ 
 
   useEffect(() => {
     const fetchData = async () => {
@@ -28,54 +26,30 @@ function OLManagerModal({ order }) {
     fetchData();
   }, [order.items]);
 
-  const handlePaidToggle = async () => {
+  const handleStatus = async (statusType) => {
     try {
-      const newPaidStatus = !paid; 
-      setPaid(newPaidStatus); 
+      let updatedStatus = { ...order.status };
 
-      const updatedOrder = {
-        ...order,
-        status: { ...order.status, paid: newPaidStatus },
-      };
+      if (statusType === "paid") {
+        updatedStatus.paid = !order.status.paid;
+      } else if (statusType === "shipped") {
+        updatedStatus.shipped = !order.status.shipped;
+      }
 
+      const updatedOrder = { ...order, status: updatedStatus };
       const response = await admin_PUT_REQUEST(
         `/api/order/update/${order._id}`,
         updatedOrder
       );
 
       if (response && response.data) {
-       
-        console.log("Paid status updated:", response.data.status.paid);
+        console.log("Order updated:", response.data);
       }
-    } catch (error) {
-      console.error("Error updating paid status:", error);
+    } catch (err) {
+      console.log("Error updating order:", err);
+     
     }
   };
-
-  const handleShippedToggle = async () => {
-    try {
-      const newShippedStatus = !shipped; 
-      setShipped(newShippedStatus); 
-
-      const updatedOrder = {
-        ...order,
-        status: { ...order.status, shipped: newShippedStatus },
-      };
-
-      const response = await admin_PUT_REQUEST(
-        `/api/order/update/${order._id}`,
-        updatedOrder
-      );
-
-      if (response && response.data) {
-        
-        console.log("Shipped status updated:", response.data.status.shipped);
-      }
-    } catch (error) {
-      console.error("Error updating shipped status:", error);
-    }
-  };
-
   return (
     <>
       <shad.Table className="w-100 overflow-auto">
@@ -155,12 +129,16 @@ function OLManagerModal({ order }) {
           </shad.TableRow>
           <shad.TableRow>
             <shad.TableCell>
-              <shad.Switch onClick={handlePaidToggle}></shad.Switch>
+              <shad.Switch
+                defaultChecked={order.status.paid ? true : false}
+                onClick={() => handleStatus("paid")}
+              ></shad.Switch>
             </shad.TableCell>
             <shad.TableCell>
-              <shad.Switch onClick={handleShippedToggle}>
-                
-              </shad.Switch>
+              <shad.Switch
+                defaultChecked={order.status.shipped ? true : false}
+                onClick={() => handleStatus("shipped")}
+              ></shad.Switch>
             </shad.TableCell>
           </shad.TableRow>
         </shad.Dialog>
