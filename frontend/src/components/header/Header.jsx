@@ -34,7 +34,7 @@ const Header = () => {
                 </Link>
               </li>
               <li>
-                {loggedIn ? (
+                {loggedIn?.admin_access ? (
                   <Link to="/admin" className="text-white">
                     Admin Panel
                   </Link>

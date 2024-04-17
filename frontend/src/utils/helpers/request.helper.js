@@ -58,7 +58,6 @@ export async function LOGIN_REQUEST(URL, DATA) {
   }
 }
 export async function LOGOUT_REQUEST(URL, accessToken) {
-  console.log(typeof accessToken);
   try {
     const response = await axios.post(BaseUrl + URL, null, {
       headers: {

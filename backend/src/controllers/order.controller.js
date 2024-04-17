@@ -9,8 +9,8 @@ export async function getOrderList(req, res) {
         _id: 1,
         customer: 1,
         shippingAddress: 1,
-        
         total: 1,
+        items: 1,
         status: 1,
         createdAt: 1,
         
@@ -33,7 +33,8 @@ export async function getOrderById(req, res) {
     const order = await Order.findOne(
       { _id: orderID },
       { total: 1, status: 1, paymentDetails: 1, items: 1, shippingAddress: 1 }
-    ).populate("items.product");
+    ).populate(
+      {path:"items.product", select:"title price quantity"});
 
 
     if (!order || order.length === 0) {
@@ -61,6 +62,31 @@ export async function createOrder(req, res) {
   try {
     let order = await Order.create(req.body);
     res.status(201).json(order);
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+    console.log(err.message);
+  }
+}
+
+export async function updateOrderById(req, res) {
+  console.log("test update order by id");
+  if (!req.params.id) {
+    return res.status(400).json({ error: "No id submitted" });
+  }
+
+  if (!req.body) {
+    return res.status(400).json({ error: "No body submitted" });
+  }
+
+  const { id } = req.params;
+  try {
+    let order = await Order.findByIdAndUpdate({ _id: id }, req.body);
+    if (order) {
+      res.status(200).json({
+        message: "Order updated successfully",
+        updated_order: order,
+      });
+    }
   } catch (err) {
     res.status(500).json({ error: err.message });
     console.log(err.message);
