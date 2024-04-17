@@ -5,7 +5,7 @@ import { useState, useEffect } from "react";
 import OrderConfirmation from "./OrderConfirmation";
 // import { useCart } from "@/components/header/shoppingCart/CartContext";
 
-function OrderForm({ shoppingcartData }) {
+function OrderForm() {
   const defaultOrder = {
     shippingAddress: {
       streetAddress: "",
@@ -96,7 +96,8 @@ function OrderForm({ shoppingcartData }) {
         alert("Order placed successfully!");
         localStorage.removeItem("shoppingCart");
         setNewOrder(defaultOrder);
-        setOrderConfirmation(true);
+        window.location.reload();
+        // setOrderConfirmation(true);
       }
     } catch (error) {
       console.error(error.message);

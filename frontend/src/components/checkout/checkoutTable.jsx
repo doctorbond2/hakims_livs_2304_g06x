@@ -4,6 +4,7 @@ import {
   useReactTable,
 } from "@tanstack/react-table";
 import * as shad from "@/components/ui/shadBarrel";
+import CheckoutForm from "./CheckoutForm";
 
 export function CheckoutTable({ columns, data }) {
   const table = useReactTable({
