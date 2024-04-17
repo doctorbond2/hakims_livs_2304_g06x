@@ -1,8 +1,8 @@
 import React, {useEffect, useState} from "react";
 import * as shad from "@/components/ui/shadBarrel";
 import {
-  GET_REQUEST,
-  PUT_REQUEST
+  admin_GET_REQUEST,
+  admin_PUT_REQUEST
 } from "@/utils/helpers/request.helper";
 
 function OLManagerModal({ order, }) {
@@ -14,7 +14,7 @@ function OLManagerModal({ order, }) {
     const fetchData = async () => {
       console.log(order.items.product)
       try {
-        const products = await GET_REQUEST(`/api/products/${order.items.product}`);
+        const products = await admin_GET_REQUEST(`/api/products/${order.items.product}`);
         setProductNames(products);
 
       } catch (error) {
@@ -25,11 +25,36 @@ function OLManagerModal({ order, }) {
     fetchData();
   }, [order.items]); 
 
-  
+  /* const handlePaidToggle = async () => {
+    try {
+      const updatedOrder = {
+        ...order,
+        status: { ...order.status, paid: !paid },
+      };
+      await PUT_REQUEST(`/api/orders/update/${order._id}`, updatedOrder);
+      setPaid(!paid);
+    } catch (error) {
+      console.error("Error updating paid status:", error);
+    }
+  };
+
+  const handleShippedToggle = async () => {
+    try {
+      const updatedOrder = {
+        ...order,
+        status: { ...order.status, shipped: !shipped },
+      };
+      await admin_PUT_REQUEST(`/api/orders/update/${order._id}`, updatedOrder);
+      setShipped(!shipped);
+    } catch (error) {
+      console.error("Error updating shipped status:", error);
+    }
+  };
+ */
 
   return (
     <>
-      <shad.Table className="w-100">
+      <shad.Table className="w-80 overflow-auto">
         {console.log(order)}
         <shad.Dialog>
           <shad.TableRow>
@@ -106,10 +131,14 @@ function OLManagerModal({ order, }) {
           </shad.TableRow>
           <shad.TableRow>
             <shad.TableCell>
-              <shad.Switch>För betalning</shad.Switch>
+              <shad.Switch /* onClick={handlePaidToggle} */>
+                
+              </shad.Switch>
             </shad.TableCell>
             <shad.TableCell>
-              <shad.Switch>För skickad</shad.Switch>
+              <shad.Switch /* onClick={handleShippedToggle} */>
+                
+              </shad.Switch>
             </shad.TableCell>
           </shad.TableRow>
         </shad.Dialog>

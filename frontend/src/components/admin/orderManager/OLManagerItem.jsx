@@ -8,7 +8,6 @@ function OLManagerItem({
   updateOrder,
   handleDeleteOrder,
   index,
-  products
 }) {
   const order_id = order._id;
   const handleDelete = async () => {
