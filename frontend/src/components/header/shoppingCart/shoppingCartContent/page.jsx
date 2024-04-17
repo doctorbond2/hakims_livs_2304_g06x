@@ -15,20 +15,21 @@ function getData() {
   return Promise.resolve(transformedData);
 }
 
-function tableContent() {
+function TableContent() {
   const [data, setData] = useState([]);
+  const [totalPrice, setTotalPrice] = useState(0);
 
   useEffect(() => {
     getData().then((fetchedData) => {
       setData(fetchedData);
+      const total = fetchedData.reduce((acc, item) => acc + parseFloat(item.totalPrice), 0);
+      setTotalPrice(total.toFixed(2));
     });
   }, []);
 
   return (
-    <div className="container mx-auto py-10">
-      <DataTable columns={columns} data={data} />
-    </div>
+    <DataTable columns={columns} data={data} totalPrice={totalPrice} />
   );
 }
 
-export default tableContent;
+export default TableContent;
