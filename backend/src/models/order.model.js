@@ -84,6 +84,8 @@ const OrderSchema = new Schema(
     paymentDetails: {
       cardNumber: {
         type: String,
+        min: [16, "Kortnummer måste vara 16 siffror"],
+        max: [16, "Kortnummer måste vara 16 siffror"],
         required: [true, "Kortnummer krävs"],
         match: [/^\d{16}$/, "Ogiltigt kortnummerformat"],
       },
