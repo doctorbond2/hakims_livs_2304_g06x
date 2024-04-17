@@ -1,10 +1,36 @@
-import React from "react";
+import React, {useEffect, useState} from "react";
 import * as shad from "@/components/ui/shadBarrel";
+import {
+  GET_REQUEST,
+  PUT_REQUEST
+} from "@/utils/helpers/request.helper";
 
-function OLManagerModal({ order, updateOrder }) {
+function OLManagerModal({ order, }) {
+  const [productNames, setProductNames] = useState([]);
+  const [paid, setPaid] = useState(order.status.paid);
+  const [shipped, setShipped] = useState(order.status.shipped);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      console.log(order.items.product)
+      try {
+        const products = await GET_REQUEST(`/api/products/${order.items.product}`);
+        setProductNames(products);
+
+      } catch (error) {
+        console.error("Error fetching data:", error);
+      }
+    };
+
+    fetchData();
+  }, [order.items]); 
+
+  
+
   return (
     <>
       <shad.Table className="w-100">
+        {console.log(order)}
         <shad.Dialog>
           <shad.TableRow>
             <shad.TableHead>Order ID</shad.TableHead>
@@ -22,46 +48,50 @@ function OLManagerModal({ order, updateOrder }) {
               {order.customer
                 ? `${order.customer.firstName} ${order.customer.lastName}`
                 : "Noname"}
-              {console.log(order.customer.firstName)}
             </shad.TableCell>
-            <shad.TableCell>
-              {order.customer.email}
-              {console.log(order)}
-            </shad.TableCell>
+            <shad.TableCell>{order.customer.email}</shad.TableCell>
           </shad.TableRow>
           <shad.TableRow>
             <shad.TableHead>Leveransadress</shad.TableHead>
           </shad.TableRow>
           <shad.TableRow>
             <shad.TableCell>
-              {" "}
-              {order.shippingAddress
-                ? `${order.shippingAddress.streetAddress}, ${order.shippingAddress.postalCode},
-                  ${order.shippingAddress.county}`
-                : "Adress saknas"}
-              {console.log(order.streetAddress)}
+              {order.shippingAddress.streetAddress}
+            </shad.TableCell>
+          </shad.TableRow>
+          <shad.TableRow>
+            <shad.TableCell>
+              {order.shippingAddress.postalCode},{order.shippingAddress.county}
             </shad.TableCell>
           </shad.TableRow>
           <shad.TableBody>
+            <shad.TableHead>Produkt</shad.TableHead>
+            <shad.TableHead>Antal</shad.TableHead>
+            <shad.TableHead>Kr/st</shad.TableHead>
             {order.items &&
-              order.items.map((item, index) => (
-                <shad.TableRow key={index}>
-                  <shad.TableData>
-                    {item.product ? item.product.name : "Produkter saknas"}
-                  </shad.TableData>
-                  <shad.TableData>{item.quantity}</shad.TableData>
-                  <shad.TableData>{item.price}</shad.TableData>
-                </shad.TableRow>
-              ))}
-            {console.log(order.items)}
+              order.items.map((item, index) => {
+                const product = productNames.find(
+                  (product) => product._id === item.product._id
+                );
+                return (
+                  <shad.TableRow key={index}>
+                    <shad.TableCell>
+                      {product ? product.title : "Ingen produkt hittad"}
+                    </shad.TableCell>
+                    <shad.TableCell>{item.quantity}</shad.TableCell>
+                    <shad.TableCell>{item.price} kr</shad.TableCell>
+                  </shad.TableRow>
+                );
+              })}
           </shad.TableBody>
           <shad.TableRow>
             <shad.TableHead>Totalt</shad.TableHead>
+            <br />
             <shad.TableCell className="font-medium">
               {order.total} kr
             </shad.TableCell>
           </shad.TableRow>
-          ___________________
+
           <shad.TableRow>
             <shad.TableHead>Betalningstatus</shad.TableHead>
             <shad.TableHead>Order status</shad.TableHead>

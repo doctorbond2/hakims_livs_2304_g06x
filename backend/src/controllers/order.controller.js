@@ -9,8 +9,8 @@ export async function getOrderList(req, res) {
         _id: 1,
         customer: 1,
         shippingAddress: 1,
-        
         total: 1,
+        items: 1,
         status: 1,
         createdAt: 1,
         
@@ -33,7 +33,8 @@ export async function getOrderById(req, res) {
     const order = await Order.findOne(
       { _id: orderID },
       { total: 1, status: 1, paymentDetails: 1, items: 1, shippingAddress: 1 }
-    ).populate("items.product");
+    ).populate(
+      {path:"items.product", select:"title price quantity"});
 
 
     if (!order || order.length === 0) {
