@@ -6,22 +6,22 @@ export default function ShoppingCartSheet() {
   return (
     <shad.Sheet>
       <shad.SheetTrigger asChild>
-        <shad.Button variant="outline">Kundvagn</shad.Button>
+        <shad.Button variant="outline">Varukorg</shad.Button>
       </shad.SheetTrigger>
-      <shad.SheetContent>
+      <shad.SheetContent className="grid grid-cols-1 grid-rows-10">
         <shad.SheetHeader>
-          <shad.SheetTitle>Kundvagn</shad.SheetTitle>
-          <shad.SheetDescription>Make changes to your profile here. Click save when you're done.</shad.SheetDescription>
+          <shad.SheetTitle>Varukorg</shad.SheetTitle>
         </shad.SheetHeader>
-        <div>
+        <div className="row-start-2 col-start-1 col-span-full flex items-start">
           <TableContent />
-          <div className="mt-4 flex justify-end">
-            {" "}
-            <Link to="/checkout">
-              {" "}
-              <shad.Button>Till Kassan</shad.Button>
-            </Link>
-          </div>
+        </div>
+
+        <div className="row-start-10 col-start-1 col-span-full flex items-end ">
+          <Link to="/checkout" className="w-full">
+            <shad.SheetClose asChild>
+              <shad.Button className="w-full">Till Kassan</shad.Button>
+            </shad.SheetClose>
+          </Link>
         </div>
       </shad.SheetContent>
     </shad.Sheet>

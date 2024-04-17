@@ -1,18 +1,15 @@
-// Import statement removed since we're not using ColumnDef directly in JS
-
-// JavaScript version without TypeScript-specific syntax
 export const columns = [
     {
       accessorKey: "productName",
-      header: "Product",
+      header: "Produkt",
     },
     {
       accessorKey: "amount",
-      header: "Amount",
+      header: "Antal",
     },
     {
       accessorKey: "totalPrice",
-      header: "Price",
+      header: "Pris",
     },
   ];
   

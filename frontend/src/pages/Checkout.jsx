@@ -1,10 +1,11 @@
 import React, { useState } from "react";
-import Page from "@/components/checkout/page";
-
+import TableContent from "@/components/checkout/table-content";
+import CheckoutForm from "@/components/checkout/CheckoutForm";
 export default function Checkout() {
   return (
-    <div className="flex justify-center">
-      <Page className="grid grid-cols-2 grid-rows-1"/>
+    <div className="grid grid-cols-5 grid-rows-2">
+      <TableContent className=""/>
+      <CheckoutForm className=""/>
     </div>
   );
 }

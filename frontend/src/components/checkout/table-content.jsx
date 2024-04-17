@@ -26,10 +26,8 @@ function tableContent() {
   }, []);
 
   return (
-    <div className="container mx-auto py-10 grid grid-cols-2">
+    <div className="">
       <CheckoutTable columns={columns} data={data} />
-
-      <h1>hello</h1>
     </div>
   );
 }

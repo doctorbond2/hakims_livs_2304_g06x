@@ -1,7 +1,7 @@
 import { flexRender, getCoreRowModel, useReactTable } from "@tanstack/react-table";
 import * as shad from "@/components/ui/shadBarrel";
 
-export function DataTable({ columns, data }) {
+export function DataTable({ columns, data, totalPrice }) {
   const table = useReactTable({
     data,
     columns,
@@ -32,10 +32,14 @@ export function DataTable({ columns, data }) {
           ) : (
             <shad.TableRow>
               <shad.TableCell colSpan={columns.length} className="h-24 text-center">
-                No results.
+                Inga produkter i varukorgen
               </shad.TableCell>
             </shad.TableRow>
-          )}
+          )}{" "}
+          <shad.TableRow className="font-semibold">
+            <shad.TableCell colSpan={columns.length - 1}>Totalt Pris</shad.TableCell>
+            <shad.TableCell>{`${totalPrice} SEK`}</shad.TableCell>
+          </shad.TableRow>
         </shad.TableBody>
       </shad.Table>
     </div>
