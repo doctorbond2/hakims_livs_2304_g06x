@@ -65,6 +65,7 @@ export function authKeyMiddleware(req, res, next) {
   const { authorization: key } = req.headers;
   if (compareAdminKeys(key)) {
     req.admin = true;
+
     next();
   } else {
     return res.send("Bloop bloop what u tryna do bloop bloop bloop");
