@@ -18,7 +18,7 @@ const NavSheetTrigger = () => {
           >
             <img
               className={cart.length ? "animate-bounce" : ""}
-              src={"/shoppingcart.svg"}
+              src={"/vite.svg"}
               style={{ width: "20px" }}
             ></img>
             Varukorg
