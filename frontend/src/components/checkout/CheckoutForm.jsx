@@ -120,7 +120,7 @@ function OrderForm() {
       return regex.test(email);
     };
 
-    const formData = newOrder; // Använd hela newOrder som formulärdata
+    const formData = newOrder; 
 
     if (!isValidEmail(formData.customer.email)) {
       setErrorMessage("Ange en giltig e-postadress.");
