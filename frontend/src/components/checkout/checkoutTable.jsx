@@ -1,8 +1,4 @@
-import {
-  flexRender,
-  getCoreRowModel,
-  useReactTable,
-} from "@tanstack/react-table";
+import { flexRender, getCoreRowModel, useReactTable } from "@tanstack/react-table";
 import * as shad from "@/components/ui/shadBarrel";
 import { columns } from "./columns";
 import { useCart } from "../header/shoppingCart/CartContext";
@@ -37,12 +33,9 @@ export function CheckoutTable({}) {
         <shad.TableBody>
           {table.getRowModel().rows && table.getRowModel().rows.length ? (
             table.getRowModel().rows.map((row) => (
-              <shad.TableRow
-                key={row.id}
-                data-state={row.getIsSelected() ? "selected" : undefined}
-              >
+              <shad.TableRow key={row.id} data-state={row.getIsSelected() ? "selected" : undefined}>
                 {row.getVisibleCells().map((cell) => (
-                  <shad.TableCell key={cell.id}>
+                  <shad.TableCell className="h-32" key={cell.id}>
                     {flexRender(cell.column.columnDef.cell, cell.getContext())}
                   </shad.TableCell>
                 ))}
@@ -50,10 +43,7 @@ export function CheckoutTable({}) {
             ))
           ) : (
             <shad.TableRow>
-              <shad.TableCell
-                colSpan={columns.length}
-                className="h-24 text-center"
-              >
+              <shad.TableCell colSpan={columns.length} className="h-24 text-center">
                 Din varukorg är tom!
               </shad.TableCell>
             </shad.TableRow>

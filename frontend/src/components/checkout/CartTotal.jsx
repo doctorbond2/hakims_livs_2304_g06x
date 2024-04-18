@@ -27,7 +27,7 @@ const CartTotal = () => {
   const taxAmount = totalPrice - totalPriceBeforeTax;
 
   return (
-    <shad.Card className="w-96">
+    <shad.Card className="w-96 h-32">
       <div className="m-5">
         <div className="text-xl">Totalsumma {totalPrice.toFixed(2).replace(".", ",")} kr</div>
         <div className="text-gray-500">Moms (12%): {taxAmount.toFixed(2).replace(".", ",")} kr</div>
