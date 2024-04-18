@@ -3,7 +3,7 @@ import ProductList from "@/components/productList/ProductList";
 import { useEffect, useState } from "react";
 import { GET_REQUEST } from "@/utils/helpers/request.helper";
 import CategoryFilter from "@/components/categoryHandler/CategoryFilter";
-
+import Hero from "@/components/Hero";
 const Home = () => {
   const [productList, setProductList] = useState(null);
   const [allProducts, setAllProducts] = useState(null);
@@ -28,7 +28,12 @@ const Home = () => {
   }, []);
 
   return (
-    <>{productList && <ProductList {...{ productList, resetProducts }} />}</>
+    <>
+      <div className="w-[100vw] ">
+        <Hero />
+        {productList && <ProductList {...{ productList, resetProducts }} />}
+      </div>
+    </>
   );
 };
 

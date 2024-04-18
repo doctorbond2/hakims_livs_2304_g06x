@@ -6,6 +6,7 @@ import Admin from "./pages/Admin";
 import { Toaster } from "./components/ui/toaster";
 import Checkout from "./pages/Checkout";
 import Footer from "./components/Footer";
+import About from "./pages/About";
 import { useEffect } from "react";
 import { useAuth } from "./utils/hooks/AuthContext";
 function App() {
@@ -38,7 +39,7 @@ function App() {
       <Header />
       <Routes>
         <Route path="/" element={<Home />}></Route>
-        <Route path="/products" element={"Who knows what lies beyond?"}></Route>
+        <Route path="/about" element={<About />}></Route>
         <Route
           path="/admin"
           element={loggedIn?.adminToken ? <Admin /> : <Navigate to="/" />}
