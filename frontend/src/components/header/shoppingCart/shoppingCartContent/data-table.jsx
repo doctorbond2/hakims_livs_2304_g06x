@@ -4,14 +4,14 @@ import {
   useReactTable,
 } from "@tanstack/react-table";
 import * as shad from "@/components/ui/shadBarrel";
-
+import { useCart } from "../CartContext";
 export function DataTable({ columns, data, totalPrice }) {
   const table = useReactTable({
     data,
     columns,
     getCoreRowModel: getCoreRowModel(),
   });
-
+  const { addToCart, removeFromCart } = useCart();
   return (
     <div className="rounded-md border">
       <shad.Table>
@@ -32,7 +32,8 @@ export function DataTable({ columns, data, totalPrice }) {
           ))}
         </shad.TableHeader>
         <shad.TableBody>
-          {table.getRowModel().rows && table.getRowModel().rows.length ? (
+          {table.getRowModel().rows &&
+            table.getRowModel().rows.length &&
             table.getRowModel().rows.map((row) => (
               <shad.TableRow
                 key={row.id}
@@ -44,17 +45,7 @@ export function DataTable({ columns, data, totalPrice }) {
                   </shad.TableCell>
                 ))}
               </shad.TableRow>
-            ))
-          ) : (
-            <shad.TableRow>
-              <shad.TableCell
-                colSpan={columns.length}
-                className="h-24 text-center"
-              >
-                Inga produkter i varukorgen
-              </shad.TableCell>
-            </shad.TableRow>
-          )}{" "}
+            ))}
           <shad.TableRow className="font-semibold">
             <shad.TableCell colSpan={columns.length - 1}>
               Totalt Pris
@@ -66,3 +57,13 @@ export function DataTable({ columns, data, totalPrice }) {
     </div>
   );
 }
+// (
+//   <shad.TableRow>
+//     <shad.TableCell
+//       colSpan={columns.length}
+//       className="h-24 text-center"
+//     >
+//       Inga produkter i varukorgen
+//     </shad.TableCell>
+//   </shad.TableRow>
+// )

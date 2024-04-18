@@ -3,13 +3,11 @@ import { POST_REQUEST } from "@/utils/helpers/request.helper";
 import axios from "axios";
 import { useState, useEffect, createContext } from "react";
 import OrderConfirmation from "./OrderConfirmation";
-// import useIsSubmitted from "./IsSubmitted";
-import { set } from "lodash";
 import { useCart } from "../header/shoppingCart/CartContext";
 
-const GlobalContext = createContext();
-
 function OrderForm() {
+  const [errorMessage, setErrorMessage] = useState("");
+
   const defaultOrder = {
     shippingAddress: {
       streetAddress: "",
@@ -40,7 +38,6 @@ function OrderForm() {
 
   useEffect(() => {
     const cartDataJSON = localStorage.getItem("shoppingCart");
-    // console.log(cart);
     if (cartDataJSON) {
       setCartData(JSON.parse(cartDataJSON));
       const formattedCartData = JSON.parse(cartDataJSON).map((item) => ({
@@ -52,7 +49,6 @@ function OrderForm() {
 
       setCartData(formattedCartData);
 
-      //totalsumman från varukorgen
       const total = formattedCartData.reduce((totalSum, item) => {
         return totalSum + item.price * item.quantity;
       }, 0);
@@ -111,6 +107,20 @@ function OrderForm() {
 
   async function handleSubmit(e) {
     e.preventDefault();
+
+    const isValidEmail = (email) => {
+      // Enkel validering av e-postadress med regex
+      const regex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+      return regex.test(email);
+    };
+
+    const formData = newOrder; 
+
+    if (!isValidEmail(formData.customer.email)) {
+      setErrorMessage("Ange en giltig e-postadress.");
+      return;
+    }
+
     try {
       const response = await POST_REQUEST("/api/order/create", newOrder);
       if (response) {
@@ -135,8 +145,8 @@ function OrderForm() {
     <>
       {" "}
       {!orderComplete ? (
-        <shad.Card className="w-96">
-          <form className="space-y-6 w-96 p-10" onSubmit={handleSubmit}>
+        <shad.Card className="w-100">
+          <form className="space-y-6 w-100 p-10" onSubmit={handleSubmit}>
             <h2 className="text-2xl font-bold">Leveransadress</h2>
             <shad.Label className="block">
               Gatuadress
@@ -237,6 +247,9 @@ function OrderForm() {
                 required
               />
             </shad.Label>
+            {errorMessage && (
+              <p className="text-red-500 text-sm">{errorMessage}</p>
+            )}
 
             <h2 className="text-2xl font-bold">Betalningsuppgifter</h2>
             <shad.Label className="block">

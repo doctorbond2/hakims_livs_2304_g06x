@@ -6,6 +6,8 @@ const PManangerEditModal = ({ product, categoryList, updateProducts }) => {
   const [newProduct, setNewProduct] = useState(product);
   const [selectListCatg, setSelectListCatg] = useState(categoryList);
   function handleChange(e) {
+
+    
     console.log(newProduct.discountRate);
     const { name, value } = e.target;
     let parsedValue = value;
@@ -57,6 +59,7 @@ const PManangerEditModal = ({ product, categoryList, updateProducts }) => {
   }
   return (
     <>
+    <shad.ScrollArea className="max-h-[600px] p-6">
       {product && (
         <shad.Card className="w-80 shadCardPadding overflow-auto">
           <form onSubmit={handleEdit}>
@@ -199,6 +202,7 @@ const PManangerEditModal = ({ product, categoryList, updateProducts }) => {
           </form>
         </shad.Card>
       )}
+    </shad.ScrollArea>
     </>
   );
 };

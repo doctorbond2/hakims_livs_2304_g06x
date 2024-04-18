@@ -61,6 +61,7 @@ const PManagerAddModal = ({ categoryList, updateProducts }) => {
   return (
     <>
       {" "}
+      <shad.ScrollArea className="max-h-[600px] p-6">
       <shad.Card className="w-80 shadCardPadding">
         <form onSubmit={handleSubmit}>
           <img
@@ -187,6 +188,7 @@ const PManagerAddModal = ({ categoryList, updateProducts }) => {
           <shad.Button type="submit">Add Product </shad.Button>
         </form>
       </shad.Card>
+      </shad.ScrollArea>
     </>
   );
 };
