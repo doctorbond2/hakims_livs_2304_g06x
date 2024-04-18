@@ -44,15 +44,15 @@ export default function ProductModal({ product }) {
         <DetailSection title="Varumärke:" info={`${product.brand}`} />
         <DetailSection
           title="Normalpris:"
-          info={`${product.price.toFixed(2)} kr/st`}
+          info={`${product.price.toFixed(2).replace(".", ",")} kr/st`}
         />
         <DetailSection
           title="Du sparar:"
-          info={`${product.savings.toFixed(2)} kr/st`}
+          info={`${product.savings.toFixed(2).replace(".", ",")} kr/st`}
         />
         <DetailSection
           title="Jämförpris:"
-          info={`${product.comparePrice.toFixed(2)}kr/${product.unit}`}
+          info={`${product.comparePrice.toFixed(2).replace(".", ",")} kr/${product.unit}`}
         />
         <DetailSection title="Antal kvar:" info={`${product.stock}+`} />
       </div>
