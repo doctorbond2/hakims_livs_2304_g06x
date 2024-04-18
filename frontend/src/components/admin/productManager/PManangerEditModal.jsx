@@ -51,6 +51,7 @@ const PManangerEditModal = ({ product, categoryList, updateProducts }) => {
   }
   return (
     <>
+    <shad.ScrollArea className="max-h-[600px] p-6">
       {product && (
         <shad.Card className="w-80 shadCardPadding">
           <form onSubmit={handleEdit}>
@@ -184,6 +185,7 @@ const PManangerEditModal = ({ product, categoryList, updateProducts }) => {
           </form>
         </shad.Card>
       )}
+    </shad.ScrollArea>
     </>
   );
 };

@@ -47,99 +47,102 @@ function OLManagerModal({ order, updateOrder }) {
   };
   return (
     <>
-      <shad.Table className="w-100 overflow-auto">
-        {console.log(order)}
-        <shad.Dialog>
-          <shad.TableRow>
-            <shad.TableHead>Order ID</shad.TableHead>
-            <shad.TableCaption>{order._id}</shad.TableCaption>
-          </shad.TableRow>
-          <shad.TableRow>
-            <shad.TableHead>Orderdatum</shad.TableHead>
-            <shad.TableCaption>{order.createdAt}</shad.TableCaption>
-          </shad.TableRow>
-          <shad.TableRow>
-            <shad.TableHead>Kundinformation</shad.TableHead>
-          </shad.TableRow>
-          <shad.TableRow>
-            <shad.TableCell className="font-medium">
-              {order.customer
-                ? `${order.customer.firstName} ${order.customer.lastName}`
-                : "Noname"}
-            </shad.TableCell>
-            <shad.TableCell>{order.customer.email}</shad.TableCell>
-            <shad.TableCell>
-              Kort nr.{maskCardNumber(order.paymentDetails.cardNumber)}
-            </shad.TableCell>
-          </shad.TableRow>
-          <shad.TableRow>
-            <shad.TableHead>Leveransadress</shad.TableHead>
-          </shad.TableRow>
-          <shad.TableRow>
-            <shad.TableCell>
-              {order.shippingAddress.streetAddress}
-            </shad.TableCell>
-          </shad.TableRow>
-          <shad.TableRow>
-            <shad.TableCell>
-              {order.shippingAddress.postalCode},{order.shippingAddress.county}
-            </shad.TableCell>
-          </shad.TableRow>
-          <shad.TableBody>
-            <shad.TableHead>Produkt</shad.TableHead>
-            <shad.TableHead>Antal</shad.TableHead>
-            <shad.TableHead>Kr/st</shad.TableHead>
-            {order.items &&
-              order.items.map((item, index) => {
-                return (
-                  <shad.TableRow key={index}>
-                    <shad.TableCell>
-                      {item.product.title
-                        ? item.product.title
-                        : "Produktnamn saknas"}
-                    </shad.TableCell>
-                    <shad.TableCell>{item.quantity}</shad.TableCell>
-                    <shad.TableCell>{item.price} kr</shad.TableCell>
-                  </shad.TableRow>
-                );
-              })}
-          </shad.TableBody>
-          <shad.TableRow>
-            <shad.TableHead>Totalt</shad.TableHead>
-            <br />
-            <shad.TableCell className="font-medium">
-              {order.total} kr
-            </shad.TableCell>
-          </shad.TableRow>
+      <shad.ScrollArea className="max-h-[600px] p-6">
+        <shad.Table className="w-100">
+          {console.log(order)}
+          <shad.Dialog>
+            <shad.TableRow>
+              <shad.TableHead>Order ID</shad.TableHead>
+              <shad.TableCaption>{order._id}</shad.TableCaption>
+            </shad.TableRow>
+            <shad.TableRow>
+              <shad.TableHead>Orderdatum</shad.TableHead>
+              <shad.TableCaption>{order.createdAt}</shad.TableCaption>
+            </shad.TableRow>
+            <shad.TableRow>
+              <shad.TableHead>Kundinformation</shad.TableHead>
+            </shad.TableRow>
+            <shad.TableRow>
+              <shad.TableCell className="font-medium">
+                {order.customer
+                  ? `${order.customer.firstName} ${order.customer.lastName}`
+                  : "Noname"}
+              </shad.TableCell>
+              <shad.TableCell>{order.customer.email}</shad.TableCell>
+              <shad.TableCell>
+                Kort nr.{maskCardNumber(order.paymentDetails.cardNumber)}
+              </shad.TableCell>
+            </shad.TableRow>
+            <shad.TableRow>
+              <shad.TableHead>Leveransadress</shad.TableHead>
+            </shad.TableRow>
+            <shad.TableRow>
+              <shad.TableCell>
+                {order.shippingAddress.streetAddress}
+              </shad.TableCell>
+            </shad.TableRow>
+            <shad.TableRow>
+              <shad.TableCell>
+                {order.shippingAddress.postalCode},
+                {order.shippingAddress.county}
+              </shad.TableCell>
+            </shad.TableRow>
+            <shad.TableBody>
+              <shad.TableHead>Produkt</shad.TableHead>
+              <shad.TableHead>Antal</shad.TableHead>
+              <shad.TableHead>Kr/st</shad.TableHead>
+              {order.items &&
+                order.items.map((item, index) => {
+                  return (
+                    <shad.TableRow key={index}>
+                      <shad.TableCell>
+                        {item.product.title
+                          ? item.product.title
+                          : "Produktnamn saknas"}
+                      </shad.TableCell>
+                      <shad.TableCell>{item.quantity}</shad.TableCell>
+                      <shad.TableCell>{item.price} kr</shad.TableCell>
+                    </shad.TableRow>
+                  );
+                })}
+            </shad.TableBody>
+            <shad.TableRow>
+              <shad.TableHead>Totalt</shad.TableHead>
+              <br />
+              <shad.TableCell className="font-medium">
+                {order.total} kr
+              </shad.TableCell>
+            </shad.TableRow>
 
-          <shad.TableRow>
-            <shad.TableHead>Betalningstatus</shad.TableHead>
-            <shad.TableHead>Order status</shad.TableHead>
-          </shad.TableRow>
-          <shad.TableRow>
-            <shad.TableCell className="font-medium">
-              {order.status.paid ? "Betalad" : "Ej betalad"}
-            </shad.TableCell>
-            <shad.TableCell className="font-medium">
-              {order.status.shipped ? "Skickad" : "Ej skickad"}
-            </shad.TableCell>
-          </shad.TableRow>
-          <shad.TableRow>
-            <shad.TableCell>
-              <shad.Switch
-                defaultChecked={order.status.paid ? true : false}
-                onClick={() => handleStatus("paid")}
-              ></shad.Switch>
-            </shad.TableCell>
-            <shad.TableCell>
-              <shad.Switch
-                defaultChecked={order.status.shipped ? true : false}
-                onClick={() => handleStatus("shipped")}
-              ></shad.Switch>
-            </shad.TableCell>
-          </shad.TableRow>
-        </shad.Dialog>
-      </shad.Table>
+            <shad.TableRow>
+              <shad.TableHead>Betalningstatus</shad.TableHead>
+              <shad.TableHead>Order status</shad.TableHead>
+            </shad.TableRow>
+            <shad.TableRow>
+              <shad.TableCell className="font-medium">
+                {order.status.paid ? "Betalad" : "Ej betalad"}
+              </shad.TableCell>
+              <shad.TableCell className="font-medium">
+                {order.status.shipped ? "Skickad" : "Ej skickad"}
+              </shad.TableCell>
+            </shad.TableRow>
+            <shad.TableRow>
+              <shad.TableCell>
+                <shad.Switch
+                  defaultChecked={order.status.paid ? true : false}
+                  onClick={() => handleStatus("paid")}
+                ></shad.Switch>
+              </shad.TableCell>
+              <shad.TableCell>
+                <shad.Switch
+                  defaultChecked={order.status.shipped ? true : false}
+                  onClick={() => handleStatus("shipped")}
+                ></shad.Switch>
+              </shad.TableCell>
+            </shad.TableRow>
+          </shad.Dialog>
+        </shad.Table>
+      </shad.ScrollArea>
     </>
   );
 }
