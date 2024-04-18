@@ -14,8 +14,8 @@ router.get("/", async (req, res) => {
             query: query,
             path: ["title", "brand"],
             fuzzy: {
-              maxEdits: 2,
-              prefixLength: 1,
+              maxEdits: 1,
+              prefixLength: 0,
             },
           },
         },
