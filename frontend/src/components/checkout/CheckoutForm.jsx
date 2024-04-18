@@ -45,8 +45,9 @@ function OrderForm() {
       setCartData(JSON.parse(cartDataJSON));
       const formattedCartData = JSON.parse(cartDataJSON).map((item) => ({
         product: item.id,
-        quantity: item.quantity,
+        quantity: item.cartQuantity,
         price: item.price,
+        title: item.title,
       }));
 
       setCartData(formattedCartData);
@@ -115,6 +116,8 @@ function OrderForm() {
       if (response) {
         alert("Order placed successfully!");
         // localStorage.removeItem("shoppingCart");
+        console.log("NEW ORDER: ", newOrder);
+        console.log("ORDER DETAILS: ", orderDetails);
         clearCart();
         setOrderDetails(newOrder);
         setNewOrder(defaultOrder);
@@ -149,11 +152,27 @@ function OrderForm() {
             </shad.Label>
             <shad.Label className="block">
               Stad
-              <shad.Input type="text" placeholder="Stad" name="city" className="w-full mt-1" value={newOrder.shippingAddress.city} onChange={handleShippingAddressChange} required />
+              <shad.Input
+                type="text"
+                placeholder="Stad"
+                name="city"
+                className="w-full mt-1"
+                value={newOrder.shippingAddress.city}
+                onChange={handleShippingAddressChange}
+                required
+              />
             </shad.Label>
             <shad.Label className="block">
               Län
-              <shad.Input type="text" placeholder="Län" name="county" className="w-full mt-1" value={newOrder.shippingAddress.county} onChange={handleShippingAddressChange} required />
+              <shad.Input
+                type="text"
+                placeholder="Län"
+                name="county"
+                className="w-full mt-1"
+                value={newOrder.shippingAddress.county}
+                onChange={handleShippingAddressChange}
+                required
+              />
             </shad.Label>
             <shad.Label className="block">
               Postnummer
@@ -170,21 +189,53 @@ function OrderForm() {
             </shad.Label>
             <shad.Label className="block">
               Land
-              <shad.Input type="text" placeholder="Land" name="country" className="w-full mt-1" value={newOrder.shippingAddress.country} onChange={handleShippingAddressChange} required />
+              <shad.Input
+                type="text"
+                placeholder="Land"
+                name="country"
+                className="w-full mt-1"
+                value={newOrder.shippingAddress.country}
+                onChange={handleShippingAddressChange}
+                required
+              />
             </shad.Label>
 
             <h2 className="text-2xl font-bold">Kunduppgifter</h2>
             <shad.Label className="block">
               Förnamn
-              <shad.Input type="text" placeholder="Förnamn" name="firstName" className="w-full mt-1" value={newOrder.customer.firstName} onChange={handleCustomerDetailsChange} required />
+              <shad.Input
+                type="text"
+                placeholder="Förnamn"
+                name="firstName"
+                className="w-full mt-1"
+                value={newOrder.customer.firstName}
+                onChange={handleCustomerDetailsChange}
+                required
+              />
             </shad.Label>
             <shad.Label className="block">
               Efternamn
-              <shad.Input type="text" placeholder="Efternamn" name="lastName" className="w-full mt-1" value={newOrder.customer.lastName} onChange={handleCustomerDetailsChange} required />
+              <shad.Input
+                type="text"
+                placeholder="Efternamn"
+                name="lastName"
+                className="w-full mt-1"
+                value={newOrder.customer.lastName}
+                onChange={handleCustomerDetailsChange}
+                required
+              />
             </shad.Label>
             <shad.Label className="block">
               E-post
-              <shad.Input type="email" placeholder="E-post" name="email" className="w-full mt-1" value={newOrder.customer.email} onChange={handleCustomerDetailsChange} required />
+              <shad.Input
+                type="email"
+                placeholder="E-post"
+                name="email"
+                className="w-full mt-1"
+                value={newOrder.customer.email}
+                onChange={handleCustomerDetailsChange}
+                required
+              />
             </shad.Label>
 
             <h2 className="text-2xl font-bold">Betalningsuppgifter</h2>
@@ -228,16 +279,30 @@ function OrderForm() {
             </shad.Label>
             <shad.Label className="block">
               CVV
-              <shad.Input type="text" placeholder="CVV" name="cvv" className="w-full mt-1" pattern="^\d{3}$" value={newOrder.paymentDetails.cvv} onChange={handlePaymentDetailsChange} required />
+              <shad.Input
+                type="text"
+                placeholder="CVV"
+                name="cvv"
+                className="w-full mt-1"
+                pattern="^\d{3}$"
+                value={newOrder.paymentDetails.cvv}
+                onChange={handlePaymentDetailsChange}
+                required
+              />
             </shad.Label>
 
-            <shad.Button type="submit" className="w-full py-2 px-4 bg-blue-500 text-white rounded">
+            <shad.Button
+              type="submit"
+              className="w-full py-2 px-4 bg-blue-500 text-white rounded"
+            >
               Skicka
             </shad.Button>
           </form>
         </shad.Card>
       ) : (
-        <h1 className="text-2xl font-bold">Tack för din beställning!</h1> && <OrderConfirmation orderDetails={orderDetails} />
+        <h1 className="text-2xl font-bold">Tack för din beställning!</h1> && (
+          <OrderConfirmation orderDetails={orderDetails} />
+        )
       )}
     </>
   );

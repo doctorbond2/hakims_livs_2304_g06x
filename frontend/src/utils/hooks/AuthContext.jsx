@@ -38,13 +38,11 @@ export function AuthProvider({ children }) {
     }
   };
   const login = async (loginData) => {
-    console.log(loginData);
     if (loginData) {
       try {
         const response = await LOGIN_REQUEST("/api/auth/login/", loginData);
-        console.log("RESPONSE: ", response);
         if (response) {
-          if (response.admin) {
+          if (response.tokens.adminAccess) {
             setLoggedIn({
               access: true,
               admin_access: true,
@@ -54,7 +52,7 @@ export function AuthProvider({ children }) {
               adminToken: response.tokens.adminAccess,
               adminRefresh: response.tokens.adminRefresh,
             });
-          } else {
+          } else if (response.tokens.access) {
             setLoggedIn({
               access: true,
               admin_access: false,
@@ -85,7 +83,6 @@ export function AuthProvider({ children }) {
         loggedIn.token
       );
       if (response) {
-        console.log(response);
         clearLocalStorageTokens();
       }
     } catch (err) {
