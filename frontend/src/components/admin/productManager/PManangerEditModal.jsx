@@ -6,6 +6,8 @@ const PManangerEditModal = ({ product, categoryList, updateProducts }) => {
   const [newProduct, setNewProduct] = useState(product);
   const [selectListCatg, setSelectListCatg] = useState(categoryList);
   function handleChange(e) {
+
+    
     console.log(newProduct.discountRate);
     const { name, value } = e.target;
     let parsedValue = value;
