@@ -3,13 +3,17 @@ import { Routes, Route, Navigate } from "react-router-dom";
 import Header from "./components/header/Header";
 import Home from "./pages/Home";
 import Admin from "./pages/Admin";
+import { Toaster } from "./components/ui/toaster";
 import Checkout from "./pages/Checkout";
+import Footer from "./components/Footer";
+import About from "./pages/About";
 import { useEffect } from "react";
 import { useAuth } from "./utils/hooks/AuthContext";
 function App() {
   const { loggedIn } = useAuth();
 
   useEffect(() => {
+    console.log("LOG", loggedIn);
     if (loggedIn?.token) {
       localStorage.setItem("accessToken", JSON.stringify(loggedIn.token));
     }
@@ -35,14 +39,14 @@ function App() {
       <Header />
       <Routes>
         <Route path="/" element={<Home />}></Route>
-        <Route path="/products" element={"Who knows what lies beyond?"}></Route>
+        <Route path="/about" element={<About />}></Route>
         <Route
           path="/admin"
-          element={loggedIn?.admin_access ? <Admin /> : <Navigate to="/" />}
+          element={loggedIn?.adminToken ? <Admin /> : <Navigate to="/" />}
         ></Route>
         <Route path="/checkout" element={<Checkout />}></Route>
       </Routes>
-      {/* <Footer /> */}
+      <Footer />
     </>
   );
 }
