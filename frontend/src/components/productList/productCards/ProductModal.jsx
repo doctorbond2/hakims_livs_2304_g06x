@@ -1,6 +1,7 @@
 import * as shad from "@/components/ui/shadBarrel";
 import { useCart } from "@/components/header/shoppingCart/CartContext.jsx";
 import { useEffect, useState } from "react";
+import ProductAddMultiple from "./ProductAddMultiple";
 function DetailSection({ title, info }) {
   return (
     <div className="flex justify-between items-center py-1">
@@ -12,7 +13,7 @@ function DetailSection({ title, info }) {
 
 export default function ProductModal({ product }) {
   const { addToCart } = useCart();
-
+  const [clicked, setClicked] = useState(false);
   return (
     <>
       {product.discountRate > 0 && (
@@ -33,12 +34,21 @@ export default function ProductModal({ product }) {
         <shad.CardTitle className="text-red-500 text-4xl font-bold italic">
           {product.discountedPrice.toFixed(2)} kr
         </shad.CardTitle>
-        <shad.Button
-          onClick={() => addToCart(product, 1)}
-          className="row-start-4 row-end-4"
-        >
-          Köp
-        </shad.Button>
+        {clicked ? (
+          <div className="flex justify-start">
+            <ProductAddMultiple {...{ product, setClicked }} />
+          </div>
+        ) : (
+          <shad.Button
+            className="w-40 bg-green-600 italic text-lg"
+            onClick={() => {
+              setClicked(true);
+              addToCart(product, 1);
+            }}
+          >
+            Köp
+          </shad.Button>
+        )}
       </div>
       <div className="w-full">
         <DetailSection title="Varumärke:" info={`${product.brand}`} />
@@ -52,7 +62,9 @@ export default function ProductModal({ product }) {
         />
         <DetailSection
           title="Jämförpris:"
-          info={`${product.comparePrice.toFixed(2).replace(".", ",")} kr/${product.unit}`}
+          info={`${product.comparePrice.toFixed(2).replace(".", ",")} kr/${
+            product.unit
+          }`}
         />
         <DetailSection title="Antal kvar:" info={`${product.stock}+`} />
       </div>

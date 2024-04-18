@@ -18,7 +18,7 @@ export default function OrderConfirmation({ orderDetails }) {
         ))}
       </ul>
       <p className="text-right font-bold">
-        Totalt: (+moms) {Math.floor(orderDetails.total * 1.12)} SEK
+        Totalt: (+moms) {Math.round(orderDetails.total * 1.12)} SEK
       </p>
       <div className="mt-4">
         <p>
