@@ -7,10 +7,7 @@ const CardSheetTrigger = ({}) => {
       <shad.Sheet>
         <shad.SheetTrigger asChild>
           <shad.Button className="bg-white-100 p-2 hover:bg-yellow-500 rounded-full">
-            <img
-              src={"../../../public/shoppingcart.svg"}
-              style={{ width: "25px" }}
-            ></img>
+            <img src={"/shoppingcart.svg"} style={{ width: "25px" }}></img>
           </shad.Button>
         </shad.SheetTrigger>
         <CartContent />
