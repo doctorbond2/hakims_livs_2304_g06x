@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import * as shad from "@/components/ui/shadBarrel";
 import { useCart } from "@/components/header/shoppingCart/CartContext";
+import CardSheetTrigger from "@/components/header/nav/CardSheetTrigger";
 const ProductAddMultiple = ({ product, setClicked }) => {
   const { addToCart, cart, removeFromCart, clearCart } = useCart();
 
@@ -53,12 +54,7 @@ const ProductAddMultiple = ({ product, setClicked }) => {
           -
         </shad.Button>
         <div className="flex content-normal">
-          <shad.Button className="bg-white-100 p-2 hover:bg-yellow-500">
-            <img
-              src={"../../../public/shoppingcart.svg"}
-              style={{ width: "25px" }}
-            ></img>
-          </shad.Button>
+          <CardSheetTrigger />
           <shad.Label className={"text-lg text-[25px] pr-1"}>
             {productQuantity} st
           </shad.Label>

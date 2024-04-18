@@ -49,11 +49,13 @@ const CartContent = () => {
         {cart.length > 0 && (
           <div className="row-start-11 col-start-1 col-span-full flex ">
             <Link to="/checkout" className="w-full">
-              <shad.SheetClose asChild>
-                <shad.Button className="w-[120px] bg-green-600">
-                  Till Kassan
-                </shad.Button>
-              </shad.SheetClose>
+              <shad.DialogClose>
+                <shad.SheetClose asChild>
+                  <shad.Button className="w-[120px] bg-green-600">
+                    Till Kassan
+                  </shad.Button>
+                </shad.SheetClose>
+              </shad.DialogClose>
             </Link>
             <shad.SheetClose asChild>
               <shad.Button

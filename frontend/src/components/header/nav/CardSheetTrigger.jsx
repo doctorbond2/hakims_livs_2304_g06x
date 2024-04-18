@@ -1,25 +1,19 @@
 import React from "react";
+import * as shad from "@/components/ui/shadBarrel";
+import CartContent from "../shoppingCart/CartContent";
 const CardSheetTrigger = ({}) => {
   return (
     <>
-      {" "}
       <shad.Sheet>
         <shad.SheetTrigger asChild>
-          <shad.Button
-            variant="outline"
-            className={
-              cart.length > 0
-                ? "bg-yellow-400 hover:bg-green-500"
-                : "bg-slate-100 hover:bg-green-300"
-            }
-          >
+          <shad.Button className="bg-white-100 p-2 hover:bg-yellow-500">
             <img
               src={"../../../public/shoppingcart.svg"}
-              style={{ width: "20px" }}
+              style={{ width: "25px" }}
             ></img>
-            Varukorg
           </shad.Button>
         </shad.SheetTrigger>
+        <CartContent />
       </shad.Sheet>
     </>
   );
