@@ -1,6 +1,7 @@
 import React from "react";
 import * as shad from "@/components/ui/shadBarrel";
 import { useCart } from "../shoppingCart/CartContext";
+import CartContent from "../shoppingCart/CartContent";
 const NavSheetTrigger = () => {
   const { cart } = useCart();
   return (
@@ -16,12 +17,14 @@ const NavSheetTrigger = () => {
             }
           >
             <img
+              className={cart.length ? "animate-bounce" : ""}
               src={"../../../public/shoppingcart.svg"}
               style={{ width: "20px" }}
             ></img>
             Varukorg
           </shad.Button>
         </shad.SheetTrigger>
+        <CartContent />
       </shad.Sheet>
     </>
   );

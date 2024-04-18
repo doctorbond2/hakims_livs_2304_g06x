@@ -43,7 +43,7 @@ const ProductAddMultiple = ({ product, setClicked }) => {
   }, [cart]);
   return (
     <>
-      <div className="pb-2 content-end flex justify-around">
+      <div className="pb-2 content-end flex justify-center">
         <shad.Button
           className="w-25 bg-red-700 border-b-2 rounded-full hover:bg-yellow-700"
           onClick={() => {
@@ -52,16 +52,14 @@ const ProductAddMultiple = ({ product, setClicked }) => {
         >
           -
         </shad.Button>
-        <div className="group">
-          {
-            <shad.Button className="bg-white-100 p-2 hover:bg-yellow-500">
-              <img
-                src={"../../../public/shoppingcart.svg"}
-                style={{ width: "20px" }}
-              ></img>
-            </shad.Button>
-          }
-          <shad.Label className={"text-lg text-[20px]"}>
+        <div className="flex content-normal">
+          <shad.Button className="bg-white-100 p-2 hover:bg-yellow-500">
+            <img
+              src={"../../../public/shoppingcart.svg"}
+              style={{ width: "25px" }}
+            ></img>
+          </shad.Button>
+          <shad.Label className={"text-lg text-[25px] pr-1"}>
             {productQuantity} st
           </shad.Label>
         </div>

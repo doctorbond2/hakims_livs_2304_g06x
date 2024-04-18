@@ -35,7 +35,9 @@ export default function ProductModal({ product }) {
           {product.discountedPrice.toFixed(2)} kr
         </shad.CardTitle>
         {clicked ? (
-          <ProductAddMultiple {...{ product, setClicked }} />
+          <div className="flex justify-start">
+            <ProductAddMultiple {...{ product, setClicked }} />
+          </div>
         ) : (
           <shad.Button
             className="w-40 bg-green-600 italic text-lg"

@@ -46,7 +46,7 @@ const Header = () => {
                 <LoginDialog {...{ loggedIn, logout }} />
               </li>
               <li>
-                <ShoppingCartSheet />
+                <NavSheetTrigger />
               </li>
             </ul>
           </nav>
