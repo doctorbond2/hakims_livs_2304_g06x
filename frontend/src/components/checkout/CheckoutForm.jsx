@@ -6,6 +6,8 @@ import OrderConfirmation from "./OrderConfirmation";
 import { useCart } from "../header/shoppingCart/CartContext";
 
 function OrderForm() {
+  const [errorMessage, setErrorMessage] = useState("");
+
   const defaultOrder = {
     shippingAddress: {
       streetAddress: "",
@@ -105,6 +107,20 @@ function OrderForm() {
 
   async function handleSubmit(e) {
     e.preventDefault();
+
+    const isValidEmail = (email) => {
+      // Enkel validering av e-postadress med regex
+      const regex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+      return regex.test(email);
+    };
+
+    const formData = newOrder; 
+
+    if (!isValidEmail(formData.customer.email)) {
+      setErrorMessage("Ange en giltig e-postadress.");
+      return;
+    }
+
     try {
       const response = await POST_REQUEST("/api/order/create", newOrder);
       if (response) {
@@ -231,6 +247,9 @@ function OrderForm() {
                 required
               />
             </shad.Label>
+            {errorMessage && (
+              <p className="text-red-500 text-sm">{errorMessage}</p>
+            )}
 
             <h2 className="text-2xl font-bold">Betalningsuppgifter</h2>
             <shad.Label className="block">
