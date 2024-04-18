@@ -6,6 +6,7 @@ const PManangerEditModal = ({ product, categoryList, updateProducts }) => {
   const [newProduct, setNewProduct] = useState(product);
   const [selectListCatg, setSelectListCatg] = useState(categoryList);
   function handleChange(e) {
+    console.log(newProduct.discountRate);
     const { name, value } = e.target;
     let parsedValue = value;
     if (e.target.type === "number") {
@@ -39,7 +40,12 @@ const PManangerEditModal = ({ product, categoryList, updateProducts }) => {
   async function handleEdit(e) {
     e.preventDefault();
     try {
-      if (await admin_PUT_REQUEST(`/api/products/update/${product.id}`, newProduct)) {
+      if (
+        await admin_PUT_REQUEST(
+          `/api/products/update/${product.id}`,
+          newProduct
+        )
+      ) {
         updateProducts();
         console.log("Product updated");
       } else {
@@ -53,7 +59,7 @@ const PManangerEditModal = ({ product, categoryList, updateProducts }) => {
     <>
     <shad.ScrollArea className="max-h-[600px] p-6">
       {product && (
-        <shad.Card className="w-80 shadCardPadding">
+        <shad.Card className="w-80 shadCardPadding overflow-auto">
           <form onSubmit={handleEdit}>
             {product.image && (
               <img
@@ -134,6 +140,15 @@ const PManangerEditModal = ({ product, categoryList, updateProducts }) => {
                   })}
               </shad.SelectContent>
             </shad.Select>
+            <shad.Label htmlFor="discountRate">Discount rate (%)</shad.Label>
+            <shad.Input
+              max={100}
+              id="discountRate"
+              name="discountRate"
+              type="number"
+              value={newProduct.discountRate}
+              onChange={handleChange}
+            />
             <shad.Label htmlFor="amount">Amount</shad.Label>
 
             <div className="flex">

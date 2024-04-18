@@ -3,22 +3,22 @@ import React, { useEffect } from "react";
 import LoginRegisterInput from "./LoginRegisterInput";
 import { useState } from "react";
 const LoginRegister = ({ register }) => {
-  const [registerData, setregisterData] = useState({
+  const defaultRegisterState = {
     firstName: "",
     lastName: "",
     email: "",
     username: "",
     password: "",
     password_again: "",
-  });
+  };
+  const [registerData, setregisterData] = useState(defaultRegisterState);
   const submitRegister = async (e) => {
     e.preventDefault();
-    console.log("SUBMIT!");
     try {
       if (registerData.password === registerData.password_again) {
         await register(registerData);
+        setregisterData(defaultRegisterState);
       }
-      console.log("DUBMIT!");
     } catch (err) {
       console.log(err.message);
     }

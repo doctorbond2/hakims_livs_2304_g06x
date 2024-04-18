@@ -13,12 +13,13 @@ export default function OrderConfirmation({ orderDetails }) {
       <ul className="space-y-1">
         {orderDetails.items.map((item) => (
           <li key={item.product}>
-            <strong>{item.productName}:</strong> {item.quantity} st ×{" "}
-            {item.price} SEK
+            <strong>{item.title}:</strong> {item.quantity} st × {item.price} SEK
           </li>
         ))}
       </ul>
-      <p className="text-right font-bold">Totalt: {orderDetails.total} SEK</p>
+      <p className="text-right font-bold">
+        Totalt: (+moms) {Math.floor(orderDetails.total * 1.12)} SEK
+      </p>
       <div className="mt-4">
         <p>
           <strong>Leveransadress:</strong>{" "}

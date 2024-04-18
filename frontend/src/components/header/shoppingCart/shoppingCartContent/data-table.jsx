@@ -1,4 +1,8 @@
-import { flexRender, getCoreRowModel, useReactTable } from "@tanstack/react-table";
+import {
+  flexRender,
+  getCoreRowModel,
+  useReactTable,
+} from "@tanstack/react-table";
 import * as shad from "@/components/ui/shadBarrel";
 
 export function DataTable({ columns, data, totalPrice }) {
@@ -15,7 +19,14 @@ export function DataTable({ columns, data, totalPrice }) {
           {table.getHeaderGroups().map((headerGroup) => (
             <shad.TableRow key={headerGroup.id}>
               {headerGroup.headers.map((header) => (
-                <shad.TableHead key={header.id}>{header.isPlaceholder ? null : flexRender(header.column.columnDef.header, header.getContext())}</shad.TableHead>
+                <shad.TableHead key={header.id}>
+                  {header.isPlaceholder
+                    ? null
+                    : flexRender(
+                        header.column.columnDef.header,
+                        header.getContext()
+                      )}
+                </shad.TableHead>
               ))}
             </shad.TableRow>
           ))}
@@ -23,21 +34,31 @@ export function DataTable({ columns, data, totalPrice }) {
         <shad.TableBody>
           {table.getRowModel().rows && table.getRowModel().rows.length ? (
             table.getRowModel().rows.map((row) => (
-              <shad.TableRow key={row.id} data-state={row.getIsSelected() ? "selected" : undefined}>
+              <shad.TableRow
+                key={row.id}
+                data-state={row.getIsSelected() ? "selected" : undefined}
+              >
                 {row.getVisibleCells().map((cell) => (
-                  <shad.TableCell key={cell.id}>{flexRender(cell.column.columnDef.cell, cell.getContext())}</shad.TableCell>
+                  <shad.TableCell key={cell.id}>
+                    {flexRender(cell.column.columnDef.cell, cell.getContext())}
+                  </shad.TableCell>
                 ))}
               </shad.TableRow>
             ))
           ) : (
             <shad.TableRow>
-              <shad.TableCell colSpan={columns.length} className="h-24 text-center">
+              <shad.TableCell
+                colSpan={columns.length}
+                className="h-24 text-center"
+              >
                 Inga produkter i varukorgen
               </shad.TableCell>
             </shad.TableRow>
           )}{" "}
           <shad.TableRow className="font-semibold">
-            <shad.TableCell colSpan={columns.length - 1}>Totalt Pris</shad.TableCell>
+            <shad.TableCell colSpan={columns.length - 1}>
+              Totalt Pris
+            </shad.TableCell>
             <shad.TableCell>{`${totalPrice} SEK`}</shad.TableCell>
           </shad.TableRow>
         </shad.TableBody>
