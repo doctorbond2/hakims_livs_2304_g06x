@@ -6,7 +6,7 @@ import { useCart } from "@/components/header/shoppingCart/CartContext";
 import { useState } from "react";
 const ProductCard = ({ product, buyOrEdit, onSubmit, onEdit, onDelete }) => {
   const [clicked, setClicked] = useState(false);
-  const { addToCart } = useCart();
+  const { addToCart, cart } = useCart();
   return (
     <>
       <shad.Card className="w-[250px] h-[380px] grid grid-rows-1 border-slate-200 shadow-2xl font-semibold">

@@ -32,11 +32,7 @@ const ProductAddMultiple = ({ product, setClicked }) => {
       }
     }
   };
-  useEffect(() => {
-    if (productQuantity <= 0) {
-      setClicked((prev) => !prev);
-    }
-  }, [productQuantity]);
+
   useEffect(() => {
     if (cart.length <= 0) {
       setClicked((prev) => !prev);

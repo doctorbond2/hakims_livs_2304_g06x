@@ -6,27 +6,29 @@ import CategoryFilter from "@/components/categoryHandler/CategoryFilter";
 
 const Home = () => {
   const [productList, setProductList] = useState(null);
-  const [selectedCategory, setSelectedCategory] = useState("");
+  const [allProducts, setAllProducts] = useState(null);
+  const resetProducts = () => {
+    setProductList(allProducts);
+  };
   useEffect(() => {
     const fetchData = async () => {
       let endpoint = "/api/products";
-      if (selectedCategory) {
-        endpoint = `/api/products/category/${selectedCategory}`;
-      }
-      const products = await GET_REQUEST(endpoint);
-      if (products) {
-        console.log(products);
-        setProductList(products);
+      try {
+        const products = await GET_REQUEST(endpoint);
+        if (products) {
+          console.log(products);
+          setProductList(products);
+          setAllProducts(productList);
+        }
+      } catch (err) {
+        console.error(err.message);
       }
     };
     fetchData();
-  }, [selectedCategory]);
+  }, []);
 
   return (
-    <>
-      <CategoryFilter onSelectCategory={setSelectedCategory} />
-      {productList && <ProductList productList={productList} />}
-    </>
+    <>{productList && <ProductList {...{ productList, resetProducts }} />}</>
   );
 };
 
