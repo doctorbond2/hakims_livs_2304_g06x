@@ -10,7 +10,7 @@ const Header = () => {
 
   return (
     <>
-      <header className="w-full p-4 bg-slate-700">
+      <header className="w-full p-4 bg-slate-700 fixed z-50">
         <div className="grid grid-cols-6 items-center">
           <div className="col-start-2 col-end-3 flex justify-center">
             <div className="w-52">
@@ -29,8 +29,8 @@ const Header = () => {
           <nav className="col-start-5 col-end-7 flex justify-end items-center space-x-4">
             <ul className="flex space-x-4 items-center pr-5">
               <li>
-                <Link to="/products" className="text-white">
-                  Erbjudanden
+                <Link to="/about" className="text-white font-bold">
+                  Om oss
                 </Link>
               </li>
               <li>

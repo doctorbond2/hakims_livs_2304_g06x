@@ -114,7 +114,7 @@ function OrderForm() {
       return regex.test(email);
     };
 
-    const formData = newOrder; 
+    const formData = newOrder;
 
     if (!isValidEmail(formData.customer.email)) {
       setErrorMessage("Ange en giltig e-postadress.");
@@ -192,6 +192,12 @@ function OrderForm() {
                 name="postalCode"
                 className="w-full mt-1"
                 value={newOrder.shippingAddress.postalCode}
+                onInvalid={(e) =>
+                  e.target.setCustomValidity(
+                    "Ange ett giltigt postnummer i formatet XXX XX (5 siffror)."
+                  )
+                }
+                onInput={(e) => e.target.setCustomValidity("")}
                 onChange={handleShippingAddressChange}
                 pattern="^\d{3}\s?\d{2}$"
                 required
@@ -244,6 +250,10 @@ function OrderForm() {
                 className="w-full mt-1"
                 value={newOrder.customer.email}
                 onChange={handleCustomerDetailsChange}
+                onInvalid={(e) =>
+                  e.target.setCustomValidity("Ange en giltig e-postadress.")
+                }
+                onInput={(e) => e.target.setCustomValidity("")}
                 required
               />
             </shad.Label>
@@ -262,6 +272,12 @@ function OrderForm() {
                 pattern="^\d{16}$"
                 value={newOrder.paymentDetails.cardNumber}
                 onChange={handlePaymentDetailsChange}
+                onInvalid={(e) =>
+                  e.target.setCustomValidity(
+                    "Ange ett giltigt kortnummer i formatet XXXX XXXX XXXX XXXX (16 siffror)."
+                  )
+                }
+                onInput={(e) => e.target.setCustomValidity("")}
                 required
               />
             </shad.Label>
@@ -275,6 +291,12 @@ function OrderForm() {
                 pattern="^(0[1-9]|1[0-2])\/?([0-9]{2})$"
                 value={newOrder.paymentDetails.expDate}
                 onChange={handlePaymentDetailsChange}
+                onInvalid={(e) =>
+                  e.target.setCustomValidity(
+                    "Ange ett giltigt utgångsdatum i formatet MM/YY."
+                  )
+                }
+                onInput={(e) => e.target.setCustomValidity("")}
                 required
               />
             </shad.Label>
@@ -300,6 +322,12 @@ function OrderForm() {
                 pattern="^\d{3}$"
                 value={newOrder.paymentDetails.cvv}
                 onChange={handlePaymentDetailsChange}
+                onInvalid={(e) =>
+                  e.target.setCustomValidity(
+                    "Ange ett giltigt CVV i formatet XXX (3 siffror)."
+                  )
+                }
+                onInput={(e) => e.target.setCustomValidity("")}
                 required
               />
             </shad.Label>

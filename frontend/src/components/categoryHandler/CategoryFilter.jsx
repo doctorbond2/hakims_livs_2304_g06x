@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from "react";
 import { GET_REQUEST } from "@/utils/helpers/request.helper";
+import * as shad from "@/components/ui/shadBarrel";
 
-const CategoryFilter = ({ onSelectCategory }) => {
+const CategoryFilter = ({ handleSelectCategory }) => {
   const [categories, setCategories] = useState([]);
 
   useEffect(() => {
@@ -18,22 +19,30 @@ const CategoryFilter = ({ onSelectCategory }) => {
     fetchCategories();
   }, []);
 
-  const handleCategoryChange = (categoryId) => {
-    onSelectCategory(categoryId);
-  };
-
   return (
-    <div>
-      <h3>Filtrera efter kategori</h3>
-      <select onChange={(e) => handleCategoryChange(e.target.value)}>
-        <option value="">Alla produkter</option>
-        {categories.map((category) => (
-          <option key={category._id} value={category._id}>
-            {category.title}
-          </option>
-        ))}
-      </select>
-    </div>
+    <>
+      {" "}
+      {categories && (
+        <div className="border-l border-solid-sm">
+          <shad.ScrollArea>
+            {categories.map((c) => (
+              <>
+                <div className="mb-5">
+                  <shad.Button
+                    type="button"
+                    onClick={handleSelectCategory}
+                    className="text-lg text-black-900 cursor-pointer bg-transparent hover:bg-green-100"
+                    value={c._id}
+                  >
+                    {c.title}
+                  </shad.Button>
+                </div>
+              </>
+            ))}
+          </shad.ScrollArea>
+        </div>
+      )}
+    </>
   );
 };
 

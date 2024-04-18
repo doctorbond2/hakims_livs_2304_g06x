@@ -13,7 +13,7 @@ function DetailSection({ title, info }) {
 
 export default function ProductModal({ product }) {
   const { addToCart } = useCart();
-  const [clicked, setClicked] = useState(false);
+
   return (
     <>
       {product.discountRate > 0 && (
@@ -34,21 +34,8 @@ export default function ProductModal({ product }) {
         <shad.CardTitle className="text-red-500 text-4xl font-bold italic">
           {product.discountedPrice.toFixed(2).replace(".", ",")} kr
         </shad.CardTitle>
-        {clicked ? (
-          <div className="flex justify-start">
-            <ProductAddMultiple {...{ product, setClicked }} />
-          </div>
-        ) : (
-          <shad.Button
-            className="w-40 bg-green-600 italic text-lg"
-            onClick={() => {
-              setClicked(true);
-              addToCart(product, 1);
-            }}
-          >
-            Köp
-          </shad.Button>
-        )}
+
+        <ProductAddMultiple {...{ product }} />
       </div>
       <div className="w-full">
         <DetailSection title="Varumärke:" info={`${product.brand}`} />
