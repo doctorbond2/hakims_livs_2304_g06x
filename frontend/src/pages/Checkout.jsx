@@ -3,7 +3,6 @@ import TableContent from "@/components/checkout/table-content";
 import CheckoutForm from "@/components/checkout/CheckoutForm";
 import { useEffect } from "react";
 import CartTotal from "@/components/checkout/CartTotal";
-import tableContent from "@/components/checkout/table-content";
 
 export default function Checkout() {
   const [emptyCart, setEmptyCart] = useState(false);
@@ -19,17 +18,13 @@ export default function Checkout() {
   }, []);
 
   return (
-    <div className="flex flex-col md:grid md:grid-cols-7 gap-4">
-      <div className="md:col-start-3 md:col-span-2">
+    <div className="flex flex-col md:grid md:grid-cols-6 gap-4">
+      <div className="md:col-start-2 md:col-span-3">
         <TableContent />
       </div>
-      <div className="md:col-start-5 md:col-span-1">
+      <div className="md:col-start-5 md:col-span-1 flex flex-col">
         <CartTotal />
-      </div>
-
-      <div className="">
-        <TableContent className="grid grid-cols-2 grid-rows-1" />
-        {!emptyCart && <CheckoutForm />}
+        <div className="md:col-start-5 md:col-span-2">{!emptyCart && <CheckoutForm />}</div>
       </div>
     </div>
   );

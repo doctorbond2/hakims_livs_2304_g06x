@@ -4,7 +4,6 @@ import {
   useReactTable,
 } from "@tanstack/react-table";
 import * as shad from "@/components/ui/shadBarrel";
-import CheckoutForm from "./CheckoutForm";
 import { columns } from "./columns";
 import { useCart } from "../header/shoppingCart/CartContext";
 import { useEffect, useState } from "react";
@@ -19,7 +18,7 @@ export function CheckoutTable({}) {
     image: item.image.url,
     productName: item.title,
     amount: item.cartQuantity,
-    totalPrice: (item.discountedPrice * item.cartQuantity).toFixed(2),
+    totalPrice: (item.discountedPrice * item.cartQuantity).toFixed(2) + " kr",
   }));
 
   useEffect(() => {
@@ -55,7 +54,7 @@ export function CheckoutTable({}) {
                 colSpan={columns.length}
                 className="h-24 text-center"
               >
-                Din varukorg är tom! :(
+                Din varukorg är tom!
               </shad.TableCell>
             </shad.TableRow>
           )}

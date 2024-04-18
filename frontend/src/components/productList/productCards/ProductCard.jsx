@@ -9,7 +9,7 @@ const ProductCard = ({ product, buyOrEdit, onSubmit, onEdit, onDelete }) => {
   const { addToCart } = useCart();
   return (
     <>
-      <shad.Card className="w-[250px] h-[380px] grid grid-rows-1 border-slate-300 shadow-lg shadow-2xl">
+      <shad.Card className="w-[250px] h-[380px] grid grid-rows-1 border-slate-200 shadow-2xl">
         <>
           <a className="relative">
             {" "}
