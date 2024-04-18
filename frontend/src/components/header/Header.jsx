@@ -4,6 +4,7 @@ import LoginDialog from "../login/LoginDialog";
 import { Link } from "react-router-dom";
 import { useAuth } from "@/utils/hooks/AuthContext";
 import SearchBar from "./searchBar/SearchBar";
+import NavSheetTrigger from "./nav/NavSheetTrigger";
 const Header = () => {
   const { loggedIn, logout } = useAuth();
 
@@ -14,7 +15,11 @@ const Header = () => {
           <div className="col-start-2 col-end-3 flex justify-center">
             <div className="w-52">
               <Link to="/" className="w-full">
-                <img className="w-full h-auto object-cover" src="/HakimOnlineLogo2.png" alt="HakimLogo" />
+                <img
+                  className="w-full h-auto object-cover"
+                  src="/HakimOnlineLogo2.png"
+                  alt="HakimLogo"
+                />
               </Link>
             </div>
           </div>{" "}

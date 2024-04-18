@@ -22,9 +22,11 @@ export default function Checkout() {
       <div className="md:col-start-2 md:col-span-3">
         <TableContent />
       </div>
-      <div className="md:col-start-5 md:col-span-1 flex flex-col">
+      <div className="md:col-start-5 md:col-span-2 flex flex-col gap-4">
         <CartTotal />
-        <div className="md:col-start-5 md:col-span-2">{!emptyCart && <CheckoutForm />}</div>
+        <div className="md:col-start-5 md:col-span-2 ">
+          {!emptyCart && <CheckoutForm />}
+        </div>
       </div>
     </div>
   );
