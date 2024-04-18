@@ -54,7 +54,7 @@ export async function LOGIN_REQUEST(URL, DATA) {
       throw new Error(`Logout failed with status: ${response.status}`);
     }
   } catch (err) {
-    throw err;
+    throw err.message;
   }
 }
 export async function LOGOUT_REQUEST(URL, accessToken) {
