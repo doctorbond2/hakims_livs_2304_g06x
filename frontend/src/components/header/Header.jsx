@@ -10,7 +10,7 @@ const Header = () => {
 
   return (
     <>
-      <header className="w-full p-4 bg-slate-700 z-50">
+      <header className="w-full p-4 bg-slate-700   z-50">
         <div className="grid grid-cols-6 items-center">
           <div className="col-start-2 col-end-3 flex justify-center">
             <div className="w-52">
