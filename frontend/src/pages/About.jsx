@@ -4,7 +4,7 @@ const About = () => {
   return (
     <>
       {" "}
-      <div className="story-container w-[50vw] font-bold">
+      <div className="story-container w-[50vw] font-bold m-auto min-h-screen">
         <h2>Historien om Hakim Online</h2>
         <p>
           Hakim hade alltid drömt om att driva en egen livsmedelsbutik.

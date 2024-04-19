@@ -1,6 +1,6 @@
 const Footer = () => {
   return (
-    <footer class="bg-slate-700 text-center text-white dark:bg-neutral-700 dark:text-white/75 lg:text-left font-bold">
+    <footer class="bg-slate-700 text-center text-white dark:bg-neutral-700 dark:text-white/75 lg:text-left font-bold ">
       <div class="flex items-center justify-center border-b-2 border-neutral-200 p-6 dark:border-white/10 lg:justify-between ">
         <div class="me-12 hidden lg:block ">
           <p>Get connected with Hakim on social networks:</p>
