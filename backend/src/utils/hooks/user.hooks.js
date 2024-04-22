@@ -14,6 +14,8 @@ export async function hashNewOrChangedPW(next) {
   }
 }
 export async function comparePasswords(input_password, document_password) {
+  console.log("INPUT PASSWORD:", input_password);
+  console.log("DOCUMENT PASSWORD:", document_password);
   try {
     if (!input_password || !document_password) {
       throw new Error("Error: provide password or username details.");
