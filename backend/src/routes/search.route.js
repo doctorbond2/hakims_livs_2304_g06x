@@ -12,10 +12,11 @@ router.get("/", async (req, res) => {
           index: "searchProducts",
           text: {
             query: query,
-            path: ["title", "brand"],
+            path: ["title"],
+            tokenOrder: "sequential",
             fuzzy: {
               maxEdits: 1,
-              prefixLength: 0,
+              prefixLength: 1,
             },
           },
         },
