@@ -2,7 +2,7 @@ import React from "react";
 import * as shad from "@/components/ui/shadBarrel";
 import EditCategoryModal from "./EditCategoryModal";
 import { useState } from "react";
-import { PUT_REQUEST, GET_REQUEST } from "@/utils/helpers/request.helper";
+import { GET_REQUEST } from "@/utils/helpers/request.helper";
 const CategoryListItem = ({ category, handleDeleteCategory, index }) => {
   const category_id = category._id;
   const [c_info, set_c_info] = useState(category);
@@ -18,7 +18,7 @@ const CategoryListItem = ({ category, handleDeleteCategory, index }) => {
     }
     try {
       if (
-        await PUT_REQUEST("/api/products/update/" + id, {
+        await admin_PUT_REQUEST("/api/products/update/" + id, {
           category: null,
         })
       ) {
@@ -36,9 +36,8 @@ const CategoryListItem = ({ category, handleDeleteCategory, index }) => {
       return;
     }
     delete c_info.productCount;
-
     try {
-      if (await PUT_REQUEST("/api/category/update/" + id, c_info)) {
+      if (await admin_PUT_REQUEST("/api/category/update/" + id, c_info)) {
         console.log("Update success.");
         const updatedCategory = await GET_REQUEST("/api/category/" + id);
         set_c_info({ ...updatedCategory });

@@ -13,7 +13,6 @@ function App() {
   const { loggedIn } = useAuth();
 
   useEffect(() => {
-    console.log("LOG", loggedIn);
     if (loggedIn?.token) {
       localStorage.setItem("accessToken", JSON.stringify(loggedIn.token));
     }
