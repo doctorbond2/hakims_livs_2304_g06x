@@ -23,23 +23,32 @@ const CategoryFilter = ({ handleSelectCategory }) => {
     <>
       {" "}
       {categories && (
-        <div className="border-l border-solid-sm">
-          <shad.ScrollArea>
-            {categories.map((c) => (
-              <>
-                <div className="mb-5">
-                  <shad.Button
-                    type="button"
-                    onClick={handleSelectCategory}
-                    className="text-lg text-black-900 cursor-pointer bg-transparent hover:bg-green-100"
-                    value={c._id}
-                  >
-                    {c.title}
-                  </shad.Button>
-                </div>
-              </>
-            ))}
-          </shad.ScrollArea>
+        <div className=" mt-3">
+          <shad.Card>
+            <shad.ScrollArea className="border-r bg-slate-100 ">
+              <shad.Button
+                className="text-lg text-black-900 cursor-pointer bg-transparent hover:bg-green-100"
+                onClick={handleSelectCategory}
+              >
+                Alla produkter
+              </shad.Button>
+              <div className="mb-5"></div>
+              {categories.map((c) => (
+                <>
+                  <div className="mb-5">
+                    <shad.Button
+                      type="button"
+                      onClick={handleSelectCategory}
+                      className="text-lg text-black-900 cursor-pointer bg-transparent hover:bg-green-100"
+                      value={c._id}
+                    >
+                      {c.title}
+                    </shad.Button>
+                  </div>
+                </>
+              ))}
+            </shad.ScrollArea>
+          </shad.Card>
         </div>
       )}
     </>
