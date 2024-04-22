@@ -5,8 +5,7 @@ import ProductAddMultiple from "./ProductAddMultiple";
 import { useCart } from "@/components/header/shoppingCart/CartContext";
 import { useState } from "react";
 const ProductCard = ({ product, buyOrEdit, onSubmit, onEdit, onDelete }) => {
-  const [clicked, setClicked] = useState(false);
-  const { addToCart } = useCart();
+  const { addToCart, cart } = useCart();
   return (
     <>
       <shad.Card className="w-[250px] h-[380px] grid grid-rows-1 border-slate-200 shadow-2xl font-semibold">
@@ -21,22 +20,7 @@ const ProductCard = ({ product, buyOrEdit, onSubmit, onEdit, onDelete }) => {
             <ProductCardBody product={product} />
           </a>
         </>
-
-        {!clicked ? (
-          <div className="pb-2 content-end flex justify-center">
-            <shad.Button
-              className="w-[230px] bg-green-600 italic text-lg"
-              onClick={() => {
-                setClicked(true);
-                addToCart(product, 1);
-              }}
-            >
-              Köp
-            </shad.Button>
-          </div>
-        ) : (
-          <ProductAddMultiple {...{ product, setClicked }} />
-        )}
+        <ProductAddMultiple {...{ product }} />
       </shad.Card>
     </>
   );
