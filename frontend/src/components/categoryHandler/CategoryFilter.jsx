@@ -27,7 +27,7 @@ const CategoryFilter = ({ handleSelectCategory }) => {
           <shad.Card>
             <shad.ScrollArea className="border-r bg-slate-100 ">
               <shad.Button
-                className="text-lg text-black-900 cursor-pointer bg-transparent hover:bg-green-100"
+                className="text-lg text-black-900 cursor-pointer bg-transparent hover:bg-green-100 w-100"
                 onClick={handleSelectCategory}
               >
                 Alla produkter
@@ -35,11 +35,11 @@ const CategoryFilter = ({ handleSelectCategory }) => {
               <div className="mb-5"></div>
               {categories.map((c) => (
                 <>
-                  <div className="mb-5">
+                  <div className="mb-5 w-100 hover:bg-green-100">
                     <shad.Button
                       type="button"
                       onClick={handleSelectCategory}
-                      className="text-lg text-black-900 cursor-pointer bg-transparent hover:bg-green-100"
+                      className="text-lg text-black-900 cursor-pointer bg-transparent hover:bg-green-100 hover:scale-110 transition duration-200 ease-in transform"
                       value={c._id}
                     >
                       {c.title}

@@ -30,7 +30,9 @@ const Header = () => {
             <ul className="flex space-x-4 items-center pr-5">
               {loggedIn?.access && (
                 <li>
-                  <h2>Välkommen tillbaka</h2>
+                  <h2 className="font-bold text-slate-100">
+                    Välkommen tillbaka!
+                  </h2>
                 </li>
               )}
               <li>
@@ -41,7 +43,7 @@ const Header = () => {
 
               <li>
                 {loggedIn?.admin_access ? (
-                  <Link to="/admin" className="text-white">
+                  <Link to="/admin" className="text-white font-bold">
                     Admin Panel
                   </Link>
                 ) : (
