@@ -7,6 +7,12 @@ const CartContent = () => {
   const { clearCart, cart } = useCart();
   const handleClearCart = () => {
     clearCart();
+    Object.keys(localStorage).forEach((key) => {
+      if (key.includes("stock-")) {
+        localStorage.removeItem(key);
+      }
+      console.log(key);
+    });
   };
   return (
     <>

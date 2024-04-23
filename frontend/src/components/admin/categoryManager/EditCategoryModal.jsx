@@ -19,22 +19,6 @@ const EditCategoryModal = ({
   } = useFetch("/api/products/category/" + category._id);
   useEffect(() => {}, []);
 
- /*  const updateACategory = async (e) => {
-    e.preventDefault();
-
-  const updateACategoryConfirm = confirm(
-    "Vill du genomföra dina ändringar i kategorin?"
-  );
-
-  if (updateACategoryConfirm) {
-    updateCategory();
-  }
-
-  if (!updateACategoryConfirm) {
-    e.stopPropagation();
-  }
-} */
-
   return (
     <>
       {" "}

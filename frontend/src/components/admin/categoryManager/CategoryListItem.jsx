@@ -28,10 +28,11 @@ const CategoryListItem = ({ category, handleDeleteCategory, index }) => {
       console.error(err.message);
     }
   };
+
   const updateCategory = async (e) => {
     e.preventDefault();
     const id = category._id;
-    
+
     const updateAProduct = confirm(
       "Vill du genomföra dina ändringar i produkten?"
     );
@@ -54,6 +55,7 @@ const CategoryListItem = ({ category, handleDeleteCategory, index }) => {
       console.error(err);
     }
   };
+
   const handleDelete = async () => {
     if (category_id) {
       await handleDeleteCategory(category_id, index);
