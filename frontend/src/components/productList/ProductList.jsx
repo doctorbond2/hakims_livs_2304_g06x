@@ -1,13 +1,13 @@
 import ProductCard from "@/components/productList/productCards/ProductCard";
 import CategoryFilter from "../categoryHandler/CategoryFilter";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 const ProductList = ({ productList, reFetchProducts }) => {
   const [selectedCategory, setSelectedCategory] = useState("");
   const handleSelectCategory = (e) => {
     setSelectedCategory(e.target.value);
   };
 
-  const filteredCategories = () => {
+  const filteredProducts = () => {
     let filteredProducts = productList;
 
     if (selectedCategory) {
@@ -17,11 +17,13 @@ const ProductList = ({ productList, reFetchProducts }) => {
     }
     return (
       <div className="grid grid-cols-2 sm:grid-cols-4">
-        {filteredProducts.map((p) => (
-          <div className="m-3" key={p._id}>
-            <ProductCard product={p} />
-          </div>
-        ))}
+        {filteredProducts.map((p, index) => {
+          return (
+            <div className="m-3" key={p._id}>
+              <ProductCard product={p} />
+            </div>
+          );
+        })}
       </div>
     );
   };
@@ -29,7 +31,7 @@ const ProductList = ({ productList, reFetchProducts }) => {
   return (
     <div className="flex justify-center">
       <CategoryFilter {...{ handleSelectCategory }} />
-      {filteredCategories()}
+      {filteredProducts()}
     </div>
   );
 };

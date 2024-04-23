@@ -25,7 +25,7 @@ const CategoryFilter = ({ handleSelectCategory }) => {
       {categories && (
         <div className=" mt-3">
           <shad.Card>
-            <shad.ScrollArea className="border-r bg-slate-100 ">
+            <shad.ScrollArea className="border-r bg-white text-green-800 font-serif">
               <shad.Button
                 className="text-lg text-black-900 cursor-pointer bg-transparent hover:bg-green-100 w-100"
                 onClick={handleSelectCategory}
@@ -39,7 +39,7 @@ const CategoryFilter = ({ handleSelectCategory }) => {
                     <shad.Button
                       type="button"
                       onClick={handleSelectCategory}
-                      className="text-lg text-black-900 cursor-pointer bg-transparent hover:bg-green-100 hover:scale-110 transition duration-200 ease-in transform"
+                      className="text-lg text-black-900 cursor-pointer bg-transparent hover:bg-transparent hover:scale-110 transition duration-100 ease-in transform hover:text-black"
                       value={c._id}
                     >
                       {c.title}
