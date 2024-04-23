@@ -25,7 +25,7 @@ const CategoryFilter = ({ handleSelectCategory }) => {
       {categories && (
         <div className=" mt-3">
           <shad.Card>
-            <shad.ScrollArea className="border-r bg-slate-100 ">
+            <shad.ScrollArea className="border-r bg-white text-green-800 font-serif">
               <shad.Button
                 className="text-lg text-black-900 cursor-pointer bg-transparent hover:bg-green-100 w-100"
                 onClick={handleSelectCategory}

@@ -18,7 +18,7 @@ export const useAuth = () => useContext(AuthContext);
 
 export function AuthProvider({ children }) {
   const [loggedIn, setLoggedIn] = useState(null);
-
+  const [loggedInUser, setLoggedInUser] = useState(null);
   const register = async (registerData) => {
     if (!registerData) {
       throw err;
@@ -47,9 +47,7 @@ export function AuthProvider({ children }) {
         if (response) {
           if (response.tokens.adminAccess) {
             setLoggedIn({
-              access: true,
-              admin_access: true,
-              id: response._id,
+              firstName: response.firstName,
               token: response.tokens.access,
               refreshToken: response.tokens.refresh,
               adminToken: response.tokens.adminAccess,
@@ -57,9 +55,7 @@ export function AuthProvider({ children }) {
             });
           } else if (response.tokens.access) {
             setLoggedIn({
-              access: true,
-              admin_access: false,
-              id: response._id,
+              firstName: response.firstName,
               token: response.tokens.access,
               refreshToken: response.tokens.refresh,
             });
@@ -94,52 +90,36 @@ export function AuthProvider({ children }) {
     }
     setLoggedIn(null);
   };
-  useEffect(() => {
+  const pageRefresh = async () => {
     const accessToken = JSON.parse(localStorage.getItem("accessToken"));
     const refreshToken = JSON.parse(localStorage.getItem("refreshToken"));
     const adminToken = JSON.parse(localStorage.getItem("adminToken"));
     const adminRefresh = JSON.parse(localStorage.getItem("adminRefresh"));
 
-    if (accessToken && refreshToken && adminRefresh && adminToken) {
-      setLoggedIn({
-        access: true,
-        admin_access: true,
-        token: accessToken,
-        refreshToken: refreshToken,
-        adminToken: adminToken,
-        adminRefresh: adminRefresh,
-      });
-    } else if (accessToken && refreshToken) {
-      setLoggedIn({
-        access: true,
-        admin_access: false,
-        token: accessToken,
-        refreshToken: refreshToken,
-      });
-    } else {
-      logout();
-    }
-    //KOLLA PÅ SENARE TOKEN GARBAGE
-    // if (accessToken) {
-    //   console.log("ACCESSTOKEN:", accessToken);
-    //   const fetchUserInfo = async () => {
-    //     try {
-    //       const response = await START_REQUEST(accessToken);
-    //       if (response) {
-    //         console.log(response);
-    //         setLoggedIn({ ...loggedIn, firstName: response.firstName });
-    //       }
-    //     } catch (err) {
-    //       console.error("Error getting userinfo", err.message);
-    //     }
-    //   };
-    //   fetchUserInfo();
-    // }
-    return () => {
-      if (!loggedIn || loggedIn === null) {
-        alert("Du behöver logga in igen.");
+    try {
+      if (accessToken && refreshToken && adminRefresh && adminToken) {
+        setLoggedIn({
+          firstName: "Admin",
+          token: accessToken,
+          refreshToken: refreshToken,
+          adminToken: adminToken,
+          adminRefresh: adminRefresh,
+        });
+      } else if (accessToken && refreshToken) {
+        const response = await START_REQUEST(accessToken, refreshToken);
+        console.log("TRIED REFRESH:", response);
+        if (response) {
+          setLoggedIn(response);
+        }
       }
-    };
+    } catch (err) {
+      console.error(err.message);
+      logout();
+      alert("Du behöver logga in igen.");
+    }
+  };
+  useEffect(() => {
+    pageRefresh();
   }, []);
   return (
     <AuthContext.Provider value={{ loggedIn, login, logout, register }}>
@@ -147,3 +127,19 @@ export function AuthProvider({ children }) {
     </AuthContext.Provider>
   );
 }
+//KOLLA PÅ SENARE TOKEN GARBAGE
+// if (accessToken) {
+//   console.log("ACCESSTOKEN:", accessToken);
+//   const fetchUserInfo = async () => {
+//     try {
+//       const response = await START_REQUEST(accessToken);
+//       if (response) {
+//         console.log(response);
+//         setLoggedIn({ ...loggedIn, firstName: response.firstName });
+//       }
+//     } catch (err) {
+//       console.error("Error getting userinfo", err.message);
+//     }
+//   };
+//   fetchUserInfo();
+// }
