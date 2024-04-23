@@ -76,6 +76,7 @@ const ProductAddMultiple = ({ product }) => {
     localStorage.setItem(`stock-${product._id}`, productStock);
     console.log("Product Stock: ", productStock);
   }, [productStock]);
+
   /* 
   useEffect(() => {
     console.log("Uppdaterad Product Stock: ", productStock);
@@ -92,22 +93,6 @@ const ProductAddMultiple = ({ product }) => {
     }
     // console.log(product, "PRODUCT: ", productQuantity, "QUANTITY: ", cart);
   }, [cart]);
-
-  useEffect(() => {
-    const handleStorageChange = (event) => {
-      if (event.key.includes("stock-")) {
-        // Lyssna på alla nycklar som börjar med 'stock-'
-        const newStock = localStorage.getItem(`stock-${product._id}`);
-        setProductStock(newStock ? parseInt(newStock, 10) : product.stock);
-      }
-    };
-
-    window.addEventListener("storage", handleStorageChange);
-
-    return () => {
-      window.removeEventListener("storage", handleStorageChange);
-    };
-  }, []);
 
   return (
     <>

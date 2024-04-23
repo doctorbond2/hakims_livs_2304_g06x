@@ -2,17 +2,12 @@ import React from "react";
 import { useCart } from "./CartContext";
 import * as shad from "@/components/ui/shadBarrel";
 import TableContent from "@/components/header/shoppingCart/shoppingCartContent/page";
+
 import { Link } from "react-router-dom";
 const CartContent = () => {
   const { clearCart, cart } = useCart();
   const handleClearCart = () => {
     clearCart();
-    Object.keys(localStorage).forEach((key) => {
-      if (key.includes("stock-")) {
-        localStorage.removeItem(key);
-      }
-      console.log(key);
-    });
   };
   return (
     <>
