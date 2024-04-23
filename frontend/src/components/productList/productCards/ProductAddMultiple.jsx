@@ -67,8 +67,9 @@ const ProductAddMultiple = ({ product }) => {
 
   return (
     <>
+    <div className="flex justify-center">
       {clicked && productQuantity > 0 ? (
-        <div className="pb-2 content-end flex justify-center">
+        <div className="pb-2 content-end flex justify-around w-[70%]">
           <shad.Button
             className="w-25 bg-red-700 border-b-2 rounded-full hover:bg-yellow-700"
             onClick={() => {
@@ -132,6 +133,7 @@ const ProductAddMultiple = ({ product }) => {
           </shad.Button>
         </div>
       )}
+      </div>
     </>
   );
 };
