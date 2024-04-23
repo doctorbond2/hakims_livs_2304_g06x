@@ -8,10 +8,10 @@ export default function Admin() {
 
   return (
     <div className="flex">
-      <div className="w-48 bg-gray-100 h-screen p-5">
+      <div className="w-48 bg-gray-100 h-screen p-12 font-bold">
         <button
-          className={`block w-full text-left ${
-            activeTab === "products" ? "text-blue-500" : "text-black"
+          className={`block w-full text-left  ${
+            activeTab === "products" ? "text-blue-500 " : "text-black"
           }`}
           onClick={() => setActiveTab("products")}
         >
@@ -19,7 +19,7 @@ export default function Admin() {
         </button>
         <button
           className={`block w-full text-left ${
-            activeTab === "categories" ? "text-blue-500" : "text-black"
+            activeTab === "categories" ? "text-blue-500 " : "text-black"
           }`}
           onClick={() => setActiveTab("categories")}
         >
@@ -27,7 +27,7 @@ export default function Admin() {
         </button>
         <button
           className={`block w-full text-left ${
-            activeTab === "orders" ? "text-blue-500" : "text-black"
+            activeTab === "orders" ? "text-blue-500 " : "text-black"
           }`}
           onClick={() => setActiveTab("orders")}
         >
