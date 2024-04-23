@@ -27,13 +27,12 @@ function PManager({}) {
     };
     fetchData();
   }, []);
-  
-  const updateProducts = async () => {
-    const updateAProduct = confirm("Vill du genomföra dina ändringar i produkten?");
 
+  const updateProducts = async () => {
+    /* 
     if (!updateAProduct) {
       return;
-    }
+    } */
 
     try {
       const updatedProducts = await admin_GET_REQUEST("/api/products/");
@@ -44,7 +43,7 @@ function PManager({}) {
       console.error(err.message);
     }
   };
- 
+
   const handleDeleteProduct = async (id, index) => {
     const yes = confirm("Are you sure you want to delete? JA, Knappen funkar!");
     if (!yes) {

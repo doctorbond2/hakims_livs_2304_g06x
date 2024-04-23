@@ -6,8 +6,6 @@ const PManangerEditModal = ({ product, categoryList, updateProducts }) => {
   const [newProduct, setNewProduct] = useState(product);
   const [selectListCatg, setSelectListCatg] = useState(categoryList);
   function handleChange(e) {
-
-    
     console.log(newProduct.discountRate);
     const { name, value } = e.target;
     let parsedValue = value;
@@ -36,12 +34,21 @@ const PManangerEditModal = ({ product, categoryList, updateProducts }) => {
   function handleCategoryChange(e) {
     setNewProduct({ ...newProduct, category: e });
   }
+
   useEffect(() => {
     console.log(newProduct);
   }, [newProduct]);
+
   async function handleEdit(e) {
     e.preventDefault();
 
+    const updateAProduct = confirm(
+      "Vill du genomföra dina ändringar i produkten?"
+    );
+
+    if (!updateAProduct) {
+      return;
+    }
 
     try {
       if (
@@ -59,7 +66,6 @@ const PManangerEditModal = ({ product, categoryList, updateProducts }) => {
       console.error(err.message);
     }
   }
-
 
   return (
     <>
@@ -202,9 +208,7 @@ const PManangerEditModal = ({ product, categoryList, updateProducts }) => {
                 onChange={handleChange}
               />
               <shad.DialogClose>
-                <shad.Button type="submit" >
-                  Update Product
-                </shad.Button>
+                <shad.Button type="submit">Update Product</shad.Button>
               </shad.DialogClose>
             </form>
           </shad.Card>
