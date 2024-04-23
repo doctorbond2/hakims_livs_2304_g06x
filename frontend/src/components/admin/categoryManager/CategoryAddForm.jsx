@@ -14,12 +14,13 @@ const CategoryAddForm = ({ handleAddCategory }) => {
     e.preventDefault();
 
     const confirmAddCategory = window.confirm(
-      "Vill du lägga till denna kategori?"
+      `Vill du lägga till kategorin: ${c_form.title}?`
     );
 
     if (confirmAddCategory) {
       handleAddCategory(c_form);
       set_c_form({ title: "", description: "" });
+      alert(`Kategori: ${c_form.title} har lagts till!`);
     }
   };
 

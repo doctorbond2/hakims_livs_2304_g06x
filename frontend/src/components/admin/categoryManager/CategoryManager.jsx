@@ -9,7 +9,10 @@ const CategoryManager = () => {
   const [categoryList, setCategoryList] = useState(null);
 
   const handleDeleteCategory = async (id, index) => {
-    const yes = confirm("Are you sure you want to delete? JA, Knappen funkar!");
+    const yes = confirm(
+      `Är du säker på att du vill ta bort kategori: ${categoryList[index].title}?`
+    );
+    
     if (!yes) {
       return;
     }
@@ -18,12 +21,15 @@ const CategoryManager = () => {
         const newList = [...categoryList];
         newList.splice(index, 1);
         setCategoryList(newList);
+        alert(`Kategori: ${categoryList[index].title} har blivit borttagen!`);
       }
     } catch (err) {
       console.error(err.message);
     }
   };
   const updateCategories = async () => {
+    
+
     const detailedCategories = await GET_REQUEST(
       "/api/category/products/details"
     );

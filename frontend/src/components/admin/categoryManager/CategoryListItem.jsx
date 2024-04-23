@@ -2,7 +2,7 @@ import React from "react";
 import * as shad from "@/components/ui/shadBarrel";
 import EditCategoryModal from "./EditCategoryModal";
 import { useState } from "react";
-import { GET_REQUEST } from "@/utils/helpers/request.helper";
+import { GET_REQUEST, admin_PUT_REQUEST } from "@/utils/helpers/request.helper";
 const CategoryListItem = ({ category, handleDeleteCategory, index }) => {
   const category_id = category._id;
   const [c_info, set_c_info] = useState(category);
@@ -32,18 +32,21 @@ const CategoryListItem = ({ category, handleDeleteCategory, index }) => {
   const updateCategory = async (e) => {
     e.preventDefault();
     const id = category._id;
-
-    const updateAProduct = confirm(
-      "Vill du genomföra dina ändringar i produkten?"
-    );
-
-    if (!updateAProduct) {
-      return;
-    }
-
     if (!id) {
       return;
     }
+
+    const updateACategory = confirm(
+      `Vill du uppdatera kategorin: ${c_info.title}?`
+    );
+
+    if (!updateACategory) {
+      return;
+    }
+
+    alert(`Kategori: ${c_info.title} har uppdaterats!`);
+
+    
     delete c_info.productCount;
     try {
       if (await admin_PUT_REQUEST("/api/category/update/" + id, c_info)) {
@@ -53,6 +56,7 @@ const CategoryListItem = ({ category, handleDeleteCategory, index }) => {
       }
     } catch (err) {
       console.error(err);
+      console.error(err.message);
     }
   };
 
@@ -61,6 +65,8 @@ const CategoryListItem = ({ category, handleDeleteCategory, index }) => {
       await handleDeleteCategory(category_id, index);
     }
   };
+
+
   return (
     <>
       <shad.Dialog>
@@ -99,7 +105,7 @@ const CategoryListItem = ({ category, handleDeleteCategory, index }) => {
                 c_info,
                 delProductFromCategory,
                 updateCategory,
-                handleInput,
+                handleInput
               }}
             />
           ) : (
