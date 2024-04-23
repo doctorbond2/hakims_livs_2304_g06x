@@ -181,6 +181,7 @@ function OrderForm() {
                 className="w-full mt-1"
                 value={newOrder.shippingAddress.county}
                 onChange={handleShippingAddressChange}
+                pattern="[A-Za-z]+"
                 required
               />
             </shad.Label>
@@ -212,6 +213,7 @@ function OrderForm() {
                 className="w-full mt-1"
                 value={newOrder.shippingAddress.country}
                 onChange={handleShippingAddressChange}
+                pattern="[A-Za-z]+"
                 required
               />
             </shad.Label>
@@ -226,6 +228,7 @@ function OrderForm() {
                 className="w-full mt-1"
                 value={newOrder.customer.firstName}
                 onChange={handleCustomerDetailsChange}
+                pattern="[A-Za-z]+"
                 required
               />
             </shad.Label>
@@ -238,6 +241,7 @@ function OrderForm() {
                 className="w-full mt-1"
                 value={newOrder.customer.lastName}
                 onChange={handleCustomerDetailsChange}
+                pattern="[A-Za-z]+"
                 required
               />
             </shad.Label>
