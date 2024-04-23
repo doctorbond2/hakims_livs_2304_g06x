@@ -57,6 +57,21 @@ export async function LOGIN_REQUEST(URL, DATA) {
     throw err.message;
   }
 }
+export async function START_REQUEST(accessToken, refreshToken) {
+  try {
+    const response = await axios.get(BaseUrl + "/api/user/details", {
+      headers: {
+        Authorization: `Bearer ${accessToken}`,
+        "Refresh-Token": `Bearer ${refreshToken}`,
+      },
+    });
+    if (response.status === 200) {
+      return response.data;
+    }
+  } catch (err) {
+    throw err;
+  }
+}
 export async function LOGOUT_REQUEST(URL, accessToken) {
   try {
     const response = await axios.post(BaseUrl + URL, null, {
@@ -113,6 +128,7 @@ export async function admin_POST_REQUEST(URL, DATA) {
   }
 }
 export async function admin_PUT_REQUEST(URL, DATA) {
+  console.log(adminKey);
   try {
     adminCheck();
     const response = await admin.put(URL, DATA);

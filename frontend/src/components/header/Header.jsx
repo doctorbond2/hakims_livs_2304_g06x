@@ -7,11 +7,10 @@ import SearchBar from "./searchBar/SearchBar";
 import NavSheetTrigger from "./nav/NavSheetTrigger";
 const Header = () => {
   const { loggedIn, logout } = useAuth();
-
   return (
     <>
-      <header className="w-full p-4 bg-slate-700   z-50">
-        <div className="grid grid-cols-6 items-center">
+      <header className="w-full p-4 bg-slate-700 z-50">
+        <div className="grid grid-cols-4 items-center">
           <div className="col-start-2 col-end-3 flex justify-center">
             <div className="w-52">
               <Link to="/" className="w-full">
@@ -28,14 +27,22 @@ const Header = () => {
           </div>
           <nav className="col-start-5 col-end-7 flex justify-end items-center space-x-4">
             <ul className="flex space-x-4 items-center pr-5">
+              {loggedIn?.token && (
+                <li>
+                  <h2 className="font-bold text-slate-100 ">
+                    Väkommen tillbaka {loggedIn.firstName}!
+                  </h2>
+                </li>
+              )}
               <li>
                 <Link to="/about" className="text-white font-bold">
                   Om oss
                 </Link>
               </li>
+
               <li>
-                {loggedIn?.admin_access ? (
-                  <Link to="/admin" className="text-white">
+                {loggedIn?.adminToken ? (
+                  <Link to="/admin" className="text-white font-bold">
                     Admin Panel
                   </Link>
                 ) : (

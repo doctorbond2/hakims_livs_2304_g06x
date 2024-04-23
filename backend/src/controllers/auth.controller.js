@@ -28,10 +28,10 @@ export const loginController = async (req, res) => {
         ? await getAdminTokens(user)
         : await getTokens(user);
       if (tokens) {
-        console.log("TOOOOOKEEEENS");
         const userResponse = user.toObject();
         delete userResponse.password;
         userResponse.tokens = tokens;
+        console.log("USERRESPONSE:", userResponse);
         res.status(200).json(userResponse);
       }
     }

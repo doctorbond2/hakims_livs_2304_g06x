@@ -7,7 +7,7 @@ import Hero from "@/components/Hero";
 const Home = () => {
   const [productList, setProductList] = useState(null);
   const [allProducts, setAllProducts] = useState(null);
-  const resetProducts = () => {
+  const reFetchProducts = async () => {
     setProductList(allProducts);
   };
   useEffect(() => {
@@ -31,7 +31,7 @@ const Home = () => {
     <>
       <div className="w-[100vw] ">
         <Hero />
-        {productList && <ProductList {...{ productList, resetProducts }} />}
+        {productList && <ProductList {...{ productList, reFetchProducts }} />}
       </div>
     </>
   );

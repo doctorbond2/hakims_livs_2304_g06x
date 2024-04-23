@@ -32,7 +32,7 @@ export default function ProductModal({ product }) {
         <h2 className="text-3xl">{product.title}</h2>
         <shad.CardDescription>{product.description}</shad.CardDescription>
         <shad.CardTitle className="text-red-500 text-4xl font-bold italic">
-          {product.discountedPrice.toFixed(2)} kr
+          {product.discountedPrice.toFixed(2).replace(".", ",")} kr
         </shad.CardTitle>
 
         <ProductAddMultiple {...{ product }} />

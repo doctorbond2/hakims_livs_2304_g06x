@@ -2,7 +2,7 @@ import React from "react";
 import * as shad from "@/components/ui/shadBarrel";
 import EditCategoryModal from "./EditCategoryModal";
 import { useState } from "react";
-import { PUT_REQUEST, GET_REQUEST } from "@/utils/helpers/request.helper";
+import { GET_REQUEST, admin_PUT_REQUEST } from "@/utils/helpers/request.helper";
 const CategoryListItem = ({ category, handleDeleteCategory, index }) => {
   const category_id = category._id;
   const [c_info, set_c_info] = useState(category);
@@ -18,7 +18,7 @@ const CategoryListItem = ({ category, handleDeleteCategory, index }) => {
     }
     try {
       if (
-        await PUT_REQUEST("/api/products/update/" + id, {
+        await admin_PUT_REQUEST("/api/products/update/" + id, {
           category: null,
         })
       ) {
@@ -28,30 +28,45 @@ const CategoryListItem = ({ category, handleDeleteCategory, index }) => {
       console.error(err.message);
     }
   };
+
   const updateCategory = async (e) => {
     e.preventDefault();
     const id = category._id;
-
     if (!id) {
       return;
     }
-    delete c_info.productCount;
 
+    const updateACategory = confirm(
+      `Vill du uppdatera kategorin: ${c_info.title}?`
+    );
+
+    if (!updateACategory) {
+      return;
+    }
+
+    alert(`Kategori: ${c_info.title} har uppdaterats!`);
+
+    
+    delete c_info.productCount;
     try {
-      if (await PUT_REQUEST("/api/category/update/" + id, c_info)) {
+      if (await admin_PUT_REQUEST("/api/category/update/" + id, c_info)) {
         console.log("Update success.");
         const updatedCategory = await GET_REQUEST("/api/category/" + id);
         set_c_info({ ...updatedCategory });
       }
     } catch (err) {
       console.error(err);
+      console.error(err.message);
     }
   };
+
   const handleDelete = async () => {
     if (category_id) {
       await handleDeleteCategory(category_id, index);
     }
   };
+
+
   return (
     <>
       <shad.Dialog>
@@ -90,7 +105,7 @@ const CategoryListItem = ({ category, handleDeleteCategory, index }) => {
                 c_info,
                 delProductFromCategory,
                 updateCategory,
-                handleInput,
+                handleInput
               }}
             />
           ) : (

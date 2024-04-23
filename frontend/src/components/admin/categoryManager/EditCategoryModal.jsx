@@ -18,6 +18,7 @@ const EditCategoryModal = ({
     error,
   } = useFetch("/api/products/category/" + category._id);
   useEffect(() => {}, []);
+
   return (
     <>
       {" "}
@@ -54,12 +55,14 @@ const EditCategoryModal = ({
 
               <br></br>
               <shad.Separator></shad.Separator>
-              <shad.Button
-                className={"border-green-600 text-neutral-200"}
-                type={"submit"}
-              >
-                Uppdatera kategori
-              </shad.Button>
+              <shad.DialogClose>
+                <shad.Button
+                  className={"border-green-600 text-neutral-200"}
+                  type={"submit"}
+                >
+                  Uppdatera kategori
+                </shad.Button>
+              </shad.DialogClose>
             </form>
           </div>
           <shad.Label>Relaterade produkter</shad.Label>

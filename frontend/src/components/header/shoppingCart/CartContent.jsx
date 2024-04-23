@@ -2,6 +2,7 @@ import React from "react";
 import { useCart } from "./CartContext";
 import * as shad from "@/components/ui/shadBarrel";
 import TableContent from "@/components/header/shoppingCart/shoppingCartContent/page";
+
 import { Link } from "react-router-dom";
 const CartContent = () => {
   const { clearCart, cart } = useCart();

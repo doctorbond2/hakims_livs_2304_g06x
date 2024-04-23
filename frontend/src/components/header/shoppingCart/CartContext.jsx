@@ -7,10 +7,18 @@ export const CartProvider = ({ children }) => {
     const localData = localStorage.getItem("shoppingCart");
     return localData ? JSON.parse(localData) : [];
   });
+  const [cartCleared, setCartCleared] = useState(false);
 
   function clearCart() {
+    Object.keys(localStorage).forEach((key) => {
+      if (key.startsWith("stock-")) {
+        localStorage.removeItem(key);
+      }
+    });
     setCart([]);
     const localData = localStorage.removeItem("shoppingCart");
+    setCartCleared(true);
+    window.location.reload();
   }
 
   useEffect(() => {
@@ -56,7 +64,7 @@ export const CartProvider = ({ children }) => {
 
   return (
     <CartContext.Provider
-      value={{ cart, addToCart, removeFromCart, clearCart }}
+      value={{ cart, addToCart, removeFromCart, clearCart, cartCleared }}
     >
       {children}
     </CartContext.Provider>

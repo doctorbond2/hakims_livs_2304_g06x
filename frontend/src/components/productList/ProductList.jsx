@@ -1,46 +1,38 @@
 import ProductCard from "@/components/productList/productCards/ProductCard";
 import CategoryFilter from "../categoryHandler/CategoryFilter";
-import { useState } from "react";
-const ProductList = ({ productList, resetProducts }) => {
+import { useState, useEffect } from "react";
+const ProductList = ({ productList, reFetchProducts }) => {
   const [selectedCategory, setSelectedCategory] = useState("");
   const handleSelectCategory = (e) => {
     setSelectedCategory(e.target.value);
   };
 
-  const filteredCategories = () => {
-    const allProductList = productList.map((p) => {
-      return (
-        <div className="m-3">
-          <ProductCard product={p} />
-        </div>
-      );
-    });
+  const filteredProducts = () => {
+    let filteredProducts = productList;
+
     if (selectedCategory) {
-      const newProductList = productList
-        .filter((p) => p.category?._id === selectedCategory)
-        .map((p) => (
-          <div className="m-3">
-            <ProductCard product={p} />
-          </div>
-        ));
-      if (newProductList.length > 0) {
-        return newProductList;
-      } else {
-        return allProductList;
-      }
-    } else {
-      return allProductList;
+      filteredProducts = productList.filter(
+        (p) => p.category?._id === selectedCategory
+      );
     }
-  };
-  return (
-    <>
-      <div className="flex justify-center">
-        <CategoryFilter {...{ handleSelectCategory }} />
-        <div className="grid grid-cols-2 sm:grid-cols-4">
-          {productList && filteredCategories()}
-        </div>
+    return (
+      <div className="grid grid-cols-2 sm:grid-cols-4">
+        {filteredProducts.map((p, index) => {
+          return (
+            <div className="m-3" key={p._id}>
+              <ProductCard product={p} />
+            </div>
+          );
+        })}
       </div>
-    </>
+    );
+  };
+
+  return (
+    <div className="flex justify-center">
+      <CategoryFilter {...{ handleSelectCategory }} />
+      {filteredProducts()}
+    </div>
   );
 };
 
