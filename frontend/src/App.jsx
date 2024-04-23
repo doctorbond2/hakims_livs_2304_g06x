@@ -39,10 +39,12 @@ function App() {
       <Routes>
         <Route path="/" element={<Home />}></Route>
         <Route path="/about" element={<About />}></Route>
-        <Route
-          path="/admin"
-          element={loggedIn?.adminToken ? <Admin /> : <Navigate to="/" />}
-        ></Route>
+        {loggedIn?.adminToken && (
+          <Route
+            path="/admin"
+            element={loggedIn?.adminToken ? <Admin /> : <Navigate to="/" />}
+          ></Route>
+        )}
         <Route path="/checkout" element={<Checkout />}></Route>
       </Routes>
       <Footer />

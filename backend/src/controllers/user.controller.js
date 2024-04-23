@@ -28,15 +28,30 @@ export async function getAllUsers(req, res) {
   }
 }
 export async function getUserInfoWithToken(req, res) {
-  const { newAccessToken } = req.body;
+  const { newAccessToken, userId, accessToken, refreshToken } = req;
+  console.log("NEW:", newAccessToken);
+  let token = "";
+  if (accessToken) {
+    token = accessToken;
+  }
+  if (newAccessToken) {
+    token = newAccessToken;
+  }
+  console.log("Token IS: ", token);
   try {
-    const decoded = jwt.verify(newAccessToken);
-    const { userId } = decoded;
-    console.log("TOKEN ID:", userId);
-    const _user = await User.findById(userId);
+    const _user = await User.findById(userId, {
+      username: 1,
+      firstName: 1,
+      lastName: 1,
+    });
     if (_user) {
-      delete _user.password;
-      res.status(200).json(_user);
+      let userResponse = _user.toObject();
+      userResponse = {
+        ...userResponse,
+        token: token,
+        refreshToken: refreshToken,
+      };
+      res.status(200).json(userResponse);
     }
   } catch (err) {
     console.log(err);

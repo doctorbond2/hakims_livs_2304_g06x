@@ -169,6 +169,10 @@ function OrderForm() {
                 className="w-full mt-1"
                 value={newOrder.shippingAddress.city}
                 onChange={handleShippingAddressChange}
+                onInvalid={(e) =>
+                  e.target.setCustomValidity("Ange giltig stad (endast bokstäver).")
+                }
+                onInput={(e) => e.target.setCustomValidity("")}
                 required
               />
             </shad.Label>
@@ -181,6 +185,11 @@ function OrderForm() {
                 className="w-full mt-1"
                 value={newOrder.shippingAddress.county}
                 onChange={handleShippingAddressChange}
+                pattern="[A-Za-z]+"
+                onInvalid={(e) =>
+                  e.target.setCustomValidity("Ange giltigt län (enbart bokstäver).")
+                }
+                onInput={(e) => e.target.setCustomValidity("")}
                 required
               />
             </shad.Label>
@@ -212,6 +221,11 @@ function OrderForm() {
                 className="w-full mt-1"
                 value={newOrder.shippingAddress.country}
                 onChange={handleShippingAddressChange}
+                pattern="[A-Za-z]+"
+                onInvalid={(e) =>
+                  e.target.setCustomValidity("Ange giltigt land (enbart bokstäver).")
+                }
+                onInput={(e) => e.target.setCustomValidity("")}
                 required
               />
             </shad.Label>
@@ -226,6 +240,13 @@ function OrderForm() {
                 className="w-full mt-1"
                 value={newOrder.customer.firstName}
                 onChange={handleCustomerDetailsChange}
+                onInvalid={(e) =>
+                  e.target.setCustomValidity(
+                    "Ange endast bokstäver i för- och efternamn."
+                  )
+                }
+                onInput={(e) => e.target.setCustomValidity("")}
+                pattern="[A-Za-z]+"
                 required
               />
             </shad.Label>
@@ -238,6 +259,13 @@ function OrderForm() {
                 className="w-full mt-1"
                 value={newOrder.customer.lastName}
                 onChange={handleCustomerDetailsChange}
+                pattern="[A-Za-z]+"
+                onInvalid={(e) =>
+                  e.target.setCustomValidity(
+                    "Ange endast bokstäver i för- och efternamn."
+                  )
+                }
+                onInput={(e) => e.target.setCustomValidity("")}
                 required
               />
             </shad.Label>

@@ -10,7 +10,6 @@ import {
   authKeyMiddleware,
   authTokenMiddleware,
   verifyBothTokensMiddleware as verifyTokens,
-  verifyAccessTokenMiddleware as verifyAccToken,
   tokenTestOne,
   tokenTestTwo,
   authKeyMiddleware as authKey,

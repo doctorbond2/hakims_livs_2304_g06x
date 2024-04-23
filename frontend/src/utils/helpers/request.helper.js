@@ -57,15 +57,16 @@ export async function LOGIN_REQUEST(URL, DATA) {
     throw err.message;
   }
 }
-export async function START_REQUEST(accessToken) {
+export async function START_REQUEST(accessToken, refreshToken) {
   try {
     const response = await axios.get(BaseUrl + "/api/user/details", {
       headers: {
         Authorization: `Bearer ${accessToken}`,
+        "Refresh-Token": `Bearer ${refreshToken}`,
       },
     });
     if (response.status === 200) {
-      return response;
+      return response.data;
     }
   } catch (err) {
     throw err;

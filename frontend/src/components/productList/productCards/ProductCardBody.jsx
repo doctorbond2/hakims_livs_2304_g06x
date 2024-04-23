@@ -23,7 +23,7 @@ export default function ProductCardBody({ product, editMode }) {
         <shad.CardTitle className="flex justify-center content-end pb-2 text-red-500">
           {product.discountedPrice.toFixed(2).replace(".", ",")} kr
         </shad.CardTitle>
-        <p className="flex justify-center content-end">{product.title}</p>
+        <p className="flex justify-center content-end ">{product.title}</p>
         <shad.CardDescription className="flex justify-center content-end">
           {product.brand}
         </shad.CardDescription>

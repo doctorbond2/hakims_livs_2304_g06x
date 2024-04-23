@@ -18,7 +18,6 @@ export async function tokenTestOne(req, res, next) {
   }
 }
 export async function tokenTestTwo(req, res, next) {
-  console.log(req.token);
   try {
     const decoded = jwt.verify(req.token, secret_key);
     if (decoded) {
@@ -69,7 +68,7 @@ export async function authTokenMiddleware(req, res, next) {
     next(err);
   }
 }
-//POSTMAN AUTH
+
 export function authKeyMiddleware(req, res, next) {
   const { authorization: key } = req.headers;
   if (compareAdminKeys(key)) {
@@ -109,26 +108,54 @@ export const verifyAccessTokenMiddleware = async (req, res, next) => {
 
 export const verifyBothTokensMiddleware = async (req, res, next) => {
   const authorizationHeader = req.header("Authorization") || "";
+  if (!authorizationHeader) {
+    return res.status(401).json("Not authorized!");
+  }
   const accessToken = authorizationHeader.split(" ")?.[1] || "";
-  const refreshToken = req.header("Refresh-Token").split(" ")?.[1] || "";
+
+  const refreshHeader = req.header("Refresh-Token");
+  if (!refreshHeader) {
+    return res.status(401).json("Not authorized!");
+  }
+  const refreshToken = refreshHeader.split(" ")?.[1] || "";
+
+  if (!accessToken && !refreshToken) {
+    return res.status(401).json({ message: "Invalid access, please login." });
+  }
+
   try {
-    if (!accessToken && !refreshToken) {
-      return res.status(401).json({ message: "Invalid access, please login." });
-    }
-    if (accessToken) {
-      const decodedAccessToken = jwt.verify(accessToken, secret_key);
-      req.decodedAccessToken = decodedAccessToken;
-    }
-    if (refreshToken) {
-      const decodedRefreshToken = jwt.verify(refreshToken, secret_key);
-      req.decodedRefreshToken = decodedRefreshToken;
-    }
+    const decodedAccessToken = jwt.verify(accessToken, secret_key);
+    const { userId } = decodedAccessToken;
+    req.userId = userId;
+    req.refreshToken = refreshToken;
+    req.accessToken = accessToken;
     next();
   } catch (err) {
-    console.error("Error verifying tokens:", err.message);
-    return res.status(401).send("Invalid token");
+    if (err instanceof jwt.TokenExpiredError || jwt.JsonWebTokenError) {
+      try {
+        const decodedRefreshToken = jwt.verify(
+          refreshToken,
+          secret_refresh_key
+        );
+        if (decodedRefreshToken) {
+          const { userId } = decodedRefreshToken;
+          const newAccessToken = await generateAccessToken(userId);
+          req.newAccessToken = newAccessToken;
+          req.userId = userId;
+          req.refreshToken = refreshToken;
+          next();
+        } else {
+          console.error("Error verifying tokens:", err.message);
+          return res.status(401).send("Invalid refresh token");
+        }
+      } catch (refreshError) {
+        next(refreshError);
+      }
+    } else {
+      console.error("Error verifying tokens:", err.message);
+      return res.status(401).send("Invalid token");
+    }
   }
-  next();
 };
 // export const verifyAccessTokenMiddleware = async (req, res, next) => {
 //   const refreshToken = req.header("Refresh-Token").split(" ")?.[1] || "";
