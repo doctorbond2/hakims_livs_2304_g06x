@@ -17,7 +17,7 @@ const AuthContext = createContext();
 export const useAuth = () => useContext(AuthContext);
 
 export function AuthProvider({ children }) {
-  const [loggedIn, setLoggedIn] = useState(false);
+  const [loggedIn, setLoggedIn] = useState(null);
 
   const register = async (registerData) => {
     if (!registerData) {
@@ -87,6 +87,7 @@ export function AuthProvider({ children }) {
       );
       if (response) {
         clearLocalStorageTokens();
+        setLoggedIn(null);
       }
     } catch (err) {
       console.log(err.message);
@@ -115,6 +116,8 @@ export function AuthProvider({ children }) {
         token: accessToken,
         refreshToken: refreshToken,
       });
+    } else {
+      logout();
     }
     //KOLLA PÅ SENARE TOKEN GARBAGE
     // if (accessToken) {
@@ -132,6 +135,11 @@ export function AuthProvider({ children }) {
     //   };
     //   fetchUserInfo();
     // }
+    return () => {
+      if (!loggedIn || loggedIn === null) {
+        alert("Du behöver logga in igen.");
+      }
+    };
   }, []);
   return (
     <AuthContext.Provider value={{ loggedIn, login, logout, register }}>
