@@ -31,6 +31,14 @@ const CategoryListItem = ({ category, handleDeleteCategory, index }) => {
   const updateCategory = async (e) => {
     e.preventDefault();
     const id = category._id;
+    
+    const updateAProduct = confirm(
+      "Vill du genomföra dina ändringar i produkten?"
+    );
+
+    if (!updateAProduct) {
+      return;
+    }
 
     if (!id) {
       return;
