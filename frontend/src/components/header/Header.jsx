@@ -28,14 +28,22 @@ const Header = () => {
           </div>
           <nav className="col-start-5 col-end-7 flex justify-end items-center space-x-4">
             <ul className="flex space-x-4 items-center pr-5">
+              {loggedIn?.access && (
+                <li>
+                  <h2 className="font-bold text-slate-100">
+                    Välkommen tillbaka!
+                  </h2>
+                </li>
+              )}
               <li>
                 <Link to="/about" className="text-white font-bold">
                   Om oss
                 </Link>
               </li>
+
               <li>
                 {loggedIn?.admin_access ? (
-                  <Link to="/admin" className="text-white">
+                  <Link to="/admin" className="text-white font-bold">
                     Admin Panel
                   </Link>
                 ) : (

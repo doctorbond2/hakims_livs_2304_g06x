@@ -32,6 +32,7 @@ export const loginController = async (req, res) => {
         const userResponse = user.toObject();
         delete userResponse.password;
         userResponse.tokens = tokens;
+        console.log("USERRESPONSE:", userResponse);
         res.status(200).json(userResponse);
       }
     }

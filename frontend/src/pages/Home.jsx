@@ -6,7 +6,10 @@ import CategoryFilter from "@/components/categoryHandler/CategoryFilter";
 
 const Home = () => {
   const [productList, setProductList] = useState(null);
-  const [selectedCategory, setSelectedCategory] = useState("");
+  const [allProducts, setAllProducts] = useState(null);
+  const reFetchProducts = async () => {
+    setProductList(allProducts);
+  };
   useEffect(() => {
     const fetchData = async () => {
       let endpoint = "/api/products";
@@ -24,8 +27,10 @@ const Home = () => {
 
   return (
     <>
-      <CategoryFilter onSelectCategory={setSelectedCategory} />
-      {productList && <ProductList productList={productList} />}
+      <div className="w-[100vw] ">
+        <Hero />
+        {productList && <ProductList {...{ productList, reFetchProducts }} />}
+      </div>
     </>
   );
 };

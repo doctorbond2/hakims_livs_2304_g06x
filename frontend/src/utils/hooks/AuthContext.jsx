@@ -6,9 +6,11 @@ import React, {
   useEffect,
 } from "react";
 import {
+  GET_REQUEST,
   LOGIN_REQUEST,
   LOGOUT_REQUEST,
   POST_REQUEST,
+  START_REQUEST,
 } from "../helpers/request.helper";
 import { clear } from "localforage";
 const AuthContext = createContext();
@@ -41,6 +43,7 @@ export function AuthProvider({ children }) {
     if (loginData) {
       try {
         const response = await LOGIN_REQUEST("/api/auth/login/", loginData);
+        console.log("RESPONSE:", response.firstName);
         if (response) {
           if (response.tokens.adminAccess) {
             setLoggedIn({
@@ -113,6 +116,22 @@ export function AuthProvider({ children }) {
         refreshToken: refreshToken,
       });
     }
+    //KOLLA PÅ SENARE TOKEN GARBAGE
+    // if (accessToken) {
+    //   console.log("ACCESSTOKEN:", accessToken);
+    //   const fetchUserInfo = async () => {
+    //     try {
+    //       const response = await START_REQUEST(accessToken);
+    //       if (response) {
+    //         console.log(response);
+    //         setLoggedIn({ ...loggedIn, firstName: response.firstName });
+    //       }
+    //     } catch (err) {
+    //       console.error("Error getting userinfo", err.message);
+    //     }
+    //   };
+    //   fetchUserInfo();
+    // }
   }, []);
   return (
     <AuthContext.Provider value={{ loggedIn, login, logout, register }}>
