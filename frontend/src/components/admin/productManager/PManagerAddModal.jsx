@@ -16,8 +16,15 @@ const PManagerAddModal = ({ categoryList, updateProducts }) => {
   });
   const [selectListCatg, setSelectListCatg] = useState(categoryList);
   async function handleSubmit(e) {
+
     console.log("NEW PRODUCT: ", newProduct);
     e.preventDefault();
+
+    const confirmAddProduct = window.confirm(
+      "Vill du lägga till denna produkt?"
+    );
+    
+    if (confirmAddProduct) {
     try {
       if (await admin_POST_REQUEST("/api/products/create/", newProduct)) {
         console.log("Product added");
@@ -27,6 +34,8 @@ const PManagerAddModal = ({ categoryList, updateProducts }) => {
       console.error(err.message);
     }
   }
+}
+
   function handleChange(e) {
     const { name, value } = e.target;
     let parsedValue = value;
@@ -58,6 +67,7 @@ const PManagerAddModal = ({ categoryList, updateProducts }) => {
   useEffect(() => {
     console.log(newProduct);
   }, [newProduct]);
+  
   return (
     <>
       {" "}
@@ -116,7 +126,6 @@ const PManagerAddModal = ({ categoryList, updateProducts }) => {
             onChange={handleChange}
           />
 
-          <shad.Label htmlFor="category">Category</shad.Label>
           <shad.Label htmlFor="category">Category</shad.Label>
           <shad.Select
             id="category"
