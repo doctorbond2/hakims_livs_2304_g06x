@@ -59,7 +59,6 @@ const EditCategoryModal = ({
                 <shad.Button
                   className={"border-green-600 text-neutral-200"}
                   type={"submit"}
-                  /* onClick={updateACategory} */
                 >
                   Uppdatera kategori
                 </shad.Button>

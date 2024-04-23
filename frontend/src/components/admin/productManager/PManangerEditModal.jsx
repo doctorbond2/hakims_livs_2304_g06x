@@ -43,13 +43,14 @@ const PManangerEditModal = ({ product, categoryList, updateProducts }) => {
     e.preventDefault();
 
     const updateAProduct = confirm(
-      "Vill du genomföra dina ändringar i produkten?"
+      `Vill du uppdatera produkten: ${newProduct.title}?`
     );
 
     if (!updateAProduct) {
       return;
     }
 
+    alert(`Produkt: ${newProduct.title} har uppdaterats!`);
     try {
       if (
         await admin_PUT_REQUEST(

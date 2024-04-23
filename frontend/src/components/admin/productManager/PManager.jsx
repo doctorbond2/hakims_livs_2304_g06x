@@ -29,10 +29,7 @@ function PManager({}) {
   }, []);
 
   const updateProducts = async () => {
-    /* 
-    if (!updateAProduct) {
-      return;
-    } */
+    
 
     try {
       const updatedProducts = await admin_GET_REQUEST("/api/products/");
@@ -45,7 +42,9 @@ function PManager({}) {
   };
 
   const handleDeleteProduct = async (id, index) => {
-    const yes = confirm("Are you sure you want to delete? JA, Knappen funkar!");
+    const yes = confirm(
+      `Är du säker på att du vill ta bort produkt ${productList[index].title}?`
+    );
     if (!yes) {
       return;
     }
@@ -54,11 +53,13 @@ function PManager({}) {
         const newList = [...productList];
         newList.splice(index, 1);
         setProductList(newList);
+        alert(`Produkt: ${productList[index].title} har blivit borttagen!`);
       }
     } catch (err) {
       console.error(err.message);
     }
   };
+
   return (
     <>
       {productList && categoryList && (
