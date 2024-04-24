@@ -12,13 +12,15 @@ const ProductCard = ({ product }) => {
           <a className="relative">
             {" "}
             {product.discountRate > 0 && (
-              <div className="absolute  top-1 left-1 rounded p-1.5 bg-red-500 text-white text-sm italic font-bold z-10">
+              <div className="absolute  top-1 left-1 rounded p-1.5 bg-red-500 text-white text-base italic font-bold z-10">
                 -{product.discountRate}%
               </div>
             )}
-            <div className="absolute  top-1 right-1 rounded p-1.5 bg-blue-500 text-white text-sm italic font-bold z-10">
-              {product.stock > 50 ? "50+" : product.stock} i lager
-            </div>
+            {product.stock <= 50 && (
+              <div className="absolute top-1 right-1 rounded p-1.5 bg-blue-500 text-white text-sm italic font-bold z-10">
+                {product.stock + " kvar!"}
+              </div>
+            )}
             <ProductCardBody product={product} />
           </a>
         </>

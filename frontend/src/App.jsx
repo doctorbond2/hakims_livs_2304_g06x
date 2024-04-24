@@ -36,7 +36,7 @@ function App() {
   return (
     <>
       <Header />
-      <div className="pt-28">
+      <div className="pt-28 bg-slate-50">
         <Routes>
           <Route path="/" element={<Home />}></Route>
           <Route path="/about" element={<About />}></Route>

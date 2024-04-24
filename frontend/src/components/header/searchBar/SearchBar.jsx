@@ -51,7 +51,7 @@ function SearchBar() {
         <input
           type="text"
           placeholder="Sök..."
-          className="border-0 bg-white rounded-md rounded-tr-none rounded-br-none text-lg h-[60px] w-[350px] p-4  focus:outline-none"
+          className="border-0 bg-white rounded-md rounded-tr-none rounded-br-none text-lg h-[60px] w-[350px] p-4 focus:outline-none"
           value={queryEntered}
           onChange={handleFilter}
         />
