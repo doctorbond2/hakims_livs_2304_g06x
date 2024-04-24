@@ -10,7 +10,7 @@ export default function ProductCardBody({ product, editMode }) {
               className="h-auto transition-transform duration-300 transform hover:scale-105"
               type="button"
               style={{ height: "150px" }}
-              src={product.image.url}
+              src={product.image.url ? product.image.url : "/favicon.png"}
               alt="HakimLogo"
             />
           </shad.CardContent>
