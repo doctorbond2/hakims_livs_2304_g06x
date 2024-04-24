@@ -23,6 +23,8 @@ export default function AddNewProduct({ onSubmit }) {
     await onSubmit(newProduct);
   }
 
+  
+
   return (
     <shad.Card className="w-80 shadCardPadding">
       <form onSubmit={handleSubmit} className={shad.form}>
@@ -66,7 +68,7 @@ export default function AddNewProduct({ onSubmit }) {
           className={shad.input}
         />{" "}
         <br />
-        <shad.Button type={"submit"} className={shad.button}>
+        <shad.Button type={"submit"} className={shad.button} >
           Post user
         </shad.Button>
       </form>

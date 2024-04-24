@@ -46,14 +46,6 @@ export default function ShoppingCartSheet() {
                   <span className="hover:text-red-500" type="button">
                     Erbjudanden
                   </span>
-                  <div className="group">
-                    <div>asd</div>
-                    <div>
-                      <button className="invisible group-hover:visible">
-                        Click
-                      </button>
-                    </div>
-                  </div>
                 </shad.SheetClose>
               </Link>
             </shad.Label>

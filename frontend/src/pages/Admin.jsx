@@ -1,10 +1,32 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import ManageProductTab from "@/components/admin/ManageProductTab";
 import CategoryManager from "@/components/admin/categoryManager/CategoryManager";
 import PManager from "@/components/admin/productManager/PManager";
 import OrderManager from "@/components/admin/orderManager/OrderManager";
+
+
 export default function Admin() {
   const [activeTab, setActiveTab] = useState("products");
+
+  useEffect(() => {
+    const handlePopState = () => {
+      //Popstate aktiveras när användaren trycker på framåt/tillbaka-knappen i webbläsaren
+      if (history.state && history.state.activeTab) {
+        setActiveTab(history.state.activeTab);
+      }
+    };
+
+    window.addEventListener("popstate", handlePopState);
+
+    return () => {
+      window.removeEventListener("popstate", handlePopState);
+    };
+  }, []);
+
+  const handleTabChange = (tabName) => {
+    setActiveTab(tabName);
+    history.pushState({ activeTab: tabName }, "");
+  };
 
   return (
     <div className="flex">
@@ -13,7 +35,7 @@ export default function Admin() {
           className={`block w-full text-left  ${
             activeTab === "products" ? "text-blue-500 " : "text-black"
           }`}
-          onClick={() => setActiveTab("products")}
+          onClick={() => handleTabChange("products")}
         >
           Hantera Produkter
         </button>
@@ -21,7 +43,7 @@ export default function Admin() {
           className={`block w-full text-left ${
             activeTab === "categories" ? "text-blue-500 " : "text-black"
           }`}
-          onClick={() => setActiveTab("categories")}
+          onClick={() => handleTabChange("categories")}
         >
           Hantera Kategorier
         </button>
@@ -29,7 +51,7 @@ export default function Admin() {
           className={`block w-full text-left ${
             activeTab === "orders" ? "text-blue-500 " : "text-black"
           }`}
-          onClick={() => setActiveTab("orders")}
+          onClick={() => handleTabChange("orders")}
         >
           Hantera Ordrar
         </button>

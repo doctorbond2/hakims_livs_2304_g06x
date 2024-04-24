@@ -4,8 +4,7 @@ import ProductModal from "./ProductModal";
 import ProductAddMultiple from "./ProductAddMultiple";
 import { useCart } from "@/components/header/shoppingCart/CartContext";
 import { useState } from "react";
-const ProductCard = ({ product, buyOrEdit, onSubmit, onEdit, onDelete }) => {
-  const { addToCart, cart } = useCart();
+const ProductCard = ({ product }) => {
   return (
     <>
       <shad.Card className="w-[250px] h-[380px] grid grid-rows-1 border-slate-200 shadow-2xl font-semibold">
@@ -17,6 +16,9 @@ const ProductCard = ({ product, buyOrEdit, onSubmit, onEdit, onDelete }) => {
                 -{product.discountRate}%
               </div>
             )}
+            <div className="absolute  top-1 right-1 rounded p-1.5 bg-blue-500 text-white text-sm italic font-bold z-10">
+              {product.stock > 50 ? "50+" : product.stock} i lager
+            </div>
             <ProductCardBody product={product} />
           </a>
         </>
