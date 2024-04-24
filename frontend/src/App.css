@@ -36,6 +36,10 @@ body {
   overflow-y: scroll;
 }
 
+html {
+  scrollbar-gutter: stable
+}
+
 /* A elements that don't have a class get default styles */
 a:not([class]) {
   -webkit-text-decoration-skip: ink;
