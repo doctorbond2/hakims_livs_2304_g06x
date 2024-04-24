@@ -9,7 +9,7 @@ const Header = () => {
   const { loggedIn, logout } = useAuth();
   return (
     <>
-      <header className="w-full p-4 bg-slate-700 z-50 max-h-28 fixed">
+      <header className="w-screen p-4 bg-slate-700 z-50 max-h-28 fixed">
         <div className="grid grid-cols-4 items-center">
           <div className="col-start-2 col-end-3 flex justify-center">
             <div className="w-52">
