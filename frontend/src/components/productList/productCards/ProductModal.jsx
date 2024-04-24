@@ -17,10 +17,11 @@ export default function ProductModal({ product }) {
   return (
     <>
       {product.discountRate > 0 && (
-        <div className="absolute top-1 left-1 rounded p-1.5 bg-red-500 text-white text-sm italic font-bold">
+        <div className="absolute top-1 left-1 rounded p-1.5 bg-red-500 text-white text-lg italic font-bold">
           -{product.discountRate}%
         </div>
       )}
+
       <div className="flex items-center justify-center size-96 pr-10 row-span-2">
         <img
           className="max-w-full max-h-96 object-contain"
@@ -31,7 +32,7 @@ export default function ProductModal({ product }) {
       <div className="grid grid-rows-4">
         <h2 className="text-3xl">{product.title}</h2>
         <shad.CardDescription>{product.description}</shad.CardDescription>
-        <shad.CardTitle className="text-red-500 text-4xl font-bold italic">
+        <shad.CardTitle className="text-red-500 text-4xl font-bold italic flex gap-10">
           {product.discountedPrice.toFixed(2).replace(".", ",")} kr
         </shad.CardTitle>
 
