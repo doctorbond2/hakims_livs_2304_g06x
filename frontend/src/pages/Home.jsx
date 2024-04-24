@@ -29,7 +29,7 @@ const Home = () => {
 
   return (
     <>
-      <div className="w-[100vw] ">
+      <div className="w-[100vw]">
         <Hero />
         {productList && <ProductList {...{ productList, reFetchProducts }} />}
       </div>
