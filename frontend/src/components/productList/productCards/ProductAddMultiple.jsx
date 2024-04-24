@@ -2,32 +2,14 @@ import React, { useEffect, useState } from "react";
 import * as shad from "@/components/ui/shadBarrel";
 import { useCart } from "@/components/header/shoppingCart/CartContext";
 import CardSheetTrigger from "@/components/header/nav/CardSheetTrigger";
-import { set } from "lodash";
-const ProductAddMultiple = ({ product }) => {
+const ProductAddMultipleV2 = ({ product }) => {
   const { addToCart, cart, removeFromCart, clearCart } = useCart();
   const [clicked, setClicked] = useState(false);
-  const [productStock, setProductStock] = useState(() => {
-    // Försök att läsa lagervärdet från localStorage
-    const savedStock = localStorage.getItem(`stock-${product._id}`);
-    return savedStock ? parseInt(savedStock, 10) : product.stock;
-  });
-  // console.log("PRODUCT STOCK: ", productStock);
+  const [productStock, setProductStock] = useState(product.stock);
   const [thisProductInCart, setThisProductInCart] = useState(() => {
     return cart.find((item) => item._id === product._id);
   });
   const [productQuantity, setProductQuantity] = useState(() => {
-    // const existingProductIndex = cart.findIndex(
-    //   (item) => item._id === product._id
-    // );
-    // console.log("INDEX: ", existingProductIndex);
-    // if (existingProductIndex !== -1) {
-    //   return cart[existingProductIndex].cartQuantity > 0
-    //     ? cart[existingProductIndex].cartQuantity
-    //     : 0;
-    // } else {
-    //   return 0;
-    // }
-
     const targetProduct = cart.find((item) => item._id === product._id);
     if (targetProduct) {
       return targetProduct.cartQuantity;
@@ -35,11 +17,9 @@ const ProductAddMultiple = ({ product }) => {
       return 0;
     }
   });
-  useEffect(() => {
-    if (productQuantity > 0) {
-      setClicked(true);
-    }
-  }, []);
+  const [quantityDifference, setQuantityDifference] = useState(
+    () => productQuantity - product.stock
+  );
   const getCartQuantity = () => {
     const cartItem = cart.find((item) => item._id === product._id);
     if (cartItem) {
@@ -47,23 +27,18 @@ const ProductAddMultiple = ({ product }) => {
     }
   };
   const handleProductQuantity = (action) => {
-    // setProductStock(product.stock);
     console.log("PRODUCT: ", product, "Product stock: ", product.stock);
     switch (action) {
       case "minus": {
         removeFromCart(product, 1);
-        setProductStock((prevStock) => prevStock + 1);
-
         if (productQuantity - 1 === 0) {
           setClicked(false);
         }
         break;
       }
       case "plus": {
-        if (productStock >= 1) {
+        if (!(productQuantity + 1 > product.stock)) {
           addToCart(product, 1);
-          setProductStock((prevStock) => prevStock - 1);
-
           break;
         } else {
           alert("Out of stock");
@@ -76,14 +51,17 @@ const ProductAddMultiple = ({ product }) => {
     localStorage.setItem(`stock-${product._id}`, productStock);
     console.log("Product Stock: ", productStock);
   }, [productStock]);
-
-  /* 
   useEffect(() => {
-    console.log("Uppdaterad Product Stock: ", productStock);
-  }, [productStock]); */
-
+    if (productQuantity > product.stock) {
+      removeFromCart(product, quantityDifference);
+      setProductQuantity(product.stock);
+      alert(
+        `Product amount too low, it changed. OLD STOCK: ${productQuantity} \n NEW STOCK: ${product.stock} DIFFERENCE: ${quantityDifference}`
+      );
+    }
+  }, [quantityDifference]);
   useEffect(() => {
-    if (cart <= 0) {
+    if (cart.length <= 0) {
       setClicked(false);
       setProductQuantity(0);
     }
@@ -91,7 +69,6 @@ const ProductAddMultiple = ({ product }) => {
     if (productQuantity > 0) {
       setClicked(true);
     }
-    // console.log(product, "PRODUCT: ", productQuantity, "QUANTITY: ", cart);
   }, [cart]);
 
   return (
@@ -167,4 +144,4 @@ const ProductAddMultiple = ({ product }) => {
   );
 };
 
-export default ProductAddMultiple;
+export default ProductAddMultipleV2;
