@@ -36,17 +36,19 @@ function App() {
   return (
     <>
       <Header />
-      <Routes>
-        <Route path="/" element={<Home />}></Route>
-        <Route path="/about" element={<About />}></Route>
-        {loggedIn?.adminToken && (
-          <Route
-            path="/admin"
-            element={loggedIn?.adminToken ? <Admin /> : <Navigate to="/" />}
-          ></Route>
-        )}
-        <Route path="/checkout" element={<Checkout />}></Route>
-      </Routes>
+      <div className="pt-28">
+        <Routes>
+          <Route path="/" element={<Home />}></Route>
+          <Route path="/about" element={<About />}></Route>
+          {loggedIn?.adminToken && (
+            <Route
+              path="/admin"
+              element={loggedIn?.adminToken ? <Admin /> : <Navigate to="/" />}
+            ></Route>
+          )}
+          <Route path="/checkout" element={<Checkout />}></Route>
+        </Routes>
+      </div>
       <Footer />
     </>
   );
