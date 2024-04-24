@@ -1,7 +1,5 @@
 import Order from "../models/order.model.js";
 import mongoose from "mongoose";
-
-
 export async function getOrderList(req, res) {
   try {
     let orders = await Order.find(
@@ -32,16 +30,11 @@ export async function getOrderById(req, res) {
     return res.status(400).json({ message: "Order ID not found" });
   }
 
-  
   console.log(orderID);
   try {
     const order = await Order.findOne(
       { _id: orderID },
-      { total: 1, 
-        status: 1, 
-        paymentDetails: 1, 
-        items: 1, 
-        shippingAddress: 1 }
+      { total: 1, status: 1, paymentDetails: 1, items: 1, shippingAddress: 1 }
     ).populate("items.products");
 
     if (!order || order.length === 0) {
@@ -61,13 +54,13 @@ export async function getOrderById(req, res) {
 
 export async function createOrder(req, res) {
   console.log("test create order");
-
   if (!req.body) {
     return res.status(400).json({ error: "No body submitted" });
   }
-
+  console.log(req.body);
   try {
-    let order = await Order.create(req.body);
+    let order = new Order(req.body);
+    await order.save();
     res.status(201).json(order);
   } catch (err) {
     res.status(500).json({ error: err.message });

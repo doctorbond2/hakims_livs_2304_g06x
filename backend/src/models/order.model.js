@@ -1,5 +1,5 @@
 import mongoose from "mongoose";
-
+import Product from "../models/product.model.js";
 const { Schema, model } = mongoose;
 
 const ShippingAddressSchema = new Schema({
@@ -110,7 +110,21 @@ const OrderSchema = new Schema(
   },
   { timestamps: true }
 );
-
+OrderSchema.pre("save", async function () {
+  try {
+    for (const item of this.items) {
+      const product = await Product.findById(item.product);
+      product.stock = product.stock - item.quantity;
+      if (product.stock < 0) {
+        throw new Error("Purchase exceeds current stock!");
+      }
+      await product.save();
+    }
+  } catch (err) {
+    console.log(err);
+    throw err;
+  }
+});
 const Order = model("Order", OrderSchema);
 
 export default Order;
