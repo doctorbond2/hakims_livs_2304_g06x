@@ -18,7 +18,6 @@ export const CartProvider = ({ children }) => {
     setCart([]);
     const localData = localStorage.removeItem("shoppingCart");
     setCartCleared(true);
-    window.location.reload();
   }
 
   useEffect(() => {
