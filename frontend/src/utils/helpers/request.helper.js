@@ -72,6 +72,29 @@ export async function START_REQUEST(accessToken, refreshToken) {
     throw err;
   }
 }
+export async function admin_START_REQUEST(
+  accessToken,
+  refreshToken,
+  adminToken,
+  adminRefresh
+) {
+  try {
+    adminCheck();
+    const response = await admin.get(BaseUrl + "/api/user/auth/details", {
+      headers: {
+        Authorization: `Bearer ${accessToken}`,
+        "Refresh-Token": `Bearer ${refreshToken}`,
+        "Admin-Token": `Bearer ${adminToken}`,
+        "Admin-Refresh": `Bearer ${adminRefresh}`,
+      },
+    });
+    if (response.status === 200) {
+      return response.data;
+    }
+  } catch (err) {
+    throw err;
+  }
+}
 export async function LOGOUT_REQUEST(URL, accessToken) {
   try {
     const response = await axios.post(BaseUrl + URL, null, {

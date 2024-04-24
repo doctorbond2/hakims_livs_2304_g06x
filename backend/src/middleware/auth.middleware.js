@@ -2,6 +2,7 @@ import { compareAdminKeys } from "../utils/helpers/apiHelpers.js";
 import jwt from "jsonwebtoken";
 import {
   generateAccessToken,
+  generateAdminAcessToken,
   generateBothAdminTokens,
 } from "../utils/helpers/tokenHelpers.js";
 const secret_key = process.env.JWT_ACCESS_KEY;
@@ -105,7 +106,52 @@ export const verifyAccessTokenMiddleware = async (req, res, next) => {
     }
   }
 };
+export const verifyBothAdminTokensMiddleware = async (req, res, next) => {
+  const adminAccessHeader = req.header("Admin-Token") || "";
+  if (!adminAccessHeader) {
+    return res.status(401).json("Not authorized!");
+  }
+  const adminAccessToken = adminAccessHeader.split(" ")?.[1] || "";
 
+  const adminRefreshHeader = req.header("Admin-Refresh");
+  if (!adminRefreshHeader) {
+    return res.status(401).json("Not authorized!");
+  }
+  const adminRefreshToken = adminRefreshHeader.split(" ")?.[1] || "";
+  if (!adminAccessToken && !adminRefreshToken) {
+    return res.status(401).json({ message: "Invalid access, please login." });
+  }
+  try {
+    const decodedAdminAccessToken = jwt.verify(adminAccessToken, secret_key);
+    const { userId } = decodedAdminAccessToken;
+    req.adminAccessToken = adminAccessToken;
+    req.adminRefreshToken = adminRefreshToken;
+    req.userId = userId;
+    next();
+  } catch (err) {
+    if (err instanceof jwt.TokenExpiredError || jwt.JsonWebTokenError) {
+      try {
+        const decodedAdminRefreshToken = jwt.verify(
+          adminRefreshToken,
+          secret_refresh_key
+        );
+        const { userId } = decodedAdminRefreshToken;
+        const newAdminAccessToken = generateAdminAcessToken(userId);
+        req.newAdminAccessToken = newAdminAccessToken;
+        req.adminRefreshToken = adminRefreshToken;
+        req.userId = userId;
+        next();
+      } catch (refreshError) {
+        next(refreshError);
+      }
+    } else {
+      console.error("Error verifying tokens:", err.message);
+      return res
+        .status(401)
+        .send("Invalid tokens, probably need to login again ese");
+    }
+  }
+};
 export const verifyBothTokensMiddleware = async (req, res, next) => {
   const authorizationHeader = req.header("Authorization") || "";
   if (!authorizationHeader) {
@@ -157,30 +203,3 @@ export const verifyBothTokensMiddleware = async (req, res, next) => {
     }
   }
 };
-// export const verifyAccessTokenMiddleware = async (req, res, next) => {
-//   const refreshToken = req.header("Refresh-Token").split(" ")?.[1] || "";
-//   try {
-//     const decodedToken = jwt.verify(refreshToken, secret_key);
-//     if (!decodedToken) {
-//       return res.status(400).send("Access denied");
-//     }
-//     req.decodedToken = decodedToken;
-//     next();
-//   } catch (err) {
-//     return res.status(401).send("Invalid token");
-//   }
-// };
-// export const verifyRefreshTokenMiddleware = async (req, res, next) => {
-//   const authorizationHeader = req.header("Authorization") || "";
-//   const accessToken = authorizationHeader.split(" ")?.[1] || "";
-//   try {
-//     const decodedRefreshToken = jwt.verify(accessToken, secret_key);
-//     if (!decodedRefreshToken) {
-//       return res.status(401).send("Access denied");
-//     }
-//     req.decodedRefreshToken = decodedRefreshToken;
-//     next();
-//   } catch (err) {
-//     return res.status(401).send("Invalid token");
-//   }
-// };

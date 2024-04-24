@@ -30,7 +30,7 @@ const Header = () => {
               {loggedIn?.token && (
                 <li>
                   <h2 className="font-bold text-slate-100 ">
-                    Väkommen tillbaka {loggedIn.firstName}!
+                    Väkommen tillbaka {loggedIn.firstName}
                   </h2>
                 </li>
               )}
