@@ -18,7 +18,7 @@ export default function Checkout() {
   }, []);
 
   return (
-    <div className="flex flex-col md:grid md:grid-cols-6 gap-4">
+    <div className="flex flex-col md:grid md:grid-cols-6 gap-4 w-screen">
       <div className="md:col-start-2 md:col-span-3">
         <TableContent />
       </div>
