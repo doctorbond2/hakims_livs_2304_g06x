@@ -29,7 +29,7 @@ export default function Admin() {
   };
 
   return (
-    <div className="flex">
+    <div className="flex w-screen">
       <div className="w-48 bg-gray-100 h-screen p-12 font-bold">
         <button
           className={`block w-full text-left  ${

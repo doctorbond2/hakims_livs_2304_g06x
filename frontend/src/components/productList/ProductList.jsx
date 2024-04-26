@@ -8,7 +8,7 @@ const ProductList = ({ productList, reFetchProducts }) => {
   };
 
   const filteredProducts = () => {
-    let filteredProducts = productList;
+    let filteredProducts = productList.filter((p) => !(p.stock <= 0));
 
     if (selectedCategory) {
       filteredProducts = productList.filter(

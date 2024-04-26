@@ -11,6 +11,7 @@ import {
   LOGOUT_REQUEST,
   POST_REQUEST,
   START_REQUEST,
+  admin_START_REQUEST,
 } from "../helpers/request.helper";
 import { clear } from "localforage";
 const AuthContext = createContext();
@@ -98,13 +99,16 @@ export function AuthProvider({ children }) {
 
     try {
       if (accessToken && refreshToken && adminRefresh && adminToken) {
-        setLoggedIn({
-          firstName: "Admin",
-          token: accessToken,
-          refreshToken: refreshToken,
-          adminToken: adminToken,
-          adminRefresh: adminRefresh,
-        });
+        const response = await admin_START_REQUEST(
+          accessToken,
+          refreshToken,
+          adminToken,
+          adminRefresh
+        );
+        console.log("TRIED ADMIN:", response);
+        if (response) {
+          setLoggedIn(response);
+        }
       } else if (accessToken && refreshToken) {
         const response = await START_REQUEST(accessToken, refreshToken);
         console.log("TRIED REFRESH:", response);
