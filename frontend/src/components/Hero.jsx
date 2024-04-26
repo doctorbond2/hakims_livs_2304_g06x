@@ -1,10 +1,10 @@
-import React from "react";
+import React from 'react';
 
 const Hero = () => {
   return (
     <>
       <section class="px-3 py-5  lg:py-10 ">
-        <div class="grid lg:grid-cols-1 items-center justify-items-center gap-5 mt-20">
+        <div class="grid lg:grid-cols-1 items-center justify-items-center gap-5 mt-20 bg-white">
           <div class="order-2 lg:order-1 flex flex-col justify-center items-center">
             <p class="text-4xl font-bold md:text-7xl text-orange-600">
               NYA LEVERSANSER
