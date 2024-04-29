@@ -50,8 +50,8 @@ Delete (2 requests)
  * 1. Delete one product using ID parameter
  => /delete/:id
 
- ¤ * 2. Delete all the products (WARNING: this will delete all products, only use in a dev database. Disable if needed) 
- => /auth/complete/delete
+ * 2. Delete all the products (WARNING: this will delete all products, only use in a dev database. Disable if needed) 
+ =>¤  /auth/complete/delete 
  
 --------------------------
          CATEGORY
@@ -97,10 +97,10 @@ POST (5 requests)
  => /register
  3. Logout the user, removing tokens as well.
  => /logout
- ¤ 4. Simple two step test for generating tokens and refreshing them.
- => /test/test/test
- ¤ * 5. Request for register a new admin. Same functionability as regular register but with ADMIN_KEY auth.
- => /register/new/admin
+ 4. Simple two step test for generating tokens and refreshing them.
+ =>¤  /test/test/test
+ * 5. Request for register a new admin. Same functionability as regular register but with ADMIN_KEY auth.
+ => ¤  /register/new/admin
 
 --------------------------
            ORDER
