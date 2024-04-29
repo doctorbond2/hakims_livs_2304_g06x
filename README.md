@@ -186,7 +186,8 @@ GET => /api/search/
   After placing a successful order, the cart/localstorage will be emptied. The order will be saved and visible in the adminpage.
 
  4.4 About page:
-  This is more of a joke, can be removed by Hakim i
+  This is more of a joke, can be removed by Hakim if he feels like it. Needs proper implementation.
+  
  
  
 
