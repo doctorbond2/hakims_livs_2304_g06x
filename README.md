@@ -156,40 +156,40 @@ GET => /api/search/
  There are three windows that display management for: CATEGORIES, PRODUCTS and ORDERS.
 
  3.1 Products management
-  You can add a new product here by pressing the square "plus" button. To add an image to the product paste the link into the input area.
+ You can add a new product here by pressing the square "plus" button. To add an image to the product paste the link into the input area.
   The amount input area is a two-parter: First input how much it's weight/volume, then input the unit
   that it is measured in. This will then be calculated into the price comparison for the product.
   Use the update button to open a window with the current information about the product, and edit it right away.
   Pressing a update or a createbutton will trigger a refetch of the list of products. Updating the list.
 
  3.2 Category management
-  Works the same as products management. You can also see all the related product in a list when editing a category. 
+ Works the same as products management. You can also see all the related product in a list when editing a category. 
   BEWARE: If you delete a product from the list here the product will recieve category = NULL
   
  3.3 Order management
-  Here it is only possible to either delete or edit exisiting orders placed by customers.
+ Here it is only possible to either delete or edit exisiting orders placed by customers.
   Only editing possible is to update payment status and shipping status.
 
 4. General page navigation and functionality
 
  4.1 Product information/main page
-  Productcards are displayed in alphabetical order on the homepage. Clicking on a product image shows a modal with more information.
+ Productcards are displayed in alphabetical order on the homepage. Clicking on a product image shows a modal with more information.
   It is possible to add product to the cart in both the card and in the modal. It is possible to filter the products by their respective category. This is a simple filter function.
   It is possible to search for a product in the header search input. This will show "cards" of the products that can be clicked to open the product modal.
 
  4.2 Cart
-  Cart access through cards, modal and with button in the navbar header. At the moment it is only possible to completely clear the cart of items through a button press inside the cart.
+ Cart access through cards, modal and with button in the navbar header. At the moment it is only possible to completely clear the cart of items through a button press inside the cart.
   If customer wants to remove single items from the cart it has to be done through the cards or modal buttons.
   The cart is currently also the only way to navigate to the checkout page. A button will be visible if the cart contains over 1 product.
   The cart is updated and connected through localstorage.
   If the cart is empty a placeholder message will link to an empty page for special offers, this page is not finished.
 
  4.3 Checkout
-  Field validated area for providing full details when placing an order. The products in cart are shown here as well.
+ Field validated area for providing full details when placing an order. The products in cart are shown here as well.
   After placing a successful order, the cart/localstorage will be emptied. The order will be saved and visible in the adminpage.
 
  4.4 About page
-  This is more of a joke, can be removed by Hakim if he feels like it. Needs proper implementation.
+ This is more of a joke, can be removed by Hakim if he feels like it. Needs proper implementation.
   
 # Deploying to Vercel
 
