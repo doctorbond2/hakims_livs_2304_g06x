@@ -49,6 +49,7 @@ PUT (1 request)
 Delete (2 requests)
  * 1. Delete one product using ID parameter
  => /delete/:id
+
  ¤ * 2. Delete all the products (WARNING: this will delete all products, only use in a dev database. Disable if needed) 
  => /auth/complete/delete
  
