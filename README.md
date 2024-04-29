@@ -194,8 +194,15 @@ GET => /api/search/
   Configuration exists in vercel.json files in project. They are separate and different for frontend and backend. 
   Both serverside and clientside are connected to vercel through the same repository and if the plan is to deploy in the same way it's important to deploy the frontend root and backend root
   as TWO SEPARATE PROJECTS on vercel.
+
+ 2. Environment variables
+  Use the exact same name for ENV on vercel as the ones when working in your local environment.
+  Key differences are the values for database connection and base url connection between frontend and backend: Use the vercel domains links as BaseUrls. This means replacing such things
+  as "PORT" or "VITE_BaseUrl" on vercel with the domain links for the vercel projects. This will connect the frontend and backend together.
   
-  
+ 3. Database integration
+  Integrate vercel with MongoDB in your backend. This will generate MONGODB_URI automatically in your backend project. This meant vercel now should have it's own connection string to your
+  mongodb atlas cluster.
  
  
 
