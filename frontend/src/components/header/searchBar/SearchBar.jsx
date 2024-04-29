@@ -1,14 +1,14 @@
-import React from "react";
-import { useState, useEffect } from "react";
-import { GET_REQUEST } from "@/utils/helpers/request.helper";
-import * as shad from "@/components/ui/shadBarrel";
-import ProductModal from "@/components/productList/productCards/ProductModal";
-import { Cross1Icon, MagnifyingGlassIcon } from "@radix-ui/react-icons";
+import React from 'react';
+import { useState, useEffect } from 'react';
+import { GET_REQUEST } from '@/utils/helpers/request.helper';
+import * as shad from '@/components/ui/shadBarrel';
+import ProductModal from '@/components/productList/productCards/ProductModal';
+import { Cross1Icon, MagnifyingGlassIcon } from '@radix-ui/react-icons';
 
 function SearchBar() {
   useEffect(() => {
     const fetchData = async () => {
-      let endpoint = "/api/products";
+      let endpoint = '/api/products';
       try {
         const products = await GET_REQUEST(endpoint);
         if (products) {
@@ -22,7 +22,7 @@ function SearchBar() {
   }, []);
 
   const [products, setProducts] = useState([]);
-  const [queryEntered, setQueryEntered] = useState("");
+  const [queryEntered, setQueryEntered] = useState('');
   const [filteredProducts, setFilteredProducts] = useState([]);
 
   const handleFilter = (e) => {
@@ -32,7 +32,7 @@ function SearchBar() {
       return product.title.toLowerCase().includes(query);
     });
 
-    if (query === "") {
+    if (query === '') {
       setFilteredProducts([]);
       return;
     } else {
@@ -42,7 +42,7 @@ function SearchBar() {
 
   const clearInput = () => {
     setFilteredProducts([]);
-    setQueryEntered("");
+    setQueryEntered('');
   };
 
   return (
@@ -78,7 +78,7 @@ function SearchBar() {
                     <img
                       className="max-w-full max-h-20 object-contain p-1"
                       src={product.image.url}
-                      alt={product.image.alt || "Product Image"}
+                      alt={product.image.alt || 'Product Image'}
                     />
                   </div>
                   <h3 className="text-2xl row-span-1 col-span-6 row-start-1 col-start-2">
@@ -88,7 +88,7 @@ function SearchBar() {
                     {product.brand}
                   </h4>
                   <span className="text-base font-normal col-span-6 row-start-2 col-start-auto pb-1 pr-1">
-                    {product.category.title}
+                    {product.category?.title}
                   </span>
                 </a>
               </shad.DialogTrigger>
