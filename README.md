@@ -113,6 +113,7 @@ GET (3 requests)
  * 2. Get order by ID parameter.
  => /:id
  ¤ *3. Get order with extended details
+ => /details
 
 POST (1 request)
  1. Create a new order
