@@ -16,11 +16,9 @@ const LoginRegister = ({ register }) => {
     e.preventDefault();
     try {
       if (registerData.password === registerData.password_again) {
-        const response = await register(registerData);
-        if (response) {
-          setregisterData(defaultRegisterState);
-          alert('Welcome to Hakim Online!');
-        }
+        await register(registerData);
+        setregisterData(defaultRegisterState);
+        alert('Welcome to Hakim Online!');
       }
     } catch (err) {
       console.log(err.message);
