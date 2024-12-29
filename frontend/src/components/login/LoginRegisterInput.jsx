@@ -1,4 +1,3 @@
-import React from 'react';
 import * as shad from '@/components/ui/shadBarrel';
 const LoginRegisterInput = ({ registerData, setregisterData }) => {
   return (
